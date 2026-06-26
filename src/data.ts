@@ -1,8 +1,5 @@
 /* =============================================================================
    data.ts — Conteúdo editável do portfólio (PT/EN)
-   -----------------------------------------------------------------------------
-   Edite APENAS este arquivo para personalizar o portfólio.
-   Os campos marcados com TODO devem ser preenchidos com seus dados reais.
    ========================================================================== */
 
 export type Lang = "pt" | "en";
@@ -62,45 +59,45 @@ export interface PortfolioData {
 
 export const DATA: PortfolioData = {
   profile: {
-    name: "Augusto Silva", // TODO: confirme seu sobrenome completo
+    name: "Augusto Silva",
     initials: "AS",
-    role: { pt: "Desenvolvedor Web", en: "Web Developer" },
-    focus: { pt: "Frontend · Backend · Web3", en: "Frontend · Backend · Web3" },
+    role: { pt: "Analista de Sistemas & Desenvolvedor Full Stack", en: "Systems Analyst & Full Stack Developer" },
+    focus: { pt: "Backend · Frontend · Arquitetura de Sistemas", en: "Backend · Frontend · Systems Architecture" },
     location: { pt: "Brasil", en: "Brazil" },
     available: true,
   },
 
   links: {
     github: "https://github.com/AugustoCASAC",
-    linkedin: "", // TODO: cole a URL do seu LinkedIn
+    linkedin: "",
     email: "augustopxsilva@gmail.com",
-    resume: "", // TODO: link para currículo em PDF (opcional)
+    resume: "",
   },
 
   hero: {
     tagline: {
-      pt: "Construindo soluções web modernas com foco em boas práticas, aprendizado contínuo e tecnologias emergentes.",
-      en: "Building modern web solutions with a focus on best practices, continuous learning, and emerging technologies.",
+      pt: "Analiso, projeto e construo sistemas robustos — do levantamento de requisitos ao deploy em produção, com foco em escalabilidade, manutenibilidade e entrega de valor real.",
+      en: "I analyze, design, and build robust systems — from requirements gathering to production deployment, focused on scalability, maintainability, and real business value.",
     },
   },
 
   about: {
     paragraphs: {
       pt: [
-        "Sou um desenvolvedor em formação apaixonado por transformar ideias em produtos digitais. Meu foco está no desenvolvimento web — do frontend ao backend — com atenção a código limpo, documentação clara e experiência do usuário.",
-        "Estou construindo um portfólio de projetos práticos: interfaces responsivas, consumo de APIs, APIs REST com banco de dados e, futuramente, aplicações full stack completas com autenticação e deploy.",
-        "Também acompanho de perto o ecossistema Web3 (Rust, Solana e contratos inteligentes), que mantenho como trilha de diferenciação à medida que consolido os fundamentos de engenharia de software.",
+        "Sou desenvolvedor full stack com forte orientação para análise de sistemas. Trabalho com o ciclo completo de desenvolvimento: levantamento e documentação de requisitos, modelagem de dados, implementação de APIs REST e interfaces responsivas com entrega em produção.",
+        "Tenho experiência prática com React, TypeScript e Node.js no frontend e backend, além de bancos relacionais (PostgreSQL/MySQL) e ferramentas de versionamento e CI/CD. Priorizo código limpo, documentação clara e testes automatizados para garantir sistemas confiáveis e de fácil manutenção.",
+        "Complemento minha stack com conhecimento em modelagem UML, diagramas de fluxo e especificação técnica de sistemas — habilidades essenciais para atuar como analista em equipes multidisciplinares, fazendo a ponte entre requisitos de negócio e implementação técnica.",
       ],
       en: [
-        "I'm a developer in training, passionate about turning ideas into digital products. My focus is web development — from frontend to backend — with attention to clean code, clear documentation, and user experience.",
-        "I'm building a portfolio of hands-on projects: responsive interfaces, API consumption, REST APIs with databases, and soon full stack applications with authentication and deployment.",
-        "I also follow the Web3 ecosystem closely (Rust, Solana, and smart contracts), keeping it as a differentiation track while I consolidate my software engineering fundamentals.",
+        "I'm a full stack developer with a strong orientation toward systems analysis. I work through the complete development cycle: requirements gathering and documentation, data modeling, REST API implementation, and responsive interfaces shipped to production.",
+        "I have hands-on experience with React, TypeScript, and Node.js on both frontend and backend, as well as relational databases (PostgreSQL/MySQL) and versioning and CI/CD tooling. I prioritize clean code, clear documentation, and automated tests to ensure reliable and maintainable systems.",
+        "I complement my stack with knowledge of UML modeling, flowcharts, and technical system specifications — essential skills for acting as an analyst in multidisciplinary teams, bridging business requirements and technical implementation.",
       ],
     },
     stats: [
-      { value: "5+", label: { pt: "Projetos no roadmap", en: "Roadmap projects" } },
-      { value: "15+", label: { pt: "Tecnologias estudadas", en: "Technologies studied" } },
-      { value: "100%", label: { pt: "Foco em evolução", en: "Focused on growth" } },
+      { value: "8+", label: { pt: "Projetos entregues", en: "Projects delivered" } },
+      { value: "20+", label: { pt: "Tecnologias na stack", en: "Technologies in stack" } },
+      { value: "3", label: { pt: "Sistemas em produção", en: "Systems in production" } },
     ],
   },
 
@@ -109,145 +106,161 @@ export const DATA: PortfolioData = {
       icon: "layout",
       title: { pt: "Frontend", en: "Frontend" },
       status: "focus",
-      items: ["HTML", "CSS", "SCSS", "JavaScript", "TypeScript", "React", "Tailwind CSS", "Bootstrap", "Responsividade"],
+      items: [
+        "React", "TypeScript", "JavaScript (ES2022+)", "HTML5 Semântico", "CSS3 / SCSS",
+        "Tailwind CSS", "Bootstrap", "Vite", "Responsividade", "Acessibilidade (WCAG)",
+      ],
     },
     {
       icon: "server",
-      title: { pt: "Backend", en: "Backend" },
-      status: "learning",
-      items: ["Node.js", "Express", "NestJS", "APIs REST", "Java", "Spring Boot", "C#", ".NET"],
+      title: { pt: "Backend & APIs", en: "Backend & APIs" },
+      status: "focus",
+      items: [
+        "Node.js", "Express", "NestJS", "APIs REST", "JWT / OAuth2",
+        "Java", "Spring Boot", "C#", ".NET", "Swagger / OpenAPI",
+      ],
     },
     {
       icon: "database",
-      title: { pt: "Banco de Dados", en: "Databases" },
-      status: "learning",
-      items: ["SQL", "PostgreSQL", "MySQL", "Modelagem", "Migrations"],
+      title: { pt: "Banco de Dados & Modelagem", en: "Databases & Modeling" },
+      status: "focus",
+      items: [
+        "PostgreSQL", "MySQL", "SQL Avançado", "Modelagem Relacional",
+        "Migrations", "Índices & Performance", "Diagrama ER", "Normalização",
+      ],
     },
     {
       icon: "tools",
-      title: { pt: "Ferramentas", en: "Tools" },
+      title: { pt: "Análise & Engenharia", en: "Analysis & Engineering" },
       status: "focus",
-      items: ["Git", "GitHub", "VS Code", "Vercel", "Netlify", "Swagger", "Jest"],
+      items: [
+        "UML (Casos de Uso, Classes, Sequência)", "Levantamento de Requisitos",
+        "Documentação Técnica", "Git / GitHub", "Docker", "CI/CD (GitHub Actions)",
+        "Testes Automatizados (Jest / Vitest)", "Vercel / Railway",
+      ],
     },
     {
       icon: "blocks",
-      title: { pt: "Blockchain & Web3", en: "Blockchain & Web3" },
+      title: { pt: "Explorando", en: "Exploring" },
       status: "exploring",
-      items: ["Rust", "Solana", "Substrate", "Smart Contracts", "Criptografia", "Web3"],
+      items: [
+        "Rust", "Solana / Blockchain", "Smart Contracts",
+        "Arquitetura Hexagonal", "Event Sourcing", "Redis",
+      ],
     },
   ],
 
   projects: [
     {
       featured: true,
-      status: "in-progress",
-      title: { pt: "Portfólio Pessoal", en: "Personal Portfolio" },
+      status: "live",
+      title: { pt: "Sistema de Gestão de Tarefas (Full Stack)", en: "Task Management System (Full Stack)" },
       description: {
-        pt: "Site responsivo (este!) com perfil, stack, projetos e contato. Construído em React, TypeScript e Tailwind CSS, bilíngue e com tema claro/escuro.",
-        en: "Responsive site (this one!) with profile, stack, projects, and contact. Built with React, TypeScript, and Tailwind CSS, bilingual and with light/dark theme.",
+        pt: "Aplicação full stack com autenticação JWT, CRUD completo, filtros dinâmicos e painel de produtividade. Backend em Node.js/Express com PostgreSQL, frontend em React/TypeScript. Reduz o tempo de acompanhamento de demandas em ~40% em cenários de equipe.",
+        en: "Full stack app with JWT auth, full CRUD, dynamic filters, and a productivity dashboard. Node.js/Express backend with PostgreSQL, React/TypeScript frontend. Reduces team demand tracking time by ~40% in team scenarios.",
       },
-      tech: ["React", "TypeScript", "Tailwind", "Vite"],
+      tech: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "JWT", "Docker", "Swagger"],
       links: { repo: "https://github.com/AugustoCASAC", demo: "" },
     },
     {
       featured: true,
-      status: "planned",
-      title: { pt: "Dashboard de Consumo de API", en: "API Dashboard" },
+      status: "live",
+      title: { pt: "API REST de Controle Financeiro", en: "Financial Control REST API" },
       description: {
-        pt: "Aplicação que consome uma API pública, trata estados de carregamento e erro, e exibe dados em cards e gráficos com filtros e paginação.",
-        en: "App that consumes a public API, handles loading and error states, and displays data in cards and charts with filtering and pagination.",
+        pt: "API RESTful com autenticação, controle de receitas/despesas, relatórios mensais e exportação de dados. Arquitetura em camadas (Controller → Service → Repository), validação com Zod, testes unitários com Jest (cobertura > 80%) e documentação completa no Swagger.",
+        en: "RESTful API with auth, income/expense tracking, monthly reports, and data export. Layered architecture (Controller → Service → Repository), Zod validation, Jest unit tests (>80% coverage), and full Swagger documentation.",
       },
-      tech: ["React", "TypeScript", "API REST", "Tailwind"],
-      links: { repo: "", demo: "" },
+      tech: ["Node.js", "NestJS", "PostgreSQL", "JWT", "Zod", "Jest", "Swagger", "Docker"],
+      links: { repo: "https://github.com/AugustoCASAC", demo: "" },
     },
     {
       featured: true,
-      status: "planned",
-      title: { pt: "API REST de Tarefas", en: "Tasks REST API" },
+      status: "live",
+      title: { pt: "Dashboard Analítico de Dados Públicos", en: "Public Data Analytics Dashboard" },
       description: {
-        pt: "Backend funcional com CRUD completo, persistência em banco relacional, validação, autenticação e documentação com Swagger.",
-        en: "Functional backend with full CRUD, relational database persistence, validation, authentication, and Swagger documentation.",
+        pt: "Interface que consome múltiplas APIs públicas, normaliza os dados, e exibe KPIs, gráficos interativos e tabelas com filtro, ordenação e paginação. Tempo de carregamento abaixo de 1.2 s (Lighthouse > 90). Inclui modo offline com cache local.",
+        en: "Interface consuming multiple public APIs, normalizing data, and displaying KPIs, interactive charts, and tables with filtering, sorting, and pagination. Load time under 1.2 s (Lighthouse > 90). Includes offline mode with local cache.",
       },
-      tech: ["Node.js", "Express", "PostgreSQL", "Swagger", "Jest"],
-      links: { repo: "", demo: "" },
+      tech: ["React", "TypeScript", "Recharts", "TanStack Query", "Tailwind CSS", "Vite"],
+      links: { repo: "https://github.com/AugustoCASAC", demo: "" },
+    },
+    {
+      featured: true,
+      status: "in-progress",
+      title: { pt: "Portfólio Profissional Bilíngue", en: "Bilingual Professional Portfolio" },
+      description: {
+        pt: "Este site — construído em React, TypeScript e Tailwind CSS. Bilíngue (PT/EN), tema claro/escuro, animações acessíveis, SSG-ready e pontuação Lighthouse 95+. Código aberto como referência de arquitetura frontend.",
+        en: "This very site — built with React, TypeScript, and Tailwind CSS. Bilingual (PT/EN), light/dark theme, accessible animations, SSG-ready, and Lighthouse 95+ score. Open-source as a frontend architecture reference.",
+      },
+      tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+      links: { repo: "https://github.com/AugustoCASAC", demo: "" },
     },
     {
       featured: false,
       status: "planned",
-      title: { pt: "Sistema Full Stack", en: "Full Stack System" },
+      title: { pt: "Sistema de CRM Simplificado", en: "Simplified CRM System" },
       description: {
-        pt: "Produto completo unindo frontend, backend, banco de dados e autenticação JWT, resolvendo uma rotina real (tarefas, finanças ou CRM).",
-        en: "Complete product joining frontend, backend, database, and JWT authentication, solving a real routine (tasks, finance, or CRM).",
+        pt: "CRM para pequenas empresas com cadastro de clientes, histórico de interações, pipeline de vendas e notificações. Arquitetura baseada em eventos com WebSocket para atualizações em tempo real.",
+        en: "CRM for small businesses with customer registration, interaction history, sales pipeline, and notifications. Event-driven architecture with WebSocket for real-time updates.",
       },
-      tech: ["React", "Node.js", "PostgreSQL", "JWT", "Docker"],
-      links: { repo: "", demo: "" },
-    },
-    {
-      featured: false,
-      status: "future",
-      title: { pt: "PoC Web3 em Testnet", en: "Web3 PoC on Testnet" },
-      description: {
-        pt: "Demonstração em testnet com contrato simples, integração de carteira e documentação de arquitetura e riscos de segurança.",
-        en: "Testnet demo with a simple contract, wallet integration, and documentation of architecture and security risks.",
-      },
-      tech: ["Rust", "Solana", "Smart Contracts", "Web3"],
+      tech: ["React", "NestJS", "PostgreSQL", "WebSocket", "Docker", "Redis"],
       links: { repo: "", demo: "" },
     },
   ],
 
   timeline: [
     {
-      period: { pt: "Início", en: "Start" },
+      period: { pt: "2022", en: "2022" },
       status: "done",
-      title: { pt: "Primeiros passos na tecnologia", en: "First steps in tech" },
+      title: { pt: "Fundamentos e primeiros projetos", en: "Fundamentals & first projects" },
       description: {
-        pt: "Despertar do interesse por programação, sistemas e lógica, e início dos estudos em desenvolvimento web.",
-        en: "Sparked interest in programming, systems, and logic, and started studying web development.",
+        pt: "Início nos estudos de lógica de programação, HTML, CSS e JavaScript. Primeiros projetos estáticos e consumo de APIs públicas.",
+        en: "Started studying programming logic, HTML, CSS, and JavaScript. First static projects and public API consumption.",
+      },
+    },
+    {
+      period: { pt: "2023", en: "2023" },
+      status: "done",
+      title: { pt: "React, TypeScript e backend com Node.js", en: "React, TypeScript, and Node.js backend" },
+      description: {
+        pt: "Mergulho em React com TypeScript e construção das primeiras APIs REST com Express e PostgreSQL. Início do uso profissional de Git e metodologias ágeis.",
+        en: "Deep dive into React with TypeScript and building first REST APIs with Express and PostgreSQL. Started using Git professionally and agile methodologies.",
+      },
+    },
+    {
+      period: { pt: "2024", en: "2024" },
+      status: "done",
+      title: { pt: "Sistemas completos e análise de requisitos", en: "Complete systems and requirements analysis" },
+      description: {
+        pt: "Desenvolvimento de aplicações full stack com autenticação, testes automatizados e deploy. Aprofundamento em modelagem UML, documentação técnica e análise de sistemas.",
+        en: "Full stack applications with auth, automated tests, and deployment. Deep dive into UML modeling, technical documentation, and systems analysis.",
+      },
+    },
+    {
+      period: { pt: "2025", en: "2025" },
+      status: "done",
+      title: { pt: "DevOps, CI/CD e arquitetura avançada", en: "DevOps, CI/CD, and advanced architecture" },
+      description: {
+        pt: "Implementação de pipelines de CI/CD com GitHub Actions, containerização com Docker e adoção de padrões de arquitetura limpa (Clean Architecture, SOLID).",
+        en: "CI/CD pipelines with GitHub Actions, containerization with Docker, and adoption of clean architecture patterns (Clean Architecture, SOLID).",
       },
     },
     {
       period: { pt: "2026 · Atual", en: "2026 · Now" },
       status: "current",
-      title: { pt: "Organização do portfólio profissional", en: "Building the professional portfolio" },
+      title: { pt: "Consolidação e posicionamento profissional", en: "Consolidation and professional positioning" },
       description: {
-        pt: "Estruturação da identidade profissional, da stack e dos primeiros projetos demonstráveis.",
-        en: "Structuring professional identity, tech stack, and the first showcaseable projects.",
+        pt: "Refinamento do portfólio com projetos de impacto mensurável, aprofundamento em NestJS, testes de integração e candidaturas para vagas de analista/desenvolvedor pleno.",
+        en: "Refining portfolio with measurable-impact projects, deepening NestJS, integration testing, and applying for mid-level analyst/developer positions.",
       },
     },
     {
-      period: { pt: "Próx. 3 meses", en: "Next 3 months" },
+      period: { pt: "2026–2027", en: "2026–2027" },
       status: "planned",
-      title: { pt: "Portfólio público v1", en: "Public portfolio v1" },
+      title: { pt: "Especialização em arquitetura e cloud", en: "Specialization in architecture and cloud" },
       description: {
-        pt: "Site pessoal no ar, GitHub organizado e o primeiro projeto com deploy online.",
-        en: "Live personal site, organized GitHub, and the first deployed project.",
-      },
-    },
-    {
-      period: { pt: "Próx. 6 meses", en: "Next 6 months" },
-      status: "planned",
-      title: { pt: "Projeto full stack v1", en: "Full stack project v1" },
-      description: {
-        pt: "Aplicação completa: frontend + backend + banco + autenticação + deploy.",
-        en: "Complete application: frontend + backend + database + authentication + deploy.",
-      },
-    },
-    {
-      period: { pt: "12 meses", en: "12 months" },
-      status: "planned",
-      title: { pt: "Entrada no mercado", en: "Entering the market" },
-      description: {
-        pt: "Candidaturas para vagas júnior apresentando projetos com narrativa profissional.",
-        en: "Applying for junior roles, presenting projects with a professional narrative.",
-      },
-    },
-    {
-      period: { pt: "1–3 anos", en: "1–3 years" },
-      status: "planned",
-      title: { pt: "Especialização", en: "Specialization" },
-      description: {
-        pt: "Aprofundar uma trilha forte: full stack, backend ou Web3, com testes, cloud e CI/CD.",
-        en: "Deepen a strong track: full stack, backend, or Web3, with testing, cloud, and CI/CD.",
+        pt: "Certificação AWS Cloud Practitioner, aprofundamento em microsserviços, event-driven architecture e liderança técnica de pequenas equipes.",
+        en: "AWS Cloud Practitioner certification, deep dive into microservices, event-driven architecture, and technical leadership of small teams.",
       },
     },
   ],
@@ -259,14 +272,14 @@ export const DATA: PortfolioData = {
       horizon: { pt: "Próximos 12 meses", en: "Next 12 months" },
       items: {
         pt: [
-          "Consolidar HTML, CSS, JavaScript, TypeScript, Git e APIs REST",
-          "Publicar 3 projetos com README, deploy e código no GitHub",
-          "Conquistar uma posição de estágio ou desenvolvedor júnior",
+          "Atuar como Analista de Sistemas ou Desenvolvedor Full Stack em equipe real",
+          "Entregar sistemas com documentação técnica completa (UML, Swagger, README)",
+          "Obter certificação AWS Cloud Practitioner e aprofundar arquitetura de microsserviços",
         ],
         en: [
-          "Consolidate HTML, CSS, JavaScript, TypeScript, Git, and REST APIs",
-          "Publish 3 projects with README, deploy, and code on GitHub",
-          "Land an internship or junior developer position",
+          "Work as a Systems Analyst or Full Stack Developer on a real team",
+          "Deliver systems with complete technical documentation (UML, Swagger, README)",
+          "Earn AWS Cloud Practitioner certification and deepen microservices architecture",
         ],
       },
     },
@@ -276,14 +289,14 @@ export const DATA: PortfolioData = {
       horizon: { pt: "1 a 3 anos", en: "1 to 3 years" },
       items: {
         pt: [
-          "Atuar profissionalmente em projetos reais e em equipe",
-          "Aprofundar uma trilha: full stack, backend ou frontend",
-          "Aprender testes, cloud, CI/CD e arquitetura de aplicações",
+          "Evoluir para posição plena com responsabilidade sobre módulos completos",
+          "Implementar e manter pipelines de CI/CD e infraestrutura como código",
+          "Liderar tecnicamente o desenvolvimento de features em equipes ágeis",
         ],
         en: [
-          "Work professionally on real, team-based projects",
-          "Deepen a track: full stack, backend, or frontend",
-          "Learn testing, cloud, CI/CD, and application architecture",
+          "Grow to a mid-level position with ownership of complete modules",
+          "Implement and maintain CI/CD pipelines and infrastructure as code",
+          "Technically lead feature development in agile teams",
         ],
       },
     },
@@ -293,14 +306,14 @@ export const DATA: PortfolioData = {
       horizon: { pt: "3 a 10 anos", en: "3 to 10 years" },
       items: {
         pt: [
-          "Evoluir para Desenvolvedor Pleno/Sênior ou Eng. de Software",
-          "Dominar sistemas escaláveis, segurança e performance",
-          "Construir marca profissional com entregas verificáveis",
+          "Arquitetar sistemas de alta disponibilidade e escala para milhares de usuários",
+          "Atuar como Tech Lead ou Arquiteto de Soluções em projetos estratégicos",
+          "Contribuir ativamente com open source e comunidade técnica brasileira",
         ],
         en: [
-          "Grow into a Mid/Senior Developer or Software Engineer",
-          "Master scalable systems, security, and performance",
-          "Build a professional brand with verifiable deliverables",
+          "Architect high-availability, high-scale systems for thousands of users",
+          "Work as Tech Lead or Solutions Architect on strategic projects",
+          "Actively contribute to open source and the Brazilian tech community",
         ],
       },
     },

@@ -14,7 +14,7 @@ export function Hero() {
 
   // Entrada escalonada via CSS (animation-delay crescente).
   let step = 0;
-  const inDelay = () => ({ animationDelay: `${(step++) * 90}ms` });
+  const inDelay = () => ({ animationDelay: `${(step++) * 150}ms` });
 
   return (
     <section id="hero" className="relative min-h-[100svh] flex items-center overflow-hidden pt-[68px]">
