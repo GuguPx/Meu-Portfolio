@@ -148,6 +148,26 @@ export function PortfolioModal({ project, onClose }: { project: PortfolioProject
             </div>
           </Section>
 
+          {/* Arquitetura */}
+          <Section titleKey="pf.sec.architecture">
+            <div className="grid gap-3 sm:grid-cols-2">
+              {project.architecture.map((layer, i) => {
+                const LayerIcon = DYNAMIC_ICONS[layer.icon];
+                return (
+                  <div key={i} className="flex gap-3 rounded-xl border border-line bg-card p-3.5">
+                    <span className="grid place-items-center w-9 h-9 rounded-lg bg-brand/15 text-brand-2 shrink-0">
+                      <LayerIcon size={18} />
+                    </span>
+                    <div className="min-w-0">
+                      <div className="font-semibold text-[0.9rem]">{pick(layer.label)}</div>
+                      <p className="text-muted text-[0.84rem] leading-relaxed mt-0.5">{pick(layer.detail)}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Section>
+
           <Section titleKey="pf.sec.highlights">
             <BulletList items={pick(project.highlights)} />
           </Section>

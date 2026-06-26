@@ -108,6 +108,9 @@ export const IconArrowRight = (p: IconProps) => (
 export const IconCheck = (p: IconProps) => (
   <Stroke {...p}><path d="M20 6 9 17l-5-5" /></Stroke>
 );
+export const IconLock = (p: IconProps) => (
+  <Stroke {...p}><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3M12 15v2" /></Stroke>
+);
 
 /* Ícones preenchidos (fill) — redes sociais ---------------------------- */
 function Fill({ size = 24, children, ...props }: IconProps & { children: React.ReactNode }) {
@@ -154,4 +157,5 @@ export const DYNAMIC_ICONS = {
   plug: IconPlug,
   users: IconUsers,
   briefcase: IconBriefcase,
+  lock: IconLock,
 } as const;

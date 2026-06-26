@@ -1,6 +1,7 @@
 import { DATA, type SkillStatus } from "../data";
 import { useI18n } from "../context/LanguageContext";
 import { DYNAMIC_ICONS } from "../icons";
+import { TechIcon, isKnownTech } from "./icons/TechIcon";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import type { StringKey } from "../i18n";
@@ -48,7 +49,10 @@ export function Skills() {
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {g.items.map((item) => (
-                    <span key={item} className="chip">{item}</span>
+                    <span key={item} className="chip inline-flex items-center gap-1.5">
+                      {isKnownTech(item) && <TechIcon name={item} size={13} className="shrink-0" />}
+                      {item}
+                    </span>
                   ))}
                 </div>
               </Reveal>

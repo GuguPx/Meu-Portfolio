@@ -1,5 +1,6 @@
 import { useI18n } from "../../context/LanguageContext";
 import { DYNAMIC_ICONS, IconArrowRight } from "../../icons";
+import { TechIcon } from "../icons/TechIcon";
 import type { PortfolioProject } from "../../portfolio";
 import { Reveal } from "../Reveal";
 import { CategoryBadge } from "./CategoryBadge";
@@ -49,7 +50,25 @@ export function PortfolioCard({ project, onOpen }: { project: PortfolioProject; 
         {extra > 0 && <span className="chip">+{extra}</span>}
       </div>
 
-      <div className="mt-5 pt-4 border-t border-line flex items-center justify-between gap-3">
+      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+        <span className="text-[0.68rem] uppercase tracking-wide font-semibold text-faint">{t("pf.sec.integrations")}</span>
+        <span className="flex items-center gap-1.5">
+          {project.integrations.map((i) => (
+            <TechIcon key={i} name={i} size={17} decorative={false} />
+          ))}
+        </span>
+      </div>
+
+      <div className="mt-4 grid grid-cols-3 gap-2 border-t border-line pt-4">
+        {project.metrics.map((m, i) => (
+          <div key={i} className="text-center">
+            <div className="font-mono text-[0.95rem] font-bold text-brand-2">{m.value}</div>
+            <div className="text-[0.64rem] leading-tight text-faint mt-0.5">{pick(m.label)}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 pt-4 border-t border-line flex items-center justify-between gap-3">
         <span className="inline-flex items-center gap-1.5 text-[0.72rem] font-semibold text-muted">
           <span className="w-1.5 h-1.5 rounded-full bg-ok" /> {t("pf.production")}
         </span>

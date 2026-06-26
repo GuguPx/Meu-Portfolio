@@ -50,6 +50,12 @@ export interface PortfolioScreenshot {
   caption: Localized;
 }
 
+export interface ArchLayer {
+  icon: IconName;
+  label: Localized;
+  detail: Localized;
+}
+
 export interface PortfolioProject {
   slug: string;
   /** Nome próprio do projeto (igual em PT/EN). */
@@ -62,6 +68,7 @@ export interface PortfolioProject {
   roles: PortfolioRole[];
   stack: string[];
   integrations: string[];
+  architecture: ArchLayer[];
   /** Contexto corporativo curto, exibido no card e no topo do detalhe. */
   companyContext: Localized;
   /** Nota explícita de autoria/participação (honestidade). */
@@ -94,6 +101,12 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     roles: ["frontend", "uiux", "integration", "performance"],
     stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "TanStack Query", "Axios", "React Router", "Leaflet"],
     integrations: ["IXC Soft"],
+    architecture: [
+      { icon: "layout", label: { pt: "Frontend", en: "Frontend" }, detail: { pt: "React + TypeScript (Vite), TanStack Query para cache e sincronização, React Router e Tailwind.", en: "React + TypeScript (Vite), TanStack Query for caching and sync, React Router, and Tailwind." } },
+      { icon: "plug", label: { pt: "Integração IXC", en: "IXC integration" }, detail: { pt: "Consumo da API do ERP IXC via Axios, com normalização de payloads e tratamento de erros.", en: "IXC ERP API consumption via Axios, with payload normalization and error handling." } },
+      { icon: "kanban", label: { pt: "UI & mapa", en: "UI & map" }, detail: { pt: "Leaflet para o mapa de leads; Kanban, drawers e formulários guiados.", en: "Leaflet for the lead map; Kanban, drawers, and guided forms." } },
+      { icon: "database", label: { pt: "Dados & estado", en: "Data & state" }, detail: { pt: "Filtros e paginação server-side; query keys e cache por entidade.", en: "Server-side filters and pagination; query keys and per-entity caching." } },
+    ],
     companyContext: {
       pt: "CRM comercial para provedor de internet, integrado ao ERP IXC.",
       en: "Sales CRM for an internet provider, integrated with the IXC ERP.",
@@ -205,6 +218,13 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     roles: ["maintenance", "frontend", "integration", "backend"],
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "NestJS", "PostgreSQL", "Prisma", "Puppeteer", "pdf-lib"],
     integrations: ["IXC Soft", "ZapSign"],
+    architecture: [
+      { icon: "layout", label: { pt: "Frontend", en: "Frontend" }, detail: { pt: "Next.js + React + Tailwind para o fluxo de assinatura.", en: "Next.js + React + Tailwind for the signing flow." } },
+      { icon: "server", label: { pt: "Backend", en: "Backend" }, detail: { pt: "NestJS (Node.js), API REST e regras de assinatura/ativação.", en: "NestJS (Node.js), REST API, and signing/activation rules." } },
+      { icon: "database", label: { pt: "Banco de dados", en: "Database" }, detail: { pt: "PostgreSQL via Prisma (ORM).", en: "PostgreSQL via Prisma (ORM)." } },
+      { icon: "plug", label: { pt: "Integrações", en: "Integrations" }, detail: { pt: "IXC (busca/ativação de contrato) e ZapSign (assinatura + webhook).", en: "IXC (contract lookup/activation) and ZapSign (signing + webhook)." } },
+      { icon: "signature", label: { pt: "Documentos & jobs", en: "Documents & jobs" }, detail: { pt: "Geração de PDF com Puppeteer e pdf-lib; jobs de limpeza e expiração.", en: "PDF generation with Puppeteer and pdf-lib; cleanup and expiration jobs." } },
+    ],
     companyContext: {
       pt: "Sistema de assinatura digital de contratos integrado ao IXC e ao ZapSign.",
       en: "Digital contract signing system integrated with IXC and ZapSign.",
@@ -316,6 +336,12 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     roles: ["frontend", "uiux", "integration", "maintenance"],
     stack: ["React", "Vite", "TypeScript", "Tailwind CSS", "TanStack Query", "Node.js", "Express", "MongoDB", "JWT", "Zod"],
     integrations: ["IXC Soft"],
+    architecture: [
+      { icon: "layout", label: { pt: "Frontend", en: "Frontend" }, detail: { pt: "React + Vite + Tailwind, TanStack Query; telas específicas por perfil.", en: "React + Vite + Tailwind, TanStack Query; profile-specific screens." } },
+      { icon: "server", label: { pt: "Backend", en: "Backend" }, detail: { pt: "Node.js + Express, API REST, autenticação JWT e RBAC.", en: "Node.js + Express, REST API, JWT authentication, and RBAC." } },
+      { icon: "database", label: { pt: "Banco de dados", en: "Database" }, detail: { pt: "MongoDB; validação de entrada com Zod.", en: "MongoDB; input validation with Zod." } },
+      { icon: "plug", label: { pt: "Integração IXC", en: "IXC integration" }, detail: { pt: "Validação de clientes contra o ERP IXC.", en: "Customer validation against the IXC ERP." } },
+    ],
     companyContext: {
       pt: "Clube de benefícios integrado ao IXC, com perfis de cliente, parceiro, funcionário e administrador.",
       en: "Benefits club integrated with IXC, with customer, partner, employee, and admin profiles.",
@@ -427,6 +453,12 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     roles: ["automation", "bots", "integration", "backend"],
     stack: ["Node.js", "TypeScript", "Axios", "Google Sheets API", "node-cron", "p-limit", "Winston", "PM2", "Linux"],
     integrations: ["IXC Soft", "Google Sheets", "OPA Suite / WhatsApp"],
+    architecture: [
+      { icon: "bolt", label: { pt: "Runtime", en: "Runtime" }, detail: { pt: "Node.js + TypeScript, execução contínua via PM2 em Linux.", en: "Node.js + TypeScript, continuous execution via PM2 on Linux." } },
+      { icon: "repeat", label: { pt: "Agendamento", en: "Scheduling" }, detail: { pt: "node-cron para as rotinas; p-limit para controle de concorrência.", en: "node-cron for the routines; p-limit for concurrency control." } },
+      { icon: "plug", label: { pt: "Integrações", en: "Integrations" }, detail: { pt: "IXC (Axios), Google Sheets API e OPA Suite/WhatsApp.", en: "IXC (Axios), Google Sheets API, and OPA Suite/WhatsApp." } },
+      { icon: "shield", label: { pt: "Resiliência & logs", en: "Resilience & logs" }, detail: { pt: "Retry com backoff, checkpoint de envio e logs com Winston (BRT).", en: "Retry with backoff, send checkpoints, and Winston logging (BRT)." } },
+    ],
     companyContext: {
       pt: "Automação que sincroniza dados do IXC com Google Sheets e dispara mensagens via WhatsApp.",
       en: "Automation that syncs IXC data with Google Sheets and dispatches messages via WhatsApp.",
@@ -538,6 +570,12 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     roles: ["automation", "bots", "integration", "performance"],
     stack: ["Node.js", "TypeScript", "Axios", "Google Sheets API", "node-cron", "p-limit", "Winston", "dotenv"],
     integrations: ["IXC Soft", "Google Sheets"],
+    architecture: [
+      { icon: "bolt", label: { pt: "Runtime", en: "Runtime" }, detail: { pt: "Node.js + TypeScript; configuração via dotenv.", en: "Node.js + TypeScript; configuration via dotenv." } },
+      { icon: "repeat", label: { pt: "Pipeline ETL", en: "ETL pipeline" }, detail: { pt: "Extração do IXC, cruzamento e carga; sincronização diferencial (inserir/atualizar/remover).", en: "IXC extraction, cross-referencing, and load; differential sync (insert/update/remove)." } },
+      { icon: "gauge", label: { pt: "Agendamento & performance", en: "Scheduling & performance" }, detail: { pt: "node-cron a cada 15 min; p-limit, cache com TTL e escrita em lote.", en: "node-cron every 15 min; p-limit, TTL caching, and batch writing." } },
+      { icon: "database", label: { pt: "Saída", en: "Output" }, detail: { pt: "Planilha viva no Google Sheets; logs estruturados com Winston.", en: "Live Google Sheets spreadsheet; structured logging with Winston." } },
+    ],
     companyContext: {
       pt: "Automação de ETL que mantém uma planilha de inadimplência atualizada a cada 15 minutos.",
       en: "ETL automation that keeps an overdue-payments spreadsheet updated every 15 minutes.",
@@ -648,6 +686,7 @@ export interface ActuationPillar {
   icon: IconName;
   title: Localized;
   description: Localized;
+  points: Localized<string[]>;
 }
 
 export const ACTUATION_PILLARS: ActuationPillar[] = [
@@ -655,48 +694,60 @@ export const ACTUATION_PILLARS: ActuationPillar[] = [
     icon: "layout",
     title: { pt: "Frontend React/TypeScript", en: "React/TypeScript Frontend" },
     description: {
-      pt: "Telas, componentes e fluxos com React e TypeScript, mobile-first e acessíveis.",
-      en: "Screens, components, and flows with React and TypeScript, mobile-first and accessible.",
+      pt: "Criação de telas, componentes reutilizáveis e formulários complexos.",
+      en: "Building screens, reusable components, and complex forms.",
+    },
+    points: {
+      pt: ["Telas e fluxos com React + TypeScript", "Formulários complexos e validação", "Componentes reutilizáveis e responsivos", "Integração com APIs e tratamento de erro"],
+      en: ["Screens and flows with React + TypeScript", "Complex forms and validation", "Reusable, responsive components", "API integration and error handling"],
     },
   },
   {
     icon: "plug",
-    title: { pt: "Integrações IXC", en: "IXC Integrations" },
+    title: { pt: "Integrações com IXC", en: "IXC Integrations" },
     description: {
-      pt: "Consumo e orquestração de dados do ERP IXC Soft em sistemas e automações.",
-      en: "Consuming and orchestrating IXC Soft ERP data across systems and automations.",
+      pt: "Consumo da API legada do ERP IXC com normalização e robustez.",
+      en: "Consuming the legacy IXC ERP API with normalization and robustness.",
+    },
+    points: {
+      pt: ["Consumo da API legada do IXC", "Normalização de dados e payloads", "Catálogos, contratos e O.S", "Tratamento de erros e dashboards"],
+      en: ["Consuming the legacy IXC API", "Data and payload normalization", "Catalogs, contracts, and service orders", "Error handling and dashboards"],
     },
   },
   {
     icon: "bolt",
     title: { pt: "Bots e automações", en: "Bots & automations" },
     description: {
-      pt: "Rotinas em Node.js/TypeScript que eliminam tarefas manuais e repetitivas.",
-      en: "Node.js/TypeScript routines that eliminate manual, repetitive tasks.",
+      pt: "Rotinas Node.js/TypeScript que eliminam trabalho manual repetitivo.",
+      en: "Node.js/TypeScript routines that eliminate repetitive manual work.",
+    },
+    points: {
+      pt: ["Node.js/TypeScript com node-cron", "Google Sheets e WhatsApp", "Retry, backoff e checkpoint", "Processamento em lote e logs"],
+      en: ["Node.js/TypeScript with node-cron", "Google Sheets and WhatsApp", "Retry, backoff, and checkpoint", "Batch processing and logging"],
     },
   },
   {
     icon: "sparkles",
-    title: { pt: "UX/UI corporativo", en: "Corporate UX/UI" },
+    title: { pt: "UX para operação interna", en: "UX for internal operations" },
     description: {
-      pt: "Padronização visual, usabilidade e consistência entre telas e perfis.",
-      en: "Visual standardization, usability, and consistency across screens and profiles.",
+      pt: "Reduzir cliques e erro humano, guiando quem usa o sistema.",
+      en: "Reducing clicks and human error, guiding whoever uses the system.",
+    },
+    points: {
+      pt: ["Reduzir cliques e passos", "Preenchimento automático", "Guiar o vendedor / operador", "Evitar erro humano e ganhar produtividade"],
+      en: ["Fewer clicks and steps", "Automatic field filling", "Guiding the salesperson / operator", "Avoiding human error, gaining productivity"],
     },
   },
   {
     icon: "repeat",
-    title: { pt: "Processos internos", en: "Internal processes" },
+    title: { pt: "Manutenção e evolução", en: "Maintenance & evolution" },
     description: {
-      pt: "Mapeamento e automação de fluxos comerciais e financeiros da operação.",
-      en: "Mapping and automating the operation's sales and finance flows.",
+      pt: "Corrigir, refatorar com cuidado e padronizar telas e fluxos.",
+      en: "Fixing, refactoring carefully, and standardizing screens and flows.",
     },
-  },
-  {
-    icon: "gauge",
-    title: { pt: "Performance e confiabilidade", en: "Performance & reliability" },
-    description: {
-      pt: "Cache, paralelismo controlado, logs e tratamento de erros para rodar de forma estável.",
-      en: "Caching, controlled parallelism, logging, and error handling to run reliably.",
+    points: {
+      pt: ["Correção de bugs e regressões", "Melhoria de performance", "Refatoração cuidadosa e revisão de payloads", "Padronização visual de telas"],
+      en: ["Fixing bugs and regressions", "Performance improvements", "Careful refactoring and payload review", "Visual standardization of screens"],
     },
   },
 ];

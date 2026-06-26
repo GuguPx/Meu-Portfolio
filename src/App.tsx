@@ -6,6 +6,8 @@ import { About } from "./components/About";
 import { Skills } from "./components/Skills";
 import { Experience } from "./components/Experience";
 import { Portfolio } from "./components/Portfolio";
+import { Principles } from "./components/Principles";
+import { AIUsage } from "./components/AIUsage";
 import { Timeline } from "./components/Timeline";
 import { Goals } from "./components/Goals";
 import { Contact } from "./components/Contact";
@@ -30,6 +32,8 @@ export default function App() {
         <Skills />
         <Experience />
         <Portfolio />
+        <Principles />
+        <AIUsage />
         <Timeline />
         <Goals />
         <Contact />

@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useI18n } from "../context/LanguageContext";
 import { ACTUATION_PILLARS, PORTFOLIO_PROJECTS, type PortfolioProject } from "../portfolio";
 import type { StringKey } from "../i18n";
-import { DYNAMIC_ICONS, IconShield } from "../icons";
+import { DYNAMIC_ICONS, IconCheck, IconShield } from "../icons";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { PortfolioCard } from "./portfolio/PortfolioCard";
@@ -85,12 +85,20 @@ export function Portfolio() {
             {ACTUATION_PILLARS.map((pillar, i) => {
               const Icon = DYNAMIC_ICONS[pillar.icon];
               return (
-                <Reveal key={pillar.title.pt} delay={i * 60} className="card p-5">
+                <Reveal key={pillar.title.pt} delay={i * 60} className="card p-5 flex flex-col">
                   <span className="grid place-items-center w-11 h-11 rounded-xl bg-brand/15 text-brand-2">
                     <Icon size={22} />
                   </span>
                   <h4 className="mt-3.5 font-bold text-[1.02rem]">{pick(pillar.title)}</h4>
                   <p className="mt-1.5 text-muted text-[0.9rem] leading-relaxed">{pick(pillar.description)}</p>
+                  <ul className="mt-3 space-y-1.5 border-t border-line pt-3">
+                    {pick(pillar.points).map((pt, j) => (
+                      <li key={j} className="flex gap-2 text-[0.84rem] text-muted leading-snug">
+                        <IconCheck size={15} className="mt-0.5 shrink-0 text-ok" />
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </Reveal>
               );
             })}

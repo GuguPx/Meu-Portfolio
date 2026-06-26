@@ -11,7 +11,7 @@ export type IconName =
   | "layout" | "server" | "database" | "tools" | "blocks"
   | "rocket" | "trending" | "target"
   | "kanban" | "signature" | "gift" | "bolt" | "gauge" | "shield"
-  | "repeat" | "sparkles" | "layers" | "plug" | "users" | "briefcase";
+  | "repeat" | "sparkles" | "layers" | "plug" | "users" | "briefcase" | "lock";
 
 export interface SkillGroup {
   icon: IconName;
@@ -140,6 +140,24 @@ export const DATA: PortfolioData = {
       title: { pt: "Ferramentas & Sistemas", en: "Tools & Systems" },
       status: "focus",
       items: ["Git", "GitHub", "VS Code", "Docker", "IXC Soft", "OPA Suite", "Servidores & Infra"],
+    },
+    {
+      icon: "bolt",
+      title: { pt: "Automação", en: "Automation" },
+      status: "focus",
+      items: ["Node.js", "TypeScript", "node-cron", "PM2", "Winston", "p-limit", "Axios"],
+    },
+    {
+      icon: "plug",
+      title: { pt: "Integrações", en: "Integrations" },
+      status: "focus",
+      items: ["IXC Soft", "Google Sheets", "WhatsApp", "OPA Suite", "ZapSign", "APIs REST"],
+    },
+    {
+      icon: "sparkles",
+      title: { pt: "IA & Produtividade", en: "AI & Productivity" },
+      status: "focus",
+      items: ["Claude Code", "ChatGPT", "Prompts técnicos", "Skills/checklists"],
     },
   ],
 
