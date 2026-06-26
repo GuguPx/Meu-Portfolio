@@ -65,6 +65,50 @@ export const IconGraduation = (p: IconProps) => (
   <Stroke {...p}><path d="M12 4 2 9l10 5 10-5-10-5zM6 11v5c0 1 2.5 2.5 6 2.5s6-1.5 6-2.5v-5M22 9v5" /></Stroke>
 );
 
+/* Ícones do portfólio técnico ----------------------------------------- */
+export const IconKanban = (p: IconProps) => (
+  <Stroke {...p}><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 3v18M15 3v18" /></Stroke>
+);
+export const IconSignature = (p: IconProps) => (
+  <Stroke {...p}><path d="M3 17c3 0 3-9 6-9s3 6 5 6 2-3 4-3" /><path d="M3 21h18" /></Stroke>
+);
+export const IconGift = (p: IconProps) => (
+  <Stroke {...p}><rect x="3" y="8" width="18" height="12" rx="1.5" /><path d="M3 12h18M12 8v12" /><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8M16.5 8a2.5 2.5 0 0 0 0-5C14 3 12 8 12 8" /></Stroke>
+);
+export const IconBolt = (p: IconProps) => (
+  <Stroke {...p}><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" /></Stroke>
+);
+export const IconGauge = (p: IconProps) => (
+  <Stroke {...p}><path d="M3.5 18a9 9 0 1 1 17 0" /><path d="M12 14l4-3" /><circle cx="12" cy="14" r="1.2" /></Stroke>
+);
+export const IconShield = (p: IconProps) => (
+  <Stroke {...p}><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" /><path d="M9 12l2 2 4-4" /></Stroke>
+);
+export const IconRepeat = (p: IconProps) => (
+  <Stroke {...p}><path d="M17 2l4 4-4 4" /><path d="M3 11v-1a4 4 0 0 1 4-4h14M7 22l-4-4 4-4" /><path d="M21 13v1a4 4 0 0 1-4 4H3" /></Stroke>
+);
+export const IconSparkles = (p: IconProps) => (
+  <Stroke {...p}><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8L12 3z" /><path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z" /></Stroke>
+);
+export const IconLayers = (p: IconProps) => (
+  <Stroke {...p}><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5M3 17l9 5 9-5" /></Stroke>
+);
+export const IconPlug = (p: IconProps) => (
+  <Stroke {...p}><path d="M9 2v6M15 2v6M6 8h12v3a6 6 0 0 1-12 0V8zM12 17v5" /></Stroke>
+);
+export const IconUsers = (p: IconProps) => (
+  <Stroke {...p}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></Stroke>
+);
+export const IconClose = (p: IconProps) => (
+  <Stroke {...p}><path d="M18 6 6 18M6 6l12 12" /></Stroke>
+);
+export const IconArrowRight = (p: IconProps) => (
+  <Stroke {...p}><path d="M5 12h14M13 6l6 6-6 6" /></Stroke>
+);
+export const IconCheck = (p: IconProps) => (
+  <Stroke {...p}><path d="M20 6 9 17l-5-5" /></Stroke>
+);
+
 /* Ícones preenchidos (fill) — redes sociais ---------------------------- */
 function Fill({ size = 24, children, ...props }: IconProps & { children: React.ReactNode }) {
   return (
@@ -98,4 +142,16 @@ export const DYNAMIC_ICONS = {
   rocket: IconRocket,
   trending: IconTrending,
   target: IconTarget,
+  kanban: IconKanban,
+  signature: IconSignature,
+  gift: IconGift,
+  bolt: IconBolt,
+  gauge: IconGauge,
+  shield: IconShield,
+  repeat: IconRepeat,
+  sparkles: IconSparkles,
+  layers: IconLayers,
+  plug: IconPlug,
+  users: IconUsers,
+  briefcase: IconBriefcase,
 } as const;

@@ -6,25 +6,18 @@ export type Lang = "pt" | "en";
 export type Localized<T = string> = Record<Lang, T>;
 
 export type SkillStatus = "focus" | "learning" | "exploring";
-export type ProjectStatus = "live" | "in-progress" | "planned" | "future";
 export type TimelineStatus = "done" | "current" | "planned";
 export type IconName =
   | "layout" | "server" | "database" | "tools" | "blocks"
-  | "rocket" | "trending" | "target";
+  | "rocket" | "trending" | "target"
+  | "kanban" | "signature" | "gift" | "bolt" | "gauge" | "shield"
+  | "repeat" | "sparkles" | "layers" | "plug" | "users" | "briefcase";
 
 export interface SkillGroup {
   icon: IconName;
   title: Localized;
   status: SkillStatus;
   items: string[];
-}
-export interface Project {
-  featured: boolean;
-  status: ProjectStatus;
-  title: Localized;
-  description: Localized;
-  tech: string[];
-  links: { repo: string; demo: string };
 }
 export interface ExperienceItem {
   company: string;
@@ -70,7 +63,6 @@ export interface PortfolioData {
   };
   skillGroups: SkillGroup[];
   experience: ExperienceItem[];
-  projects: Project[];
   timeline: TimelineItem[];
   goals: Goal[];
 }
@@ -205,75 +197,6 @@ export const DATA: PortfolioData = {
           "Basic user training on how to use systems, software, and applications.",
         ],
       },
-    },
-  ],
-
-  projects: [
-    {
-      featured: true,
-      status: "live",
-      title: { pt: "Sistema de Gestão de Contratos", en: "Contract Management System" },
-      description: {
-        pt: "Plataforma web para gestão completa de contratos: emissão de contratos padrão e fluxos de cancelamento e renovação, com regras de negócio e histórico. Em produção interna na Power Telecom.",
-        en: "Web platform for end-to-end contract management: standard contract issuance and cancellation/renewal flows, with business rules and history. Running in internal production at Power Telecom.",
-      },
-      tech: ["React", "Node.js", "APIs REST", "MySQL"],
-      links: { repo: "", demo: "" },
-    },
-    {
-      featured: true,
-      status: "live",
-      title: { pt: "Gerenciamento de Estoque (Matriz)", en: "Inventory Management (HQ)" },
-      description: {
-        pt: "Sistema de controle de estoque da matriz com entradas e saídas, níveis e rastreio de itens, integrado aos processos internos da operação.",
-        en: "Headquarters inventory control system with stock in/out, levels, and item tracking, integrated with internal operations.",
-      },
-      tech: ["React", "Node.js", "MySQL"],
-      links: { repo: "", demo: "" },
-    },
-    {
-      featured: true,
-      status: "live",
-      title: { pt: "Gestão de Colaboradores (SaaS interno)", en: "Employee Management (internal SaaS)" },
-      description: {
-        pt: "Aplicação estilo SaaS para gestão de colaboradores e processos de RH, com módulos, perfis e permissões de acesso.",
-        en: "SaaS-style application for employee management and HR processes, with modules, profiles, and access permissions.",
-      },
-      tech: ["React", "Node.js", "APIs REST"],
-      links: { repo: "", demo: "" },
-    },
-    {
-      featured: false,
-      status: "live",
-      title: { pt: "Ferramentas de Automação & Relatórios", en: "Automation & Reporting Tools" },
-      description: {
-        pt: "Conjunto de ferramentas para geração de relatórios de inadimplência, controle de instalações e disparo automatizado de mensagens para clientes.",
-        en: "A toolkit for overdue-payment reports, installation tracking, and automated customer messaging.",
-      },
-      tech: ["Node.js", "Automação", "APIs REST"],
-      links: { repo: "", demo: "" },
-    },
-    {
-      featured: false,
-      status: "live",
-      title: { pt: "Integração IXC Soft & OPA Suite", en: "IXC Soft & OPA Suite Integration" },
-      description: {
-        pt: "Integrações e suporte entre os sistemas internos e as plataformas externas IXC Soft e OPA Suite, incluindo sincronização de dados e automações.",
-        en: "Integrations and support between internal systems and the external platforms IXC Soft and OPA Suite, including data sync and automations.",
-      },
-      tech: ["Node.js", "APIs REST", "IXC Soft", "OPA Suite"],
-      links: { repo: "", demo: "" },
-    },
-    {
-      featured: false,
-      status: "in-progress",
-      title: { pt: "Portfólio Profissional", en: "Professional Portfolio" },
-      description: {
-        pt: "Este site — React, TypeScript e Tailwind CSS. Bilíngue (PT/EN), tema claro/escuro, fundo animado e foco em acessibilidade e performance.",
-        en: "This site — React, TypeScript, and Tailwind CSS. Bilingual (PT/EN), light/dark theme, animated background, and a focus on accessibility and performance.",
-      },
-      tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
-      links: { repo: "https://github.com/GuguPx", demo: "" },
     },
   ],
 
