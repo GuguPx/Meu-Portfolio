@@ -26,11 +26,24 @@ export interface Project {
   tech: string[];
   links: { repo: string; demo: string };
 }
+export interface ExperienceItem {
+  company: string;
+  role: Localized;
+  type: Localized;
+  period: Localized;
+  location: Localized;
+  current: boolean;
+  bullets: Localized<string[]>;
+}
 export interface TimelineItem {
   period: Localized;
   status: TimelineStatus;
   title: Localized;
   description: Localized;
+}
+export interface Language {
+  name: Localized;
+  level: Localized;
 }
 export interface Goal {
   icon: IconName;
@@ -48,10 +61,15 @@ export interface PortfolioData {
     location: Localized;
     available: boolean;
   };
-  links: { github: string; linkedin: string; email: string; resume: string };
+  links: { github: string; linkedin: string; instagram: string; email: string; resume: string };
   hero: { tagline: Localized };
-  about: { paragraphs: Localized<string[]>; stats: { value: string; label: Localized }[] };
+  about: {
+    paragraphs: Localized<string[]>;
+    stats: { value: string; label: Localized }[];
+    languages: Language[];
+  };
   skillGroups: SkillGroup[];
+  experience: ExperienceItem[];
   projects: Project[];
   timeline: TimelineItem[];
   goals: Goal[];
@@ -61,43 +79,48 @@ export const DATA: PortfolioData = {
   profile: {
     name: "Augusto Silva",
     initials: "AS",
-    role: { pt: "Analista de Sistemas & Desenvolvedor Full Stack", en: "Systems Analyst & Full Stack Developer" },
-    focus: { pt: "Backend · Frontend · Arquitetura de Sistemas", en: "Backend · Frontend · Systems Architecture" },
-    location: { pt: "Brasil", en: "Brazil" },
+    role: { pt: "Desenvolvedor Full Stack", en: "Full Stack Developer" },
+    focus: { pt: "Frontend · Backend · Automação de Sistemas", en: "Frontend · Backend · Systems Automation" },
+    location: { pt: "Santo Estêvão, BA · Brasil", en: "Santo Estêvão, BA · Brazil" },
     available: true,
   },
 
   links: {
-    github: "https://github.com/AugustoCASAC",
-    linkedin: "",
+    github: "https://github.com/GuguPx",
+    linkedin: "https://www.linkedin.com/in/augusto-px-silva/",
+    instagram: "https://www.instagram.com/auugusto.px/",
     email: "augustopxsilva@gmail.com",
     resume: "",
   },
 
   hero: {
     tagline: {
-      pt: "Analiso, projeto e construo sistemas robustos — do levantamento de requisitos ao deploy em produção, com foco em escalabilidade, manutenibilidade e entrega de valor real.",
-      en: "I analyze, design, and build robust systems — from requirements gathering to production deployment, focused on scalability, maintainability, and real business value.",
+      pt: "Desenvolvedor Full Stack na Power Telecom. Construo sistemas internos, automações e integrações que sustentam a operação — de gestão de contratos e controle de estoque a relatórios e disparo de mensagens.",
+      en: "Full Stack Developer at Power Telecom. I build internal systems, automations, and integrations that keep operations running — from contract management and inventory control to reports and messaging.",
     },
   },
 
   about: {
     paragraphs: {
       pt: [
-        "Sou desenvolvedor full stack com forte orientação para análise de sistemas. Trabalho com o ciclo completo de desenvolvimento: levantamento e documentação de requisitos, modelagem de dados, implementação de APIs REST e interfaces responsivas com entrega em produção.",
-        "Tenho experiência prática com React, TypeScript e Node.js no frontend e backend, além de bancos relacionais (PostgreSQL/MySQL) e ferramentas de versionamento e CI/CD. Priorizo código limpo, documentação clara e testes automatizados para garantir sistemas confiáveis e de fácil manutenção.",
-        "Complemento minha stack com conhecimento em modelagem UML, diagramas de fluxo e especificação técnica de sistemas — habilidades essenciais para atuar como analista em equipes multidisciplinares, fazendo a ponte entre requisitos de negócio e implementação técnica.",
+        "Sou Desenvolvedor Full Stack na Power Telecom, onde construo aplicações web com React e Node.js e sistemas internos que automatizam processos das áreas comercial, financeira e de RH.",
+        "Já entreguei sistemas em produção como gestão de contratos (cancelamento, renovação e contratos padrão), gerenciamento de estoque da matriz e uma plataforma estilo SaaS para gestão de colaboradores — além de ferramentas de relatórios de inadimplência, controle de instalações e disparo automatizado de mensagens para clientes.",
+        "Também atuo na integração e suporte com plataformas externas (IXC Soft e OPA Suite) e no gerenciamento básico de servidores e infraestrutura. Curso Engenharia de Software na Estácio, aprofundando arquitetura, análise de sistemas e boas práticas de engenharia.",
       ],
       en: [
-        "I'm a full stack developer with a strong orientation toward systems analysis. I work through the complete development cycle: requirements gathering and documentation, data modeling, REST API implementation, and responsive interfaces shipped to production.",
-        "I have hands-on experience with React, TypeScript, and Node.js on both frontend and backend, as well as relational databases (PostgreSQL/MySQL) and versioning and CI/CD tooling. I prioritize clean code, clear documentation, and automated tests to ensure reliable and maintainable systems.",
-        "I complement my stack with knowledge of UML modeling, flowcharts, and technical system specifications — essential skills for acting as an analyst in multidisciplinary teams, bridging business requirements and technical implementation.",
+        "I'm a Full Stack Developer at Power Telecom, where I build web applications with React and Node.js and internal systems that automate sales, finance, and HR processes.",
+        "I've shipped production systems such as contract management (cancellation, renewal, and standard contracts), headquarters inventory management, and a SaaS-style platform for employee management — plus tools for overdue-payment reports, installation tracking, and automated customer messaging.",
+        "I also handle integration and support with external platforms (IXC Soft and OPA Suite) and basic server and infrastructure management. I'm pursuing a Software Engineering degree at Estácio, deepening architecture, systems analysis, and engineering best practices.",
       ],
     },
     stats: [
-      { value: "8+", label: { pt: "Projetos entregues", en: "Projects delivered" } },
-      { value: "20+", label: { pt: "Tecnologias na stack", en: "Technologies in stack" } },
-      { value: "3", label: { pt: "Sistemas em produção", en: "Systems in production" } },
+      { value: "8 meses", label: { pt: "Na Power Telecom", en: "At Power Telecom" } },
+      { value: "6+", label: { pt: "Sistemas internos entregues", en: "Internal systems shipped" } },
+      { value: "C2", label: { pt: "Inglês avançado", en: "Advanced English" } },
+    ],
+    languages: [
+      { name: { pt: "Português", en: "Portuguese" }, level: { pt: "Nativo / Fluente", en: "Native / Fluent" } },
+      { name: { pt: "Inglês", en: "English" }, level: { pt: "Avançado (C2)", en: "Advanced (C2)" } },
     ],
   },
 
@@ -106,47 +129,82 @@ export const DATA: PortfolioData = {
       icon: "layout",
       title: { pt: "Frontend", en: "Frontend" },
       status: "focus",
-      items: [
-        "React", "TypeScript", "JavaScript (ES2022+)", "HTML5 Semântico", "CSS3 / SCSS",
-        "Tailwind CSS", "Bootstrap", "Vite", "Responsividade", "Acessibilidade (WCAG)",
-      ],
+      items: ["HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Tailwind CSS", "Bootstrap", "Responsividade"],
     },
     {
       icon: "server",
       title: { pt: "Backend & APIs", en: "Backend & APIs" },
       status: "focus",
-      items: [
-        "Node.js", "Express", "NestJS", "APIs REST", "JWT / OAuth2",
-        "Java", "Spring Boot", "C#", ".NET", "Swagger / OpenAPI",
-      ],
+      items: ["Node.js", "Express", "APIs REST", "Autenticação JWT", "Automação de processos", "Integrações"],
     },
     {
       icon: "database",
-      title: { pt: "Banco de Dados & Modelagem", en: "Databases & Modeling" },
-      status: "focus",
-      items: [
-        "PostgreSQL", "MySQL", "SQL Avançado", "Modelagem Relacional",
-        "Migrations", "Índices & Performance", "Diagrama ER", "Normalização",
-      ],
+      title: { pt: "Banco de Dados", en: "Databases" },
+      status: "learning",
+      items: ["SQL", "MySQL", "Modelagem de dados", "Relatórios"],
     },
     {
       icon: "tools",
-      title: { pt: "Análise & Engenharia", en: "Analysis & Engineering" },
+      title: { pt: "Ferramentas & Sistemas", en: "Tools & Systems" },
       status: "focus",
-      items: [
-        "UML (Casos de Uso, Classes, Sequência)", "Levantamento de Requisitos",
-        "Documentação Técnica", "Git / GitHub", "Docker", "CI/CD (GitHub Actions)",
-        "Testes Automatizados (Jest / Vitest)", "Vercel / Railway",
-      ],
+      items: ["Git", "GitHub", "VS Code", "Docker", "IXC Soft", "OPA Suite", "Servidores & Infra"],
+    },
+  ],
+
+  experience: [
+    {
+      company: "Power Telecom",
+      role: { pt: "Desenvolvedor Júnior", en: "Junior Developer" },
+      type: { pt: "Tempo integral", en: "Full-time" },
+      period: { pt: "fev 2026 — Atual · 5 meses", en: "Feb 2026 — Present · 5 mos" },
+      location: { pt: "Santo Estêvão, BA · Presencial", en: "Santo Estêvão, BA · On-site" },
+      current: true,
+      bullets: {
+        pt: [
+          "Desenvolvimento de aplicações web utilizando React e Node.js.",
+          "Criação de sistemas internos para automação de processos (comercial, financeiro e RH).",
+          "Ferramentas para geração de relatórios de inadimplência, controle de instalações e disparo de mensagens automatizadas para clientes.",
+          "Implementação de sistema web para gestão de contratos (cancelamento, renovação e contratos padrão).",
+          "Desenvolvimento de sistema de gerenciamento de estoque (matriz).",
+          "Criação de sistema interno para gestão de colaboradores (estilo SaaS).",
+          "Integração e suporte com sistemas externos como IXC Soft e OPA Suite.",
+          "Manutenção e suporte em automações e sistemas internos.",
+          "Gerenciamento básico de servidores e suporte a infraestrutura.",
+        ],
+        en: [
+          "Developed web applications using React and Node.js.",
+          "Built internal systems for process automation (sales, finance, and HR).",
+          "Created tools for overdue-payment reports, installation tracking, and automated customer messaging.",
+          "Implemented a web system for contract management (cancellation, renewal, and standard contracts).",
+          "Developed an inventory management system for headquarters.",
+          "Built an internal SaaS-style system for employee management.",
+          "Integration and support with external systems such as IXC Soft and OPA Suite.",
+          "Maintenance and support of automations and internal systems.",
+          "Basic server management and infrastructure support.",
+        ],
+      },
     },
     {
-      icon: "blocks",
-      title: { pt: "Explorando", en: "Exploring" },
-      status: "exploring",
-      items: [
-        "Rust", "Solana / Blockchain", "Smart Contracts",
-        "Arquitetura Hexagonal", "Event Sourcing", "Redis",
-      ],
+      company: "Power Telecom",
+      role: { pt: "Suporte Técnico N1", en: "Tier 1 Technical Support" },
+      type: { pt: "Estágio", en: "Internship" },
+      period: { pt: "nov 2025 — fev 2026 · 4 meses", en: "Nov 2025 — Feb 2026 · 4 mos" },
+      location: { pt: "Santo Estêvão, BA", en: "Santo Estêvão, BA" },
+      current: false,
+      bullets: {
+        pt: [
+          "Atendimento ao cliente por telefone, e-mail e mensagens, prestando assistência técnica e suporte a produtos e serviços.",
+          "Resolução de problemas simples: reset de senhas, configuração de contas, orientações de uso e conectividade.",
+          "Encaminhamento de casos mais complexos para níveis de suporte mais elevados ou equipes especializadas.",
+          "Treinamento básico de usuários sobre o uso de sistemas, softwares e aplicativos.",
+        ],
+        en: [
+          "Customer support by phone, email, and messages, providing technical assistance for products and services.",
+          "Resolving simple issues: password resets, account setup, usage guidance, and connectivity.",
+          "Escalating more complex cases to higher support tiers or specialized teams.",
+          "Basic user training on how to use systems, software, and applications.",
+        ],
+      },
     },
   ],
 
@@ -154,113 +212,88 @@ export const DATA: PortfolioData = {
     {
       featured: true,
       status: "live",
-      title: { pt: "Sistema de Gestão de Tarefas (Full Stack)", en: "Task Management System (Full Stack)" },
+      title: { pt: "Sistema de Gestão de Contratos", en: "Contract Management System" },
       description: {
-        pt: "Aplicação full stack com autenticação JWT, CRUD completo, filtros dinâmicos e painel de produtividade. Backend em Node.js/Express com PostgreSQL, frontend em React/TypeScript. Reduz o tempo de acompanhamento de demandas em ~40% em cenários de equipe.",
-        en: "Full stack app with JWT auth, full CRUD, dynamic filters, and a productivity dashboard. Node.js/Express backend with PostgreSQL, React/TypeScript frontend. Reduces team demand tracking time by ~40% in team scenarios.",
+        pt: "Plataforma web para gestão completa de contratos: emissão de contratos padrão e fluxos de cancelamento e renovação, com regras de negócio e histórico. Em produção interna na Power Telecom.",
+        en: "Web platform for end-to-end contract management: standard contract issuance and cancellation/renewal flows, with business rules and history. Running in internal production at Power Telecom.",
       },
-      tech: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "JWT", "Docker", "Swagger"],
-      links: { repo: "https://github.com/AugustoCASAC", demo: "" },
+      tech: ["React", "Node.js", "APIs REST", "MySQL"],
+      links: { repo: "", demo: "" },
     },
     {
       featured: true,
       status: "live",
-      title: { pt: "API REST de Controle Financeiro", en: "Financial Control REST API" },
+      title: { pt: "Gerenciamento de Estoque (Matriz)", en: "Inventory Management (HQ)" },
       description: {
-        pt: "API RESTful com autenticação, controle de receitas/despesas, relatórios mensais e exportação de dados. Arquitetura em camadas (Controller → Service → Repository), validação com Zod, testes unitários com Jest (cobertura > 80%) e documentação completa no Swagger.",
-        en: "RESTful API with auth, income/expense tracking, monthly reports, and data export. Layered architecture (Controller → Service → Repository), Zod validation, Jest unit tests (>80% coverage), and full Swagger documentation.",
+        pt: "Sistema de controle de estoque da matriz com entradas e saídas, níveis e rastreio de itens, integrado aos processos internos da operação.",
+        en: "Headquarters inventory control system with stock in/out, levels, and item tracking, integrated with internal operations.",
       },
-      tech: ["Node.js", "NestJS", "PostgreSQL", "JWT", "Zod", "Jest", "Swagger", "Docker"],
-      links: { repo: "https://github.com/AugustoCASAC", demo: "" },
+      tech: ["React", "Node.js", "MySQL"],
+      links: { repo: "", demo: "" },
     },
     {
       featured: true,
       status: "live",
-      title: { pt: "Dashboard Analítico de Dados Públicos", en: "Public Data Analytics Dashboard" },
+      title: { pt: "Gestão de Colaboradores (SaaS interno)", en: "Employee Management (internal SaaS)" },
       description: {
-        pt: "Interface que consome múltiplas APIs públicas, normaliza os dados, e exibe KPIs, gráficos interativos e tabelas com filtro, ordenação e paginação. Tempo de carregamento abaixo de 1.2 s (Lighthouse > 90). Inclui modo offline com cache local.",
-        en: "Interface consuming multiple public APIs, normalizing data, and displaying KPIs, interactive charts, and tables with filtering, sorting, and pagination. Load time under 1.2 s (Lighthouse > 90). Includes offline mode with local cache.",
+        pt: "Aplicação estilo SaaS para gestão de colaboradores e processos de RH, com módulos, perfis e permissões de acesso.",
+        en: "SaaS-style application for employee management and HR processes, with modules, profiles, and access permissions.",
       },
-      tech: ["React", "TypeScript", "Recharts", "TanStack Query", "Tailwind CSS", "Vite"],
-      links: { repo: "https://github.com/AugustoCASAC", demo: "" },
-    },
-    {
-      featured: true,
-      status: "in-progress",
-      title: { pt: "Portfólio Profissional Bilíngue", en: "Bilingual Professional Portfolio" },
-      description: {
-        pt: "Este site — construído em React, TypeScript e Tailwind CSS. Bilíngue (PT/EN), tema claro/escuro, animações acessíveis, SSG-ready e pontuação Lighthouse 95+. Código aberto como referência de arquitetura frontend.",
-        en: "This very site — built with React, TypeScript, and Tailwind CSS. Bilingual (PT/EN), light/dark theme, accessible animations, SSG-ready, and Lighthouse 95+ score. Open-source as a frontend architecture reference.",
-      },
-      tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
-      links: { repo: "https://github.com/AugustoCASAC", demo: "" },
+      tech: ["React", "Node.js", "APIs REST"],
+      links: { repo: "", demo: "" },
     },
     {
       featured: false,
-      status: "planned",
-      title: { pt: "Sistema de CRM Simplificado", en: "Simplified CRM System" },
+      status: "live",
+      title: { pt: "Ferramentas de Automação & Relatórios", en: "Automation & Reporting Tools" },
       description: {
-        pt: "CRM para pequenas empresas com cadastro de clientes, histórico de interações, pipeline de vendas e notificações. Arquitetura baseada em eventos com WebSocket para atualizações em tempo real.",
-        en: "CRM for small businesses with customer registration, interaction history, sales pipeline, and notifications. Event-driven architecture with WebSocket for real-time updates.",
+        pt: "Conjunto de ferramentas para geração de relatórios de inadimplência, controle de instalações e disparo automatizado de mensagens para clientes.",
+        en: "A toolkit for overdue-payment reports, installation tracking, and automated customer messaging.",
       },
-      tech: ["React", "NestJS", "PostgreSQL", "WebSocket", "Docker", "Redis"],
+      tech: ["Node.js", "Automação", "APIs REST"],
       links: { repo: "", demo: "" },
+    },
+    {
+      featured: false,
+      status: "live",
+      title: { pt: "Integração IXC Soft & OPA Suite", en: "IXC Soft & OPA Suite Integration" },
+      description: {
+        pt: "Integrações e suporte entre os sistemas internos e as plataformas externas IXC Soft e OPA Suite, incluindo sincronização de dados e automações.",
+        en: "Integrations and support between internal systems and the external platforms IXC Soft and OPA Suite, including data sync and automations.",
+      },
+      tech: ["Node.js", "APIs REST", "IXC Soft", "OPA Suite"],
+      links: { repo: "", demo: "" },
+    },
+    {
+      featured: false,
+      status: "in-progress",
+      title: { pt: "Portfólio Profissional", en: "Professional Portfolio" },
+      description: {
+        pt: "Este site — React, TypeScript e Tailwind CSS. Bilíngue (PT/EN), tema claro/escuro, fundo animado e foco em acessibilidade e performance.",
+        en: "This site — React, TypeScript, and Tailwind CSS. Bilingual (PT/EN), light/dark theme, animated background, and a focus on accessibility and performance.",
+      },
+      tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+      links: { repo: "https://github.com/GuguPx", demo: "" },
     },
   ],
 
   timeline: [
     {
-      period: { pt: "2022", en: "2022" },
-      status: "done",
-      title: { pt: "Fundamentos e primeiros projetos", en: "Fundamentals & first projects" },
-      description: {
-        pt: "Início nos estudos de lógica de programação, HTML, CSS e JavaScript. Primeiros projetos estáticos e consumo de APIs públicas.",
-        en: "Started studying programming logic, HTML, CSS, and JavaScript. First static projects and public API consumption.",
-      },
-    },
-    {
-      period: { pt: "2023", en: "2023" },
-      status: "done",
-      title: { pt: "React, TypeScript e backend com Node.js", en: "React, TypeScript, and Node.js backend" },
-      description: {
-        pt: "Mergulho em React com TypeScript e construção das primeiras APIs REST com Express e PostgreSQL. Início do uso profissional de Git e metodologias ágeis.",
-        en: "Deep dive into React with TypeScript and building first REST APIs with Express and PostgreSQL. Started using Git professionally and agile methodologies.",
-      },
-    },
-    {
-      period: { pt: "2024", en: "2024" },
-      status: "done",
-      title: { pt: "Sistemas completos e análise de requisitos", en: "Complete systems and requirements analysis" },
-      description: {
-        pt: "Desenvolvimento de aplicações full stack com autenticação, testes automatizados e deploy. Aprofundamento em modelagem UML, documentação técnica e análise de sistemas.",
-        en: "Full stack applications with auth, automated tests, and deployment. Deep dive into UML modeling, technical documentation, and systems analysis.",
-      },
-    },
-    {
-      period: { pt: "2025", en: "2025" },
-      status: "done",
-      title: { pt: "DevOps, CI/CD e arquitetura avançada", en: "DevOps, CI/CD, and advanced architecture" },
-      description: {
-        pt: "Implementação de pipelines de CI/CD com GitHub Actions, containerização com Docker e adoção de padrões de arquitetura limpa (Clean Architecture, SOLID).",
-        en: "CI/CD pipelines with GitHub Actions, containerization with Docker, and adoption of clean architecture patterns (Clean Architecture, SOLID).",
-      },
-    },
-    {
-      period: { pt: "2026 · Atual", en: "2026 · Now" },
+      period: { pt: "jul 2025 — jul 2029", en: "Jul 2025 — Jul 2029" },
       status: "current",
-      title: { pt: "Consolidação e posicionamento profissional", en: "Consolidation and professional positioning" },
+      title: { pt: "Estácio — Engenharia de Software", en: "Estácio — Software Engineering" },
       description: {
-        pt: "Refinamento do portfólio com projetos de impacto mensurável, aprofundamento em NestJS, testes de integração e candidaturas para vagas de analista/desenvolvedor pleno.",
-        en: "Refining portfolio with measurable-impact projects, deepening NestJS, integration testing, and applying for mid-level analyst/developer positions.",
+        pt: "Bacharelado em Engenharia de Software, com ênfase em análise de dados (Data Analysis) e habilidades analíticas.",
+        en: "Bachelor's in Software Engineering, with emphasis on Data Analysis and analytical skills.",
       },
     },
     {
-      period: { pt: "2026–2027", en: "2026–2027" },
-      status: "planned",
-      title: { pt: "Especialização em arquitetura e cloud", en: "Specialization in architecture and cloud" },
+      period: { pt: "dez 2024 — dez 2025", en: "Dec 2024 — Dec 2025" },
+      status: "done",
+      title: { pt: "DevQuest — Desenvolvimento Front-End", en: "DevQuest — Front-End Development" },
       description: {
-        pt: "Certificação AWS Cloud Practitioner, aprofundamento em microsserviços, event-driven architecture e liderança técnica de pequenas equipes.",
-        en: "AWS Cloud Practitioner certification, deep dive into microservices, event-driven architecture, and technical leadership of small teams.",
+        pt: "Formação completa em Front-End (Dev em Dobro), com projetos práticos, desenvolvimento e suporte contínuo.",
+        en: "Complete Front-End program (Dev em Dobro), with hands-on projects, development, and ongoing support.",
       },
     },
   ],
@@ -272,14 +305,14 @@ export const DATA: PortfolioData = {
       horizon: { pt: "Próximos 12 meses", en: "Next 12 months" },
       items: {
         pt: [
-          "Atuar como Analista de Sistemas ou Desenvolvedor Full Stack em equipe real",
-          "Entregar sistemas com documentação técnica completa (UML, Swagger, README)",
-          "Obter certificação AWS Cloud Practitioner e aprofundar arquitetura de microsserviços",
+          "Consolidar a atuação como Desenvolvedor Full Stack, assumindo módulos completos",
+          "Aprofundar testes automatizados, Docker e boas práticas de arquitetura",
+          "Publicar projetos pessoais no GitHub e contribuir com a comunidade",
         ],
         en: [
-          "Work as a Systems Analyst or Full Stack Developer on a real team",
-          "Deliver systems with complete technical documentation (UML, Swagger, README)",
-          "Earn AWS Cloud Practitioner certification and deepen microservices architecture",
+          "Consolidate my role as a Full Stack Developer, owning complete modules",
+          "Deepen automated testing, Docker, and architecture best practices",
+          "Publish personal projects on GitHub and contribute to the community",
         ],
       },
     },
@@ -289,14 +322,14 @@ export const DATA: PortfolioData = {
       horizon: { pt: "1 a 3 anos", en: "1 to 3 years" },
       items: {
         pt: [
-          "Evoluir para posição plena com responsabilidade sobre módulos completos",
+          "Evoluir para uma posição plena com responsabilidade sobre produtos inteiros",
           "Implementar e manter pipelines de CI/CD e infraestrutura como código",
-          "Liderar tecnicamente o desenvolvimento de features em equipes ágeis",
+          "Liderar tecnicamente o desenvolvimento de features em equipe ágil",
         ],
         en: [
-          "Grow to a mid-level position with ownership of complete modules",
+          "Grow into a mid-level role with ownership of entire products",
           "Implement and maintain CI/CD pipelines and infrastructure as code",
-          "Technically lead feature development in agile teams",
+          "Technically lead feature development in an agile team",
         ],
       },
     },
@@ -306,14 +339,14 @@ export const DATA: PortfolioData = {
       horizon: { pt: "3 a 10 anos", en: "3 to 10 years" },
       items: {
         pt: [
-          "Arquitetar sistemas de alta disponibilidade e escala para milhares de usuários",
+          "Arquitetar sistemas de alta disponibilidade e escala",
           "Atuar como Tech Lead ou Arquiteto de Soluções em projetos estratégicos",
-          "Contribuir ativamente com open source e comunidade técnica brasileira",
+          "Construir uma marca profissional com entregas verificáveis",
         ],
         en: [
-          "Architect high-availability, high-scale systems for thousands of users",
-          "Work as Tech Lead or Solutions Architect on strategic projects",
-          "Actively contribute to open source and the Brazilian tech community",
+          "Architect high-availability, high-scale systems",
+          "Work as a Tech Lead or Solutions Architect on strategic projects",
+          "Build a professional brand with verifiable deliverables",
         ],
       },
     },

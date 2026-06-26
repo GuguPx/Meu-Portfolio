@@ -1,8 +1,10 @@
 import { useI18n } from "./context/LanguageContext";
 import { Navbar } from "./components/Navbar";
+import { GlobalBackground } from "./components/GlobalBackground";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { Skills } from "./components/Skills";
+import { Experience } from "./components/Experience";
 import { Projects } from "./components/Projects";
 import { Timeline } from "./components/Timeline";
 import { Goals } from "./components/Goals";
@@ -19,12 +21,14 @@ export default function App() {
          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[200] focus:bg-brand focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">
         {t("a11y.skip")}
       </a>
+      <GlobalBackground />
       <ScrollProgress />
       <Navbar />
       <main id="main">
         <Hero />
         <About />
         <Skills />
+        <Experience />
         <Projects />
         <Timeline />
         <Goals />

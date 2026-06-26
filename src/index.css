@@ -32,10 +32,14 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 68px;
+    /* Cor base como camada mais profunda; o fundo animado (GlobalBackground)
+       fica acima dela e abaixo do conteúdo, aparecendo em toda a página. */
+    background-color: var(--c-base);
   }
   body {
-    @apply bg-base text-fg font-sans antialiased;
+    @apply text-fg font-sans antialiased;
     line-height: 1.65;
+    background-color: transparent;
   }
   ::selection {
     background: rgba(99, 102, 241, 0.35);
@@ -128,6 +132,10 @@
   @media (prefers-reduced-motion: reduce) {
     .reveal, .hero-in { opacity: 1; transform: none; animation: none; transition: none; }
   }
+
+  /* Fundo animado global — mais discreto no tema claro para preservar contraste */
+  .app-bg { opacity: 1; }
+  html:not(.dark) .app-bg { opacity: 0.5; }
 
   /* Grade do hero */
   .grid-overlay {

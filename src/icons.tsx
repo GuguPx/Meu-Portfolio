@@ -58,6 +58,12 @@ export const IconSun = (p: IconProps) => (
 export const IconMoon = (p: IconProps) => (
   <Stroke {...p}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></Stroke>
 );
+export const IconBriefcase = (p: IconProps) => (
+  <Stroke {...p}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M2 13h20" /></Stroke>
+);
+export const IconGraduation = (p: IconProps) => (
+  <Stroke {...p}><path d="M12 4 2 9l10 5 10-5-10-5zM6 11v5c0 1 2.5 2.5 6 2.5s6-1.5 6-2.5v-5M22 9v5" /></Stroke>
+);
 
 /* Ícones preenchidos (fill) — redes sociais ---------------------------- */
 function Fill({ size = 24, children, ...props }: IconProps & { children: React.ReactNode }) {
@@ -76,6 +82,9 @@ export const IconLinkedIn = (p: IconProps) => (
 );
 export const IconMail = (p: IconProps) => (
   <Stroke {...p}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M2 6l10 7L22 6" /></Stroke>
+);
+export const IconInstagram = (p: IconProps) => (
+  <Stroke {...p}><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><path d="M17.5 6.5h.01" /></Stroke>
 );
 
 /* Mapa dinâmico para ícones referenciados por nome em data.ts ---------- */

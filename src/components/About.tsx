@@ -5,7 +5,7 @@ import { SectionHeading } from "./SectionHeading";
 
 export function About() {
   const { t, pick } = useI18n();
-  const { paragraphs, stats } = DATA.about;
+  const { paragraphs, stats, languages } = DATA.about;
 
   return (
     <section id="about" className="py-[clamp(4rem,9vw,7rem)]">
@@ -28,6 +28,18 @@ export function About() {
                 <div className="text-muted text-[0.9rem] mt-1">{pick(s.label)}</div>
               </div>
             ))}
+
+            <div className="card px-6 py-5">
+              <div className="text-[0.78rem] font-mono text-brand-2 uppercase tracking-wide mb-3">{t("about.languages")}</div>
+              <ul className="grid gap-2.5">
+                {languages.map((l) => (
+                  <li key={l.name.pt} className="flex items-center justify-between gap-3">
+                    <span className="font-semibold text-[0.95rem]">{pick(l.name)}</span>
+                    <span className="text-muted text-[0.84rem]">{pick(l.level)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Reveal>
         </div>
       </div>

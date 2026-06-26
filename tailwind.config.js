@@ -35,6 +35,10 @@ export default {
           "0%,100%": { transform: "translate(0,0)" },
           "50%": { transform: "translate(20px,-26px)" },
         },
+        floatAlt: {
+          "0%,100%": { transform: "translate(0,0)" },
+          "50%": { transform: "translate(-24px,22px)" },
+        },
         pulseDot: { "50%": { opacity: "0.55" } },
         scrollDot: {
           "0%":  { opacity: "0",   transform: "translate(-50%, 0px)" },
@@ -47,6 +51,7 @@ export default {
       animation: {
         float: "float 22s ease-in-out infinite",
         "float-slow": "float 30s ease-in-out infinite reverse",
+        "float-slower": "floatAlt 38s ease-in-out infinite",
         "pulse-dot": "pulseDot 2.4s ease-in-out infinite",
         "scroll-dot": "scrollDot 3.2s ease-in-out infinite",
       },

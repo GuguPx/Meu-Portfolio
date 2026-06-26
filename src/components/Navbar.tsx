@@ -9,6 +9,7 @@ import type { StringKey } from "../i18n";
 const LINKS: { id: string; key: StringKey }[] = [
   { id: "about", key: "nav.about" },
   { id: "skills", key: "nav.skills" },
+  { id: "experience", key: "nav.experience" },
   { id: "projects", key: "nav.projects" },
   { id: "timeline", key: "nav.timeline" },
   { id: "goals", key: "nav.goals" },
