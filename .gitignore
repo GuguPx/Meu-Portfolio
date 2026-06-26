@@ -1,0 +1,29 @@
+# Dependências
+node_modules/
+
+# Build / cache
+dist/
+dist-ssr/
+.cache/
+.vite/
+
+# Vite
+*.local
+
+# TypeScript
+*.tsbuildinfo
+
+# Ambiente
+.env
+.env.local
+
+# Editores / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*

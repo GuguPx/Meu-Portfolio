@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: troque pela URL real do deploy
+Sitemap: https://augusto-silva.vercel.app/sitemap.xml
