@@ -3,35 +3,91 @@
 @tailwind utilities;
 
 /* ============================================================
-   Tokens de tema (claro = :root, escuro = .dark)
+   Tokens de tema — conforto visual, minimalista e maduro.
+   Uma única cor de destaque (--c-accent) por tema.
+
+   Padrão escuro  = "Moderno & Tecnológico" (petróleo + amarelo suave) → .dark
+   Padrão claro   = "Minimalista & Limpo"   (off-white + cobalto)      → :root
+   Alternativa    = "Foco & Leitura"        (pastel/oliva + pervinca)  → [data-theme="focus-reading"]
+
+   Para trocar o tema alternativo em runtime:
+     document.documentElement.dataset.theme = "focus-reading"
+   (remova o atributo para voltar ao par claro/escuro padrão)
    ============================================================ */
+
+/* ---- Minimalista & Limpo (tema claro padrão) ---- */
 :root {
-  --c-base: #f6f7fb;
-  --c-soft: #eef1f8;
+  --c-base: #f8f8f8;
+  --c-soft: #ffffff;
   --c-surface: #ffffff;
-  --c-fg: #0f172a;
-  --c-muted: #4b5675;
-  --c-faint: #7886a6;
-  --c-card: rgba(15, 23, 42, 0.025);
-  --c-line: rgba(15, 23, 42, 0.10);
-  --ring: rgba(99, 102, 241, 0.35);
+  --c-surface-2: #f1f3f5;
+  --c-fg: #333333;
+  --c-muted: #5f6368;
+  --c-faint: #8a8f98;
+  --c-card: rgba(51, 51, 51, 0.014);
+  --c-line: rgba(51, 51, 51, 0.10);
+  --c-line-strong: rgba(51, 51, 51, 0.18);
+  --c-accent: #2563eb;
+  --c-accent-rgb: 37 99 235;
+  --c-accent-hover: #1d4ed8;
+  --c-accent-soft: rgba(37, 99, 235, 0.10);
+  --c-accent-fg: #ffffff;
+  --c-glow: rgba(37, 99, 235, 0.06);
+  --c-glow-2: rgba(37, 99, 235, 0.04);
+  --grad-title: linear-gradient(135deg, #222426 0%, #5f6368 100%);
+  --ring: rgba(37, 99, 235, 0.40);
 }
+
+/* ---- Moderno & Tecnológico (tema escuro padrão) ---- */
 .dark {
-  --c-base: #0b1020;
-  --c-soft: #11182e;
-  --c-surface: #151d36;
-  --c-fg: #e8ecf7;
-  --c-muted: #9aa6c4;
-  --c-faint: #6b7798;
-  --c-card: rgba(255, 255, 255, 0.035);
-  --c-line: rgba(255, 255, 255, 0.09);
-  --ring: rgba(99, 102, 241, 0.45);
+  --c-base: #081316;
+  --c-soft: #0d1b1f;
+  --c-surface: #122126;
+  --c-surface-2: #182b31;
+  --c-fg: #f5f7f8;
+  --c-muted: #b7c3c8;
+  --c-faint: #77868d;
+  --c-card: rgba(245, 247, 248, 0.02);
+  --c-line: rgba(245, 247, 248, 0.08);
+  --c-line-strong: rgba(245, 247, 248, 0.16);
+  --c-accent: #d8cfa3;
+  --c-accent-rgb: 216 207 163;
+  --c-accent-hover: #e6dbae;
+  --c-accent-soft: rgba(216, 207, 163, 0.12);
+  --c-accent-fg: #081316;
+  --c-glow: rgba(216, 207, 163, 0.09);
+  --c-glow-2: rgba(120, 170, 175, 0.08);
+  --grad-title: linear-gradient(135deg, #ffffff 0%, #b7c3c8 100%);
+  --ring: rgba(216, 207, 163, 0.45);
+}
+
+/* ---- Foco & Leitura (alternativo, ativável via data-theme) ---- */
+[data-theme="focus-reading"] {
+  --c-base: #f6f7f2;
+  --c-soft: #ffffff;
+  --c-surface: #ffffff;
+  --c-surface-2: #eef1e8;
+  --c-fg: #2f332a;
+  --c-muted: #5f6658;
+  --c-faint: #858d7b;
+  --c-card: rgba(47, 51, 42, 0.014);
+  --c-line: rgba(47, 51, 42, 0.10);
+  --c-line-strong: rgba(47, 51, 42, 0.18);
+  --c-accent: #7c83c6;
+  --c-accent-rgb: 124 131 198;
+  --c-accent-hover: #666db3;
+  --c-accent-soft: rgba(124, 131, 198, 0.12);
+  --c-accent-fg: #ffffff;
+  --c-glow: rgba(124, 131, 198, 0.08);
+  --c-glow-2: rgba(163, 177, 138, 0.08);
+  --grad-title: linear-gradient(135deg, #2f332a 0%, #5f6658 100%);
+  --ring: rgba(124, 131, 198, 0.40);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 68px;
+    scroll-padding-top: 76px;
     /* Cor base como camada mais profunda; o fundo animado (GlobalBackground)
        fica acima dela e abaixo do conteúdo, aparecendo em toda a página. */
     background-color: var(--c-base);
@@ -42,10 +98,10 @@
     background-color: transparent;
   }
   ::selection {
-    background: rgba(99, 102, 241, 0.35);
+    background: var(--c-accent-soft);
   }
   :focus-visible {
-    outline: 2px solid theme("colors.brand.DEFAULT");
+    outline: 2px solid var(--c-accent);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -60,49 +116,55 @@
 
 @layer components {
   .container-x {
-    @apply w-full max-w-content mx-auto px-[clamp(1.1rem,4vw,2rem)];
+    @apply w-full max-w-content mx-auto px-[clamp(1.25rem,4vw,2.25rem)];
   }
 
-  /* Texto com gradiente da marca */
+  /* Título — realce monocromático elegante (nunca colorido/chamativo) */
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(120deg, #6366f1 0%, #8b5cf6 45%, #22d3ee 100%);
+    background-image: var(--grad-title);
   }
+  /* Superfície de acento — cor ÚNICA do tema (sem gradiente colorido) */
   .bg-grad {
-    background-image: linear-gradient(120deg, #6366f1 0%, #8b5cf6 45%, #22d3ee 100%);
+    background-color: var(--c-accent);
+    color: var(--c-accent-fg);
   }
 
   /* Botões */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold text-[0.95rem]
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-semibold text-[0.95rem]
            transition-all duration-200 whitespace-nowrap;
   }
   .btn-primary {
-    @apply bg-grad text-white shadow-brand hover:-translate-y-0.5;
+    @apply bg-grad shadow-brand hover:-translate-y-0.5 hover:shadow-glow;
   }
+  .btn-primary:hover { background-color: var(--c-accent-hover); }
   .btn-ghost {
-    @apply border border-line bg-card text-fg hover:-translate-y-0.5 hover:border-brand;
+    @apply border border-line-strong bg-surface2 text-fg hover:-translate-y-0.5 hover:border-brand;
   }
   .btn-icon {
-    @apply grid place-items-center w-10 h-10 rounded-[10px] border border-line bg-card text-fg
-           font-bold text-[0.8rem] transition-all duration-200 hover:border-brand hover:-translate-y-px;
+    @apply grid place-items-center w-10 h-10 rounded-[11px] border border-line bg-card text-fg
+           font-semibold text-[0.8rem] transition-all duration-200 hover:border-brand hover:-translate-y-px;
   }
 
   /* Cartões / chips */
   .card {
-    @apply border border-line bg-card rounded-2xl;
+    @apply border border-line bg-surface rounded-[18px] transition-colors;
+  }
+  .card-elevated {
+    @apply border border-line bg-surface2 rounded-[18px] shadow-card;
   }
   .chip {
-    @apply text-[0.76rem] font-mono px-[0.7rem] py-[0.35rem] rounded-lg border border-line
-           bg-[color-mix(in_srgb,var(--c-fg)_6%,transparent)] text-fg font-medium;
+    @apply text-[0.78rem] font-mono px-[0.72rem] py-[0.38rem] rounded-lg border border-line
+           bg-surface2 text-muted font-medium;
   }
 
   /* Cabeçalho de seção */
   .kicker {
-    @apply font-mono text-[0.82rem] text-brand-2 tracking-wide;
+    @apply font-mono text-[0.78rem] text-brand tracking-[0.16em] uppercase;
   }
   .section-title {
-    @apply text-[clamp(1.8rem,5vw,2.6rem)] font-extrabold tracking-tight mt-2;
+    @apply text-[clamp(2rem,4.6vw,3.1rem)] font-extrabold tracking-[-0.02em] mt-3 leading-[1.05];
   }
 }
 
@@ -137,12 +199,12 @@
   .app-bg { opacity: 1; }
   html:not(.dark) .app-bg { opacity: 0.5; }
 
-  /* Grade do hero */
+  /* Grade do hero — muito sutil, apenas uma textura técnica de fundo */
   .grid-overlay {
     background-image: linear-gradient(var(--c-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--c-line) 1px, transparent 1px);
-    background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 10%, transparent 72%);
-    mask-image: radial-gradient(ellipse at 50% 40%, #000 10%, transparent 72%);
+    background-size: 72px 72px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 34%, #000 0%, transparent 62%);
+    mask-image: radial-gradient(ellipse at 50% 34%, #000 0%, transparent 62%);
   }
 }

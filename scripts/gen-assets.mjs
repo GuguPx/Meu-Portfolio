@@ -46,6 +46,9 @@ const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" vi
   <rect width="1200" height="630" fill="url(#glow)"/>
   <rect x="88" y="84" width="120" height="120" rx="26" fill="url(#g)"/>
   <path d="M118 168 L148 100 L178 168 M127 145 H169" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- CTA (botão) — chamada para clique -->
+  <rect x="772" y="102" width="340" height="84" rx="42" fill="url(#g)"/>
+  <text x="942" y="156" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#0b1020">Ver projetos →</text>
   <text x="88" y="330" font-family="Arial, sans-serif" font-size="92" font-weight="bold" fill="#e8ecf7">Augusto Silva</text>
   <text x="92" y="408" font-family="Arial, sans-serif" font-size="44" font-weight="bold" fill="#22d3ee">Desenvolvedor Web</text>
   <text x="92" y="476" font-family="Arial, sans-serif" font-size="34" fill="#9aa6c4">Frontend  ·  Backend  ·  APIs  ·  Web3</text>

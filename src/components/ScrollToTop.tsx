@@ -20,7 +20,7 @@ export function ScrollToTop() {
       aria-label={t("footer.top")}
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
-      className={`fixed bottom-6 right-6 z-[60] grid place-items-center w-12 h-12 rounded-full bg-grad text-white shadow-brand transition-all duration-300 hover:-translate-y-1 ${
+      className={`fixed bottom-6 right-6 z-[60] grid place-items-center w-12 h-12 rounded-full bg-grad shadow-brand transition-all duration-300 hover:-translate-y-1 ${
         visible ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"
       }`}
     >

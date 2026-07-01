@@ -4,6 +4,7 @@ import { useI18n } from "../context/LanguageContext";
 import { useTheme } from "../context/ThemeContext";
 import { useScrollSpy } from "../hooks/useScrollSpy";
 import { IconMoon, IconSun } from "../icons";
+import { BrandIcon } from "./icons/BrandIcon";
 import type { StringKey } from "../i18n";
 
 const LINKS: { id: string; key: StringKey }[] = [
@@ -34,32 +35,30 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 h-[68px] flex items-center backdrop-blur-md transition-colors duration-300 ${
-        scrolled ? "border-b border-line bg-base/70" : "border-b border-transparent bg-base/40"
+      className={`fixed inset-x-0 top-0 z-50 h-[76px] flex items-center backdrop-blur-xl transition-colors duration-300 ${
+        scrolled ? "border-b border-line bg-base/80" : "border-b border-transparent bg-base/50"
       }`}
     >
       <nav className="container-x flex items-center justify-between gap-4">
-        <a href="#hero" className="flex items-center gap-2.5 font-bold" aria-label="Início">
-          <span className="grid place-items-center w-9 h-9 rounded-[10px] bg-grad text-white font-extrabold text-[0.9rem] tracking-wide">
-            {DATA.profile.initials}
-          </span>
-          <span className="hidden sm:inline text-[0.98rem]">{DATA.profile.name}</span>
+        <a href="#hero" className="flex items-center gap-3 font-semibold group" aria-label="Início">
+          <BrandIcon size={36} className="text-brand transition-transform duration-200 group-hover:scale-105" />
+          <span className="hidden sm:inline text-[1.02rem] tracking-tight">{DATA.profile.name}</span>
         </a>
 
         {/* Links desktop */}
-        <ul className="hidden lg:flex gap-0.5" aria-label="Navegação principal">
+        <ul className="hidden lg:flex items-center gap-0.5" aria-label="Navegação principal">
           {LINKS.map((l) => (
             <li key={l.id}>
               <a
                 href={`#${l.id}`}
                 aria-current={active === l.id ? "true" : undefined}
-                className={`relative px-3 py-2 rounded-lg text-[0.92rem] font-medium transition-colors hover:text-fg ${
+                className={`relative px-3.5 py-2 rounded-lg text-[0.95rem] font-medium transition-colors hover:text-fg ${
                   active === l.id ? "text-fg" : "text-muted"
                 }`}
               >
                 {t(l.key)}
                 {active === l.id && (
-                  <span className="absolute left-3 right-3 bottom-1 h-0.5 rounded bg-grad" />
+                  <span className="absolute left-3.5 right-3.5 -bottom-0.5 h-[2px] rounded-full bg-grad" />
                 )}
               </a>
             </li>
@@ -89,7 +88,7 @@ export function Navbar() {
 
       {/* Menu mobile */}
       <div
-        className={`lg:hidden absolute inset-x-0 top-[68px] bg-soft border-b border-line shadow-glow transition-transform duration-300 ${
+        className={`lg:hidden absolute inset-x-0 top-[76px] bg-soft border-b border-line shadow-glow transition-transform duration-300 ${
           open ? "translate-y-0" : "-translate-y-[130%]"
         }`}
       >

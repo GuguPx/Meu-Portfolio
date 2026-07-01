@@ -17,7 +17,7 @@ export function Goals() {
             const Icon = DYNAMIC_ICONS[g.icon];
             return (
               <Reveal key={g.icon} delay={i * 90} className="card p-7 transition-all duration-200 hover:-translate-y-1 hover:border-brand">
-                <div className="grid place-items-center w-[46px] h-[46px] rounded-xl bg-grad text-white mb-[1.1rem]">
+                <div className="grid place-items-center w-[46px] h-[46px] rounded-xl bg-brand/15 text-brand mb-[1.1rem]">
                   <Icon size={22} />
                 </div>
                 <h3 className="text-[1.2rem] font-bold">{pick(g.term)}</h3>
