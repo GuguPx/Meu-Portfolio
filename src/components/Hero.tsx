@@ -1,6 +1,6 @@
 import { DATA } from "../data";
 import { useI18n } from "../context/LanguageContext";
-import { IconGitHub, IconLinkedIn, IconMail } from "../icons";
+import { IconGitHub, IconInstagram, IconLinkedIn, IconMail } from "../icons";
 
 export function Hero() {
   const { t, pick } = useI18n();
@@ -9,21 +9,19 @@ export function Hero() {
   const socials = [
     links.github && { href: links.github, label: "GitHub", Icon: IconGitHub, external: true },
     links.linkedin && { href: links.linkedin, label: "LinkedIn", Icon: IconLinkedIn, external: true },
+    links.instagram && { href: links.instagram, label: "Instagram", Icon: IconInstagram, external: true },
     links.email && { href: `mailto:${links.email}`, label: "E-mail", Icon: IconMail, external: false },
   ].filter(Boolean) as { href: string; label: string; Icon: typeof IconGitHub; external: boolean }[];
 
   // Entrada escalonada via CSS (animation-delay crescente).
   let step = 0;
-  const inDelay = () => ({ animationDelay: `${(step++) * 90}ms` });
+  const inDelay = () => ({ animationDelay: `${(step++) * 150}ms` });
 
   return (
     <section id="hero" className="relative min-h-[100svh] flex items-center overflow-hidden pt-[68px]">
-      {/* Fundo animado */}
+      {/* Grade decorativa do hero (as bolhas de gradiente agora são globais,
+          renderizadas por <GlobalBackground /> atrás de toda a página). */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
-        <div className="absolute -top-[8%] -right-[6%] w-[46vw] h-[46vw] max-w-[560px] max-h-[560px] rounded-full blur-[70px] opacity-55 animate-float"
-             style={{ background: "radial-gradient(circle, #6366f1, transparent 65%)" }} />
-        <div className="absolute -bottom-[12%] -left-[8%] w-[40vw] h-[40vw] max-w-[480px] max-h-[480px] rounded-full blur-[70px] opacity-55 animate-float-slow"
-             style={{ background: "radial-gradient(circle, #22d3ee, transparent 65%)" }} />
         <div className="absolute inset-0 grid-overlay opacity-40" />
       </div>
 

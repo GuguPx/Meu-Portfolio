@@ -9,7 +9,10 @@ import type { StringKey } from "../i18n";
 const LINKS: { id: string; key: StringKey }[] = [
   { id: "about", key: "nav.about" },
   { id: "skills", key: "nav.skills" },
+  { id: "experience", key: "nav.experience" },
   { id: "projects", key: "nav.projects" },
+  { id: "principles", key: "nav.principles" },
+  { id: "ai", key: "nav.ai" },
   { id: "timeline", key: "nav.timeline" },
   { id: "goals", key: "nav.goals" },
   { id: "contact", key: "nav.contact" },
@@ -44,7 +47,7 @@ export function Navbar() {
         </a>
 
         {/* Links desktop */}
-        <ul className="hidden md:flex gap-1" aria-label="Navegação principal">
+        <ul className="hidden lg:flex gap-0.5" aria-label="Navegação principal">
           {LINKS.map((l) => (
             <li key={l.id}>
               <a
@@ -72,7 +75,7 @@ export function Navbar() {
           </button>
           {/* Burger mobile */}
           <button
-            className="md:hidden btn-icon flex-col gap-[5px]"
+            className="lg:hidden btn-icon flex-col gap-[5px]"
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? t("nav.close") : t("nav.menu")}
             aria-expanded={open}
@@ -86,7 +89,7 @@ export function Navbar() {
 
       {/* Menu mobile */}
       <div
-        className={`md:hidden absolute inset-x-0 top-[68px] bg-soft border-b border-line shadow-glow transition-transform duration-300 ${
+        className={`lg:hidden absolute inset-x-0 top-[68px] bg-soft border-b border-line shadow-glow transition-transform duration-300 ${
           open ? "translate-y-0" : "-translate-y-[130%]"
         }`}
       >

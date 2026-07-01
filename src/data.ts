@@ -1,19 +1,17 @@
 /* =============================================================================
    data.ts — Conteúdo editável do portfólio (PT/EN)
-   -----------------------------------------------------------------------------
-   Edite APENAS este arquivo para personalizar o portfólio.
-   Os campos marcados com TODO devem ser preenchidos com seus dados reais.
    ========================================================================== */
 
 export type Lang = "pt" | "en";
 export type Localized<T = string> = Record<Lang, T>;
 
 export type SkillStatus = "focus" | "learning" | "exploring";
-export type ProjectStatus = "live" | "in-progress" | "planned" | "future";
 export type TimelineStatus = "done" | "current" | "planned";
 export type IconName =
   | "layout" | "server" | "database" | "tools" | "blocks"
-  | "rocket" | "trending" | "target";
+  | "rocket" | "trending" | "target"
+  | "kanban" | "signature" | "gift" | "bolt" | "gauge" | "shield"
+  | "repeat" | "sparkles" | "layers" | "plug" | "users" | "briefcase" | "lock";
 
 export interface SkillGroup {
   icon: IconName;
@@ -21,19 +19,24 @@ export interface SkillGroup {
   status: SkillStatus;
   items: string[];
 }
-export interface Project {
-  featured: boolean;
-  status: ProjectStatus;
-  title: Localized;
-  description: Localized;
-  tech: string[];
-  links: { repo: string; demo: string };
+export interface ExperienceItem {
+  company: string;
+  role: Localized;
+  type: Localized;
+  period: Localized;
+  location: Localized;
+  current: boolean;
+  bullets: Localized<string[]>;
 }
 export interface TimelineItem {
   period: Localized;
   status: TimelineStatus;
   title: Localized;
   description: Localized;
+}
+export interface Language {
+  name: Localized;
+  level: Localized;
 }
 export interface Goal {
   icon: IconName;
@@ -51,56 +54,65 @@ export interface PortfolioData {
     location: Localized;
     available: boolean;
   };
-  links: { github: string; linkedin: string; email: string; resume: string };
+  links: { github: string; linkedin: string; instagram: string; email: string; resume: string };
   hero: { tagline: Localized };
-  about: { paragraphs: Localized<string[]>; stats: { value: string; label: Localized }[] };
+  about: {
+    paragraphs: Localized<string[]>;
+    stats: { value: string; label: Localized }[];
+    languages: Language[];
+  };
   skillGroups: SkillGroup[];
-  projects: Project[];
+  experience: ExperienceItem[];
   timeline: TimelineItem[];
   goals: Goal[];
 }
 
 export const DATA: PortfolioData = {
   profile: {
-    name: "Augusto Silva", // TODO: confirme seu sobrenome completo
+    name: "Augusto Silva",
     initials: "AS",
-    role: { pt: "Desenvolvedor Web", en: "Web Developer" },
-    focus: { pt: "Frontend · Backend · Web3", en: "Frontend · Backend · Web3" },
-    location: { pt: "Brasil", en: "Brazil" },
+    role: { pt: "Desenvolvedor Full Stack", en: "Full Stack Developer" },
+    focus: { pt: "Frontend · Backend · Automação de Sistemas", en: "Frontend · Backend · Systems Automation" },
+    location: { pt: "Santo Estêvão, BA · Brasil", en: "Santo Estêvão, BA · Brazil" },
     available: true,
   },
 
   links: {
-    github: "https://github.com/AugustoCASAC",
-    linkedin: "", // TODO: cole a URL do seu LinkedIn
+    github: "https://github.com/GuguPx",
+    linkedin: "https://www.linkedin.com/in/augusto-px-silva/",
+    instagram: "https://www.instagram.com/auugusto.px/",
     email: "augustopxsilva@gmail.com",
-    resume: "", // TODO: link para currículo em PDF (opcional)
+    resume: "",
   },
 
   hero: {
     tagline: {
-      pt: "Construindo soluções web modernas com foco em boas práticas, aprendizado contínuo e tecnologias emergentes.",
-      en: "Building modern web solutions with a focus on best practices, continuous learning, and emerging technologies.",
+      pt: "Desenvolvedor Full Stack na Power Telecom. Construo sistemas internos, automações e integrações que sustentam a operação — de gestão de contratos e controle de estoque a relatórios e disparo de mensagens.",
+      en: "Full Stack Developer at Power Telecom. I build internal systems, automations, and integrations that keep operations running — from contract management and inventory control to reports and messaging.",
     },
   },
 
   about: {
     paragraphs: {
       pt: [
-        "Sou um desenvolvedor em formação apaixonado por transformar ideias em produtos digitais. Meu foco está no desenvolvimento web — do frontend ao backend — com atenção a código limpo, documentação clara e experiência do usuário.",
-        "Estou construindo um portfólio de projetos práticos: interfaces responsivas, consumo de APIs, APIs REST com banco de dados e, futuramente, aplicações full stack completas com autenticação e deploy.",
-        "Também acompanho de perto o ecossistema Web3 (Rust, Solana e contratos inteligentes), que mantenho como trilha de diferenciação à medida que consolido os fundamentos de engenharia de software.",
+        "Sou Desenvolvedor Full Stack na Power Telecom, onde construo aplicações web com React e Node.js e sistemas internos que automatizam processos das áreas comercial, financeira e de RH.",
+        "Já entreguei sistemas em produção como gestão de contratos (cancelamento, renovação e contratos padrão), gerenciamento de estoque da matriz e uma plataforma estilo SaaS para gestão de colaboradores — além de ferramentas de relatórios de inadimplência, controle de instalações e disparo automatizado de mensagens para clientes.",
+        "Também atuo na integração e suporte com plataformas externas (IXC Soft e OPA Suite) e no gerenciamento básico de servidores e infraestrutura. Curso Engenharia de Software na Estácio, aprofundando arquitetura, análise de sistemas e boas práticas de engenharia.",
       ],
       en: [
-        "I'm a developer in training, passionate about turning ideas into digital products. My focus is web development — from frontend to backend — with attention to clean code, clear documentation, and user experience.",
-        "I'm building a portfolio of hands-on projects: responsive interfaces, API consumption, REST APIs with databases, and soon full stack applications with authentication and deployment.",
-        "I also follow the Web3 ecosystem closely (Rust, Solana, and smart contracts), keeping it as a differentiation track while I consolidate my software engineering fundamentals.",
+        "I'm a Full Stack Developer at Power Telecom, where I build web applications with React and Node.js and internal systems that automate sales, finance, and HR processes.",
+        "I've shipped production systems such as contract management (cancellation, renewal, and standard contracts), headquarters inventory management, and a SaaS-style platform for employee management — plus tools for overdue-payment reports, installation tracking, and automated customer messaging.",
+        "I also handle integration and support with external platforms (IXC Soft and OPA Suite) and basic server and infrastructure management. I'm pursuing a Software Engineering degree at Estácio, deepening architecture, systems analysis, and engineering best practices.",
       ],
     },
     stats: [
-      { value: "5+", label: { pt: "Projetos no roadmap", en: "Roadmap projects" } },
-      { value: "15+", label: { pt: "Tecnologias estudadas", en: "Technologies studied" } },
-      { value: "100%", label: { pt: "Foco em evolução", en: "Focused on growth" } },
+      { value: "8 meses", label: { pt: "Na Power Telecom", en: "At Power Telecom" } },
+      { value: "6+", label: { pt: "Sistemas internos entregues", en: "Internal systems shipped" } },
+      { value: "C2", label: { pt: "Inglês avançado", en: "Advanced English" } },
+    ],
+    languages: [
+      { name: { pt: "Português", en: "Portuguese" }, level: { pt: "Nativo / Fluente", en: "Native / Fluent" } },
+      { name: { pt: "Inglês", en: "English" }, level: { pt: "Avançado (C2)", en: "Advanced (C2)" } },
     ],
   },
 
@@ -109,145 +121,120 @@ export const DATA: PortfolioData = {
       icon: "layout",
       title: { pt: "Frontend", en: "Frontend" },
       status: "focus",
-      items: ["HTML", "CSS", "SCSS", "JavaScript", "TypeScript", "React", "Tailwind CSS", "Bootstrap", "Responsividade"],
+      items: ["HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Tailwind CSS", "Bootstrap", "Responsividade"],
     },
     {
       icon: "server",
-      title: { pt: "Backend", en: "Backend" },
-      status: "learning",
-      items: ["Node.js", "Express", "NestJS", "APIs REST", "Java", "Spring Boot", "C#", ".NET"],
+      title: { pt: "Backend & APIs", en: "Backend & APIs" },
+      status: "focus",
+      items: ["Node.js", "Express", "APIs REST", "Autenticação JWT", "Automação de processos", "Integrações"],
     },
     {
       icon: "database",
       title: { pt: "Banco de Dados", en: "Databases" },
       status: "learning",
-      items: ["SQL", "PostgreSQL", "MySQL", "Modelagem", "Migrations"],
+      items: ["SQL", "MySQL", "Modelagem de dados", "Relatórios"],
     },
     {
       icon: "tools",
-      title: { pt: "Ferramentas", en: "Tools" },
+      title: { pt: "Ferramentas & Sistemas", en: "Tools & Systems" },
       status: "focus",
-      items: ["Git", "GitHub", "VS Code", "Vercel", "Netlify", "Swagger", "Jest"],
+      items: ["Git", "GitHub", "VS Code", "Docker", "IXC Soft", "OPA Suite", "Servidores & Infra"],
     },
     {
-      icon: "blocks",
-      title: { pt: "Blockchain & Web3", en: "Blockchain & Web3" },
-      status: "exploring",
-      items: ["Rust", "Solana", "Substrate", "Smart Contracts", "Criptografia", "Web3"],
+      icon: "bolt",
+      title: { pt: "Automação", en: "Automation" },
+      status: "focus",
+      items: ["Node.js", "TypeScript", "node-cron", "PM2", "Winston", "p-limit", "Axios"],
+    },
+    {
+      icon: "plug",
+      title: { pt: "Integrações", en: "Integrations" },
+      status: "focus",
+      items: ["IXC Soft", "Google Sheets", "WhatsApp", "OPA Suite", "ZapSign", "APIs REST"],
+    },
+    {
+      icon: "sparkles",
+      title: { pt: "IA & Produtividade", en: "AI & Productivity" },
+      status: "focus",
+      items: ["Claude Code", "ChatGPT", "Prompts técnicos", "Skills/checklists"],
     },
   ],
 
-  projects: [
+  experience: [
     {
-      featured: true,
-      status: "in-progress",
-      title: { pt: "Portfólio Pessoal", en: "Personal Portfolio" },
-      description: {
-        pt: "Site responsivo (este!) com perfil, stack, projetos e contato. Construído em React, TypeScript e Tailwind CSS, bilíngue e com tema claro/escuro.",
-        en: "Responsive site (this one!) with profile, stack, projects, and contact. Built with React, TypeScript, and Tailwind CSS, bilingual and with light/dark theme.",
+      company: "Power Telecom",
+      role: { pt: "Desenvolvedor Júnior", en: "Junior Developer" },
+      type: { pt: "Tempo integral", en: "Full-time" },
+      period: { pt: "fev 2026 — Atual · 5 meses", en: "Feb 2026 — Present · 5 mos" },
+      location: { pt: "Santo Estêvão, BA · Presencial", en: "Santo Estêvão, BA · On-site" },
+      current: true,
+      bullets: {
+        pt: [
+          "Desenvolvimento de aplicações web utilizando React e Node.js.",
+          "Criação de sistemas internos para automação de processos (comercial, financeiro e RH).",
+          "Ferramentas para geração de relatórios de inadimplência, controle de instalações e disparo de mensagens automatizadas para clientes.",
+          "Implementação de sistema web para gestão de contratos (cancelamento, renovação e contratos padrão).",
+          "Desenvolvimento de sistema de gerenciamento de estoque (matriz).",
+          "Criação de sistema interno para gestão de colaboradores (estilo SaaS).",
+          "Integração e suporte com sistemas externos como IXC Soft e OPA Suite.",
+          "Manutenção e suporte em automações e sistemas internos.",
+          "Gerenciamento básico de servidores e suporte a infraestrutura.",
+        ],
+        en: [
+          "Developed web applications using React and Node.js.",
+          "Built internal systems for process automation (sales, finance, and HR).",
+          "Created tools for overdue-payment reports, installation tracking, and automated customer messaging.",
+          "Implemented a web system for contract management (cancellation, renewal, and standard contracts).",
+          "Developed an inventory management system for headquarters.",
+          "Built an internal SaaS-style system for employee management.",
+          "Integration and support with external systems such as IXC Soft and OPA Suite.",
+          "Maintenance and support of automations and internal systems.",
+          "Basic server management and infrastructure support.",
+        ],
       },
-      tech: ["React", "TypeScript", "Tailwind", "Vite"],
-      links: { repo: "https://github.com/AugustoCASAC", demo: "" },
     },
     {
-      featured: true,
-      status: "planned",
-      title: { pt: "Dashboard de Consumo de API", en: "API Dashboard" },
-      description: {
-        pt: "Aplicação que consome uma API pública, trata estados de carregamento e erro, e exibe dados em cards e gráficos com filtros e paginação.",
-        en: "App that consumes a public API, handles loading and error states, and displays data in cards and charts with filtering and pagination.",
+      company: "Power Telecom",
+      role: { pt: "Suporte Técnico N1", en: "Tier 1 Technical Support" },
+      type: { pt: "Estágio", en: "Internship" },
+      period: { pt: "nov 2025 — fev 2026 · 4 meses", en: "Nov 2025 — Feb 2026 · 4 mos" },
+      location: { pt: "Santo Estêvão, BA", en: "Santo Estêvão, BA" },
+      current: false,
+      bullets: {
+        pt: [
+          "Atendimento ao cliente por telefone, e-mail e mensagens, prestando assistência técnica e suporte a produtos e serviços.",
+          "Resolução de problemas simples: reset de senhas, configuração de contas, orientações de uso e conectividade.",
+          "Encaminhamento de casos mais complexos para níveis de suporte mais elevados ou equipes especializadas.",
+          "Treinamento básico de usuários sobre o uso de sistemas, softwares e aplicativos.",
+        ],
+        en: [
+          "Customer support by phone, email, and messages, providing technical assistance for products and services.",
+          "Resolving simple issues: password resets, account setup, usage guidance, and connectivity.",
+          "Escalating more complex cases to higher support tiers or specialized teams.",
+          "Basic user training on how to use systems, software, and applications.",
+        ],
       },
-      tech: ["React", "TypeScript", "API REST", "Tailwind"],
-      links: { repo: "", demo: "" },
-    },
-    {
-      featured: true,
-      status: "planned",
-      title: { pt: "API REST de Tarefas", en: "Tasks REST API" },
-      description: {
-        pt: "Backend funcional com CRUD completo, persistência em banco relacional, validação, autenticação e documentação com Swagger.",
-        en: "Functional backend with full CRUD, relational database persistence, validation, authentication, and Swagger documentation.",
-      },
-      tech: ["Node.js", "Express", "PostgreSQL", "Swagger", "Jest"],
-      links: { repo: "", demo: "" },
-    },
-    {
-      featured: false,
-      status: "planned",
-      title: { pt: "Sistema Full Stack", en: "Full Stack System" },
-      description: {
-        pt: "Produto completo unindo frontend, backend, banco de dados e autenticação JWT, resolvendo uma rotina real (tarefas, finanças ou CRM).",
-        en: "Complete product joining frontend, backend, database, and JWT authentication, solving a real routine (tasks, finance, or CRM).",
-      },
-      tech: ["React", "Node.js", "PostgreSQL", "JWT", "Docker"],
-      links: { repo: "", demo: "" },
-    },
-    {
-      featured: false,
-      status: "future",
-      title: { pt: "PoC Web3 em Testnet", en: "Web3 PoC on Testnet" },
-      description: {
-        pt: "Demonstração em testnet com contrato simples, integração de carteira e documentação de arquitetura e riscos de segurança.",
-        en: "Testnet demo with a simple contract, wallet integration, and documentation of architecture and security risks.",
-      },
-      tech: ["Rust", "Solana", "Smart Contracts", "Web3"],
-      links: { repo: "", demo: "" },
     },
   ],
 
   timeline: [
     {
-      period: { pt: "Início", en: "Start" },
-      status: "done",
-      title: { pt: "Primeiros passos na tecnologia", en: "First steps in tech" },
-      description: {
-        pt: "Despertar do interesse por programação, sistemas e lógica, e início dos estudos em desenvolvimento web.",
-        en: "Sparked interest in programming, systems, and logic, and started studying web development.",
-      },
-    },
-    {
-      period: { pt: "2026 · Atual", en: "2026 · Now" },
+      period: { pt: "jul 2025 — jul 2029", en: "Jul 2025 — Jul 2029" },
       status: "current",
-      title: { pt: "Organização do portfólio profissional", en: "Building the professional portfolio" },
+      title: { pt: "Estácio — Engenharia de Software", en: "Estácio — Software Engineering" },
       description: {
-        pt: "Estruturação da identidade profissional, da stack e dos primeiros projetos demonstráveis.",
-        en: "Structuring professional identity, tech stack, and the first showcaseable projects.",
+        pt: "Bacharelado em Engenharia de Software, com ênfase em análise de dados (Data Analysis) e habilidades analíticas.",
+        en: "Bachelor's in Software Engineering, with emphasis on Data Analysis and analytical skills.",
       },
     },
     {
-      period: { pt: "Próx. 3 meses", en: "Next 3 months" },
-      status: "planned",
-      title: { pt: "Portfólio público v1", en: "Public portfolio v1" },
+      period: { pt: "dez 2024 — dez 2025", en: "Dec 2024 — Dec 2025" },
+      status: "done",
+      title: { pt: "DevQuest — Desenvolvimento Front-End", en: "DevQuest — Front-End Development" },
       description: {
-        pt: "Site pessoal no ar, GitHub organizado e o primeiro projeto com deploy online.",
-        en: "Live personal site, organized GitHub, and the first deployed project.",
-      },
-    },
-    {
-      period: { pt: "Próx. 6 meses", en: "Next 6 months" },
-      status: "planned",
-      title: { pt: "Projeto full stack v1", en: "Full stack project v1" },
-      description: {
-        pt: "Aplicação completa: frontend + backend + banco + autenticação + deploy.",
-        en: "Complete application: frontend + backend + database + authentication + deploy.",
-      },
-    },
-    {
-      period: { pt: "12 meses", en: "12 months" },
-      status: "planned",
-      title: { pt: "Entrada no mercado", en: "Entering the market" },
-      description: {
-        pt: "Candidaturas para vagas júnior apresentando projetos com narrativa profissional.",
-        en: "Applying for junior roles, presenting projects with a professional narrative.",
-      },
-    },
-    {
-      period: { pt: "1–3 anos", en: "1–3 years" },
-      status: "planned",
-      title: { pt: "Especialização", en: "Specialization" },
-      description: {
-        pt: "Aprofundar uma trilha forte: full stack, backend ou Web3, com testes, cloud e CI/CD.",
-        en: "Deepen a strong track: full stack, backend, or Web3, with testing, cloud, and CI/CD.",
+        pt: "Formação completa em Front-End (Dev em Dobro), com projetos práticos, desenvolvimento e suporte contínuo.",
+        en: "Complete Front-End program (Dev em Dobro), with hands-on projects, development, and ongoing support.",
       },
     },
   ],
@@ -259,14 +246,14 @@ export const DATA: PortfolioData = {
       horizon: { pt: "Próximos 12 meses", en: "Next 12 months" },
       items: {
         pt: [
-          "Consolidar HTML, CSS, JavaScript, TypeScript, Git e APIs REST",
-          "Publicar 3 projetos com README, deploy e código no GitHub",
-          "Conquistar uma posição de estágio ou desenvolvedor júnior",
+          "Consolidar a atuação como Desenvolvedor Full Stack, assumindo módulos completos",
+          "Aprofundar testes automatizados, Docker e boas práticas de arquitetura",
+          "Publicar projetos pessoais no GitHub e contribuir com a comunidade",
         ],
         en: [
-          "Consolidate HTML, CSS, JavaScript, TypeScript, Git, and REST APIs",
-          "Publish 3 projects with README, deploy, and code on GitHub",
-          "Land an internship or junior developer position",
+          "Consolidate my role as a Full Stack Developer, owning complete modules",
+          "Deepen automated testing, Docker, and architecture best practices",
+          "Publish personal projects on GitHub and contribute to the community",
         ],
       },
     },
@@ -276,14 +263,14 @@ export const DATA: PortfolioData = {
       horizon: { pt: "1 a 3 anos", en: "1 to 3 years" },
       items: {
         pt: [
-          "Atuar profissionalmente em projetos reais e em equipe",
-          "Aprofundar uma trilha: full stack, backend ou frontend",
-          "Aprender testes, cloud, CI/CD e arquitetura de aplicações",
+          "Evoluir para uma posição plena com responsabilidade sobre produtos inteiros",
+          "Implementar e manter pipelines de CI/CD e infraestrutura como código",
+          "Liderar tecnicamente o desenvolvimento de features em equipe ágil",
         ],
         en: [
-          "Work professionally on real, team-based projects",
-          "Deepen a track: full stack, backend, or frontend",
-          "Learn testing, cloud, CI/CD, and application architecture",
+          "Grow into a mid-level role with ownership of entire products",
+          "Implement and maintain CI/CD pipelines and infrastructure as code",
+          "Technically lead feature development in an agile team",
         ],
       },
     },
@@ -293,13 +280,13 @@ export const DATA: PortfolioData = {
       horizon: { pt: "3 a 10 anos", en: "3 to 10 years" },
       items: {
         pt: [
-          "Evoluir para Desenvolvedor Pleno/Sênior ou Eng. de Software",
-          "Dominar sistemas escaláveis, segurança e performance",
-          "Construir marca profissional com entregas verificáveis",
+          "Arquitetar sistemas de alta disponibilidade e escala",
+          "Atuar como Tech Lead ou Arquiteto de Soluções em projetos estratégicos",
+          "Construir uma marca profissional com entregas verificáveis",
         ],
         en: [
-          "Grow into a Mid/Senior Developer or Software Engineer",
-          "Master scalable systems, security, and performance",
+          "Architect high-availability, high-scale systems",
+          "Work as a Tech Lead or Solutions Architect on strategic projects",
           "Build a professional brand with verifiable deliverables",
         ],
       },
