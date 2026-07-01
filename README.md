@@ -99,7 +99,7 @@ Build estático — publique a pasta `dist/` (`npm run build`).
 - **Vercel / Netlify** — conecte o repositório; *build* `npm run build`, *output* `dist`. Configure a env `VITE_WEB3FORMS_KEY`.
 - **GitHub Pages** — descomente `base: "/Meu-Portfolio/"` em `vite.config.ts` e publique `dist/`.
 
-> Após o deploy, troque `https://augusto-silva.vercel.app` pela URL real em: `index.html` (meta/JSON-LD), `public/robots.txt` e `public/sitemap.xml`.
+> A URL pública (`https://portfolioaugusto.vercel.app`) está configurada em `index.html` (meta/JSON-LD), `public/robots.txt` e `public/sitemap.xml`. Se mudar de domínio, atualize nesses três arquivos.
 
 ## ✅ Checklist antes de publicar
 

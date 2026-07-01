@@ -6,4 +6,4 @@
 export const WEB3FORMS_KEY: string = import.meta.env.VITE_WEB3FORMS_KEY ?? "";
 
 // URL pública do site (usada em mensagens; meta tags ficam no index.html).
-export const SITE_URL: string = import.meta.env.VITE_SITE_URL ?? "https://augusto-silva.vercel.app";
+export const SITE_URL: string = import.meta.env.VITE_SITE_URL ?? "https://portfolioaugusto.vercel.app";
