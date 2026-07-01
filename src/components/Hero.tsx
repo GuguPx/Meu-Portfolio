@@ -33,7 +33,7 @@ export function Hero() {
         )}
 
         <p className="hero-in text-muted font-medium tracking-wide text-[1.02rem]" style={inDelay()}>{t("hero.greeting")}</p>
-        <h1 className="hero-in text-gradient text-[clamp(3rem,9vw,6rem)] font-extrabold leading-[0.95] tracking-[-0.03em] mt-2 mb-4" style={inDelay()}>
+        <h1 className="hero-in text-fg text-[clamp(3rem,9vw,6rem)] font-extrabold leading-[0.95] tracking-[-0.03em] mt-2 mb-4" style={inDelay()}>
           {profile.name}
         </h1>
 

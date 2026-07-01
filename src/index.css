@@ -119,10 +119,13 @@
     @apply w-full max-w-content mx-auto px-[clamp(1.25rem,4vw,2.25rem)];
   }
 
-  /* Título — realce monocromático elegante (nunca colorido/chamativo) */
+  /* Título — realce monocromático elegante (nunca colorido/chamativo).
+     font-smoothing forçado evita serrilhado do texto recortado (background-clip). */
   .text-gradient {
     @apply bg-clip-text text-transparent;
     background-image: var(--grad-title);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   /* Superfície de acento — cor ÚNICA do tema (sem gradiente colorido) */
   .bg-grad {
