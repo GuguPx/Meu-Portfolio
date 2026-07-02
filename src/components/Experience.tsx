@@ -1,6 +1,6 @@
 import { DATA } from "../data";
 import { useI18n } from "../context/LanguageContext";
-import { IconBriefcase } from "../icons";
+import { IconBriefcase, IconCheck, IconPlug } from "../icons";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
@@ -48,6 +48,27 @@ export function Experience() {
               </div>
             </Reveal>
           ))}
+
+          {/* Diferencial de domínio: vivência com fluxos operacionais de provedores */}
+          <Reveal className="card p-[clamp(1.3rem,3vw,2rem)] border-brand/30 bg-brand/5">
+            <div className="flex items-start gap-4">
+              <span className="grid place-items-center w-12 h-12 rounded-xl bg-brand/15 text-brand-2 shrink-0">
+                <IconPlug size={22} />
+              </span>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-[1.18rem] font-bold">{t("experience.ispTitle")}</h3>
+                <p className="mt-2 text-muted text-[0.93rem] leading-relaxed">{pick(DATA.ispDomain.intro)}</p>
+                <ul className="mt-4 grid gap-x-6 gap-y-2 sm:grid-cols-2">
+                  {pick(DATA.ispDomain.items).map((item) => (
+                    <li key={item} className="flex gap-2.5 text-muted text-[0.9rem] leading-snug">
+                      <IconCheck size={16} className="mt-0.5 shrink-0 text-ok" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

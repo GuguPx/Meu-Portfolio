@@ -86,6 +86,47 @@ export const PRINCIPLES: Principle[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
+/*  Método de trabalho — "Como transformo problemas em sistemas"               */
+/* -------------------------------------------------------------------------- */
+
+export interface MethodStep {
+  title: Localized;
+  text: Localized;
+}
+
+export const WORK_METHOD_INTRO: Localized = {
+  pt: "Antes de implementar, busco entender o fluxo real, as dores de quem usa e as restrições do ambiente. A partir disso, organizo interface, dados e integrações para criar sistemas claros, rastreáveis e fáceis de manter.",
+  en: "Before implementing, I seek to understand the real flow, users' pain points, and the environment's constraints. From there, I organize interface, data, and integrations to build systems that are clear, traceable, and easy to maintain.",
+};
+
+export const WORK_METHOD: MethodStep[] = [
+  {
+    title: { pt: "Entender a regra de negócio", en: "Understand the business rule" },
+    text: { pt: "Converso com quem usa e mapeio o fluxo atual antes de escrever código.", en: "I talk to users and map the current flow before writing code." },
+  },
+  {
+    title: { pt: "Modelar dados e integrações", en: "Model data and integrations" },
+    text: { pt: "Defino entidades, contratos de API e pontos de integração (ex.: ERP, planilhas, mensageria).", en: "I define entities, API contracts, and integration points (e.g., ERP, spreadsheets, messaging)." },
+  },
+  {
+    title: { pt: "Implementar de ponta a ponta", en: "Implement end to end" },
+    text: { pt: "Frontend e backend com estados de loading/erro/vazio, validação e tratamento de erro.", en: "Frontend and backend with loading/error/empty states, validation, and error handling." },
+  },
+  {
+    title: { pt: "Validar com quem usa", en: "Validate with real users" },
+    text: { pt: "Testo com a equipe que vai usar, ajusto o fluxo e trato os casos reais que aparecem.", en: "I test with the team who will use it, adjust the flow, and handle the real cases that show up." },
+  },
+  {
+    title: { pt: "Documentar e implantar", en: "Document and deploy" },
+    text: { pt: "Documentação objetiva, deploy e logs para rastrear o que acontece em produção.", en: "Clear documentation, deployment, and logs to trace what happens in production." },
+  },
+  {
+    title: { pt: "Melhorar continuamente", en: "Improve continuously" },
+    text: { pt: "Refatoro com apoio de IA e revisão humana, mantendo o sistema fácil de evoluir.", en: "I refactor with AI support and human review, keeping the system easy to evolve." },
+  },
+];
+
+/* -------------------------------------------------------------------------- */
 /*  Uso consciente de IA                                                       */
 /* -------------------------------------------------------------------------- */
 

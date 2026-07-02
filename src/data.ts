@@ -63,6 +63,8 @@ export interface PortfolioData {
   };
   skillGroups: SkillGroup[];
   experience: ExperienceItem[];
+  /** Vivência com fluxos operacionais de provedores (diferencial de domínio). */
+  ispDomain: { intro: Localized; items: Localized<string[]> };
   timeline: TimelineItem[];
   goals: Goal[];
 }
@@ -88,8 +90,8 @@ export const DATA: PortfolioData = {
 
   hero: {
     tagline: {
-      pt: "Desenvolvedor Full Stack na Power Telecom. Construo sistemas internos, automações e integrações que sustentam a operação — de gestão de contratos e controle de estoque a relatórios e disparo de mensagens.",
-      en: "Full Stack Developer at Power Telecom. I build internal systems, automations, and integrations that keep operations running — from contract management and inventory control to reports and messaging.",
+      pt: "Desenvolvedor Full Stack na Power Telecom. Construo sistemas internos, automações e integrações que sustentam a operação de um provedor de internet — de CRM, contratos e estoque a relatórios de cobrança e disparo de mensagens.",
+      en: "Full Stack Developer at Power Telecom. I build internal systems, automations, and integrations that keep an internet provider's operation running — from CRM, contracts, and inventory to billing reports and messaging.",
     },
   },
 
@@ -218,6 +220,35 @@ export const DATA: PortfolioData = {
       },
     },
   ],
+
+  ispDomain: {
+    intro: {
+      pt: "Trabalho todos os dias dentro da operação de um provedor de internet. Essa vivência me faz desenvolver soluções mais próximas da realidade operacional — entendo o fluxo antes de escrever a primeira linha de código.",
+      en: "I work inside an internet provider's operation every day. That experience helps me build solutions closer to operational reality — I understand the flow before writing the first line of code.",
+    },
+    items: {
+      pt: [
+        "Leads, prospecção e funil comercial",
+        "Contratos e assinatura digital",
+        "Ordens de serviço e instalações",
+        "Cobrança e inadimplência",
+        "Relatórios e dashboards operacionais",
+        "Integração com ERP de provedor (IXC) e atendimento (OPA)",
+        "Automação de rotinas repetitivas",
+        "Interfaces mobile-first para equipes externas",
+      ],
+      en: [
+        "Leads, prospecting, and sales funnel",
+        "Contracts and digital signing",
+        "Service orders and installations",
+        "Billing and overdue payments",
+        "Operational reports and dashboards",
+        "Integration with ISP ERP (IXC) and support desk (OPA)",
+        "Automation of repetitive routines",
+        "Mobile-first interfaces for field teams",
+      ],
+    },
+  },
 
   timeline: [
     {
