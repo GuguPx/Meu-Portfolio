@@ -19,8 +19,9 @@
     <!-- ===== SEO básico =====
          URL pública do site (deve corresponder ao deploy):
          usada em og:url/twitter, canonical, JSON-LD, robots.txt e sitemap.xml -->
-    <title>Augusto Silva | Desenvolvedor Full Stack — React, Node.js & Automações</title>
-    <meta name="description" content="Portfólio de Augusto Silva — Desenvolvedor Full Stack na Power Telecom. Sistemas internos, automações e integrações com React, TypeScript e Node.js. Experiência, projetos e formação." />
+    <!-- Title ≤60 chars e description ≤150 chars (evita truncamento no Google) -->
+    <title>Augusto Silva | Desenvolvedor Full Stack · React & Node.js</title>
+    <meta name="description" content="Desenvolvedor Full Stack na Power Telecom. Sistemas internos, automações e integrações com React, TypeScript e Node.js. Veja projetos reais." />
     <meta name="author" content="Augusto Silva" />
     <meta name="keywords" content="Augusto Silva, desenvolvedor full stack, frontend, backend, React, TypeScript, Node.js, APIs REST, automação, sistemas internos, portfólio, CRM, IXC Soft, bots, ETL, Google Sheets, assinatura digital, integrações" />
     <meta name="robots" content="index, follow" />
@@ -35,7 +36,9 @@
     <meta property="og:description" content="Projetos corporativos com atuação em frontend React/TypeScript, integrações IXC e bots de automação em Node.js." />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:url" content="https://portfolioaugusto.vercel.app/" />
-    <meta property="og:image" content="https://portfolioaugusto.vercel.app/og-image.png" />
+    <!-- ?v=2 fura o cache dos scrapers (WhatsApp/LinkedIn/FB) após trocar a arte.
+         Se atualizar a imagem de novo, incremente para ?v=3. -->
+    <meta property="og:image" content="https://portfolioaugusto.vercel.app/og-image.png?v=2" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Augusto Silva — Desenvolvedor Full Stack" />
@@ -44,7 +47,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Augusto Silva | Desenvolvedor Full Stack" />
     <meta name="twitter:description" content="Frontend · Backend · Automação de Sistemas. Experiência, projetos e formação profissional." />
-    <meta name="twitter:image" content="https://portfolioaugusto.vercel.app/og-image.png" />
+    <meta name="twitter:image" content="https://portfolioaugusto.vercel.app/og-image.png?v=2" />
 
     <!-- ===== Ícones / PWA ===== -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
