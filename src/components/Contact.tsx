@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { DATA } from "../data";
 import { WEB3FORMS_KEY } from "../config";
 import { useI18n } from "../context/LanguageContext";
-import { IconGitHub, IconInstagram, IconLinkedIn, IconMail } from "../icons";
+import { IconDownload, IconGitHub, IconInstagram, IconLinkedIn, IconMail } from "../icons";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
@@ -21,7 +21,7 @@ type Note = { msg: string; ok: boolean } | null;
 
 export function Contact() {
   const { t, lang } = useI18n();
-  const { email, github, linkedin, instagram } = DATA.links;
+  const { email, github, linkedin, instagram, resume } = DATA.links;
   const [note, setNote] = useState<Note>(null);
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormValues>({
@@ -79,6 +79,8 @@ export function Contact() {
     github && { href: github, label: t("label.github"), sub: stripProto(github), Icon: IconGitHub, external: true },
     linkedin && { href: linkedin, label: t("label.linkedin"), sub: stripProto(linkedin), Icon: IconLinkedIn, external: true },
     instagram && { href: instagram, label: t("label.instagram"), sub: stripProto(instagram), Icon: IconInstagram, external: true },
+    // Só aparece quando houver PDF real em DATA.links.resume
+    resume && { href: resume, label: t("label.resume"), sub: t("label.resumeNote"), Icon: IconDownload, external: true },
   ].filter(Boolean) as { href: string; label: string; sub: string; Icon: typeof IconMail; external: boolean }[];
 
   const req = lang === "en" ? "This field is required." : "Campo obrigatório.";

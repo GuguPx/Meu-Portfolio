@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 import { useI18n } from "../context/LanguageContext";
 import { ACTUATION_PILLARS, PORTFOLIO_PROJECTS, type PortfolioProject } from "../portfolio";
 import type { StringKey } from "../i18n";
@@ -6,7 +6,12 @@ import { DYNAMIC_ICONS, IconCheck, IconShield } from "../icons";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { PortfolioCard } from "./portfolio/PortfolioCard";
-import { PortfolioModal } from "./portfolio/PortfolioModal";
+
+// Carregado sob demanda: o modal só é necessário após o clique num card,
+// então seu código sai do bundle inicial (React.lazy + import dinâmico).
+const PortfolioModal = lazy(() =>
+  import("./portfolio/PortfolioModal").then((m) => ({ default: m.PortfolioModal }))
+);
 
 interface FilterDef {
   id: string;
@@ -27,6 +32,8 @@ export function Portfolio() {
   const { t, pick } = useI18n();
   const [filter, setFilter] = useState("all");
   const [openSlug, setOpenSlug] = useState<string | null>(null);
+  // Estável entre renders: o efeito do modal (focus trap/ESC) depende de onClose.
+  const closeModal = useCallback(() => setOpenSlug(null), []);
 
   const projects = useMemo(() => {
     const f = FILTERS.find((x) => x.id === filter) ?? FILTERS[0];
@@ -117,7 +124,11 @@ export function Portfolio() {
         </Reveal>
       </div>
 
-      {openProject && <PortfolioModal project={openProject} onClose={() => setOpenSlug(null)} />}
+      {openProject && (
+        <Suspense fallback={null}>
+          <PortfolioModal project={openProject} onClose={closeModal} />
+        </Suspense>
+      )}
     </section>
   );
 }

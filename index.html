@@ -4,22 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Anti-flash de tema: aplica claro/escuro ANTES do primeiro paint
+         (mesma lógica do ThemeContext: preferência salva > sistema > escuro). -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          var dark = t ? t === "dark" : !(window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches);
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- ===== SEO básico =====
          URL pública do site (deve corresponder ao deploy):
          usada em og:url/twitter, canonical, JSON-LD, robots.txt e sitemap.xml -->
-    <title>Augusto Silva — Desenvolvedor Full Stack (React, Node.js & Sistemas)</title>
+    <title>Augusto Silva | Desenvolvedor Full Stack — React, Node.js & Automações</title>
     <meta name="description" content="Portfólio de Augusto Silva — Desenvolvedor Full Stack na Power Telecom. Sistemas internos, automações e integrações com React, TypeScript e Node.js. Experiência, projetos e formação." />
     <meta name="author" content="Augusto Silva" />
     <meta name="keywords" content="Augusto Silva, desenvolvedor full stack, frontend, backend, React, TypeScript, Node.js, APIs REST, automação, sistemas internos, portfólio, CRM, IXC Soft, bots, ETL, Google Sheets, assinatura digital, integrações" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#070a12" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#081316" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f8f8f8" media="(prefers-color-scheme: light)" />
     <link rel="canonical" href="https://portfolioaugusto.vercel.app/" />
 
     <!-- ===== Open Graph ===== -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Augusto Silva — Portfólio" />
-    <meta property="og:title" content="Augusto Silva — Portfólio técnico" />
+    <meta property="og:title" content="Augusto Silva | Desenvolvedor Full Stack" />
     <meta property="og:description" content="Projetos corporativos com atuação em frontend React/TypeScript, integrações IXC e bots de automação em Node.js." />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:url" content="https://portfolioaugusto.vercel.app/" />
@@ -30,7 +42,7 @@
 
     <!-- ===== Twitter ===== -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Augusto Silva — Desenvolvedor Full Stack" />
+    <meta name="twitter:title" content="Augusto Silva | Desenvolvedor Full Stack" />
     <meta name="twitter:description" content="Frontend · Backend · Automação de Sistemas. Experiência, projetos e formação profissional." />
     <meta name="twitter:image" content="https://portfolioaugusto.vercel.app/og-image.png" />
 

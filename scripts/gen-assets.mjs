@@ -1,5 +1,9 @@
 /* Gera ícones PWA/Apple e a imagem Open Graph a partir de SVGs.
-   Uso: node scripts/gen-assets.mjs  (requer sharp como devDependency) */
+   Uso: node scripts/gen-assets.mjs  (requer sharp como devDependency)
+
+   Identidade: marca do grafo de nós (hub + satélites) em areia (#d8cfa3)
+   sobre petróleo (#0e1c20) — a mesma do favicon.svg e do BrandIcon.tsx.
+   Posicionamento: Desenvolvedor Full Stack · Frontend · Backend · Automação. */
 import sharp from "sharp";
 import { mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -8,52 +12,72 @@ import { dirname, join } from "node:path";
 const pub = join(dirname(fileURLToPath(import.meta.url)), "..", "public");
 mkdirSync(pub, { recursive: true });
 
-const GRAD = `
-  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#6366f1"/>
-    <stop offset="0.5" stop-color="#8b5cf6"/>
-    <stop offset="1" stop-color="#22d3ee"/>
-  </linearGradient>`;
+/* ---- Paleta (tokens do tema escuro em src/index.css) ---- */
+const TILE = "#0e1c20";   // fundo do tile da marca (igual ao favicon)
+const SAND = "#d8cfa3";   // acento areia (--c-accent)
+const BG0 = "#081316";    // --c-base (escuro)
+const BG1 = "#0d1b1f";    // --c-soft (escuro)
+const FG = "#f5f7f8";     // --c-fg
+const MUTED = "#b7c3c8";  // --c-muted
+const FAINT = "#77868d";  // --c-faint
 
-// Ícone padrão (cantos arredondados) — para favicon/apple/PWA
+/* Grafo de nós (mesma geometria do favicon.svg, viewBox 64) */
+const GRAPH = `
+  <g stroke="${SAND}" stroke-width="3" stroke-linecap="round">
+    <path d="M32 32 L32 15.5"/>
+    <path d="M32 32 L18 44"/>
+    <path d="M32 32 L46 44"/>
+  </g>
+  <g fill="${SAND}">
+    <circle cx="32" cy="15.5" r="3.6"/>
+    <circle cx="18" cy="44" r="3.6"/>
+    <circle cx="46" cy="44" r="3.6"/>
+    <circle cx="32" cy="32" r="5"/>
+  </g>`;
+
+// Ícone padrão (tile arredondado) — para apple-touch/PWA
 const appIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>${GRAD}</defs>
-  <rect width="64" height="64" rx="14" fill="url(#g)"/>
-  <path d="M20 46 L32 18 L44 46 M24.5 37 H39.5" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="64" height="64" rx="16" fill="${TILE}"/>
+  ${GRAPH}
 </svg>`;
 
-// Ícone maskable (full-bleed, conteúdo na zona segura ~70%)
+// Ícone maskable (full-bleed; grafo reduzido para a zona segura ~70%)
 const maskable = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>${GRAD}</defs>
-  <rect width="64" height="64" fill="url(#g)"/>
-  <path d="M22 43 L32 23 L42 43 M25.6 35.8 H38.4" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="64" height="64" fill="${TILE}"/>
+  <g transform="translate(32 32) scale(0.78) translate(-32 -32)">${GRAPH}</g>
 </svg>`;
 
-// Open Graph 1200x630
+// Open Graph 1200×630 — coerente com o site (petróleo + areia, minimalista)
 const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    ${GRAD}
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0b1020"/>
-      <stop offset="1" stop-color="#11182e"/>
+      <stop offset="0" stop-color="${BG0}"/>
+      <stop offset="1" stop-color="${BG1}"/>
     </linearGradient>
-    <radialGradient id="glow" cx="0.8" cy="0.15" r="0.7">
-      <stop offset="0" stop-color="#6366f1" stop-opacity="0.45"/>
-      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    <radialGradient id="glow" cx="0.85" cy="0.1" r="0.75">
+      <stop offset="0" stop-color="${SAND}" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="${SAND}" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
-  <rect x="88" y="84" width="120" height="120" rx="26" fill="url(#g)"/>
-  <path d="M118 168 L148 100 L178 168 M127 145 H169" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- CTA (botão) — chamada para clique -->
-  <rect x="772" y="102" width="340" height="84" rx="42" fill="url(#g)"/>
-  <text x="942" y="156" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#0b1020">Ver projetos →</text>
-  <text x="88" y="330" font-family="Arial, sans-serif" font-size="92" font-weight="bold" fill="#e8ecf7">Augusto Silva</text>
-  <text x="92" y="408" font-family="Arial, sans-serif" font-size="44" font-weight="bold" fill="#22d3ee">Desenvolvedor Web</text>
-  <text x="92" y="476" font-family="Arial, sans-serif" font-size="34" fill="#9aa6c4">Frontend  ·  Backend  ·  APIs  ·  Web3</text>
-  <rect x="92" y="520" width="1016" height="2" fill="#2a3352"/>
-  <text x="92" y="566" font-family="Arial, sans-serif" font-size="28" fill="#6b7798">React  ·  TypeScript  ·  Tailwind CSS  ·  Node.js</text>
+
+  <!-- Tile da marca -->
+  <g transform="translate(88 84)">
+    <rect width="120" height="120" rx="30" fill="${TILE}"/>
+    <rect x="1.5" y="1.5" width="117" height="117" rx="28.5" fill="none" stroke="${SAND}" stroke-opacity="0.35" stroke-width="3"/>
+    <g transform="scale(1.875)">${GRAPH}</g>
+  </g>
+
+  <!-- CTA (pill) — chamada para clique -->
+  <rect x="802" y="102" width="310" height="84" rx="42" fill="${SAND}"/>
+  <text x="957" y="156" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="bold" fill="${BG0}">Ver projetos →</text>
+
+  <text x="88" y="330" font-family="Arial, sans-serif" font-size="92" font-weight="bold" fill="${FG}">Augusto Silva</text>
+  <text x="92" y="408" font-family="Arial, sans-serif" font-size="44" font-weight="bold" fill="${SAND}">Desenvolvedor Full Stack</text>
+  <text x="92" y="476" font-family="Arial, sans-serif" font-size="34" fill="${MUTED}">Frontend  ·  Backend  ·  Automação de Sistemas</text>
+  <rect x="92" y="520" width="1016" height="2" fill="${FAINT}" fill-opacity="0.35"/>
+  <text x="92" y="566" font-family="Arial, sans-serif" font-size="28" fill="${FAINT}">React  ·  TypeScript  ·  Node.js  ·  Integrações &amp; Automações</text>
 </svg>`;
 
 const buf = (svg) => Buffer.from(svg);

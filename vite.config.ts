@@ -11,6 +11,8 @@ export default defineConfig({
     host: "127.0.0.1",
   },
   build: {
+    // Navegadores modernos (ES2022) → menos transpilação e bundle menor.
+    target: "es2022",
     rollupOptions: {
       output: {
         // Separa bibliotecas de terceiros num chunk com cache de longa duração.

@@ -9,7 +9,7 @@
    - Acessível: por padrão `decorative` (aria-hidden), pois os badges já têm
      texto visível; passe `decorative={false}` para expor `role="img"`+aria-label.
    ========================================================================== */
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 
 interface TechDef {
   label: string;
@@ -283,7 +283,9 @@ interface TechIconProps {
   className?: string;
 }
 
-export function TechIcon({ name, size = 18, decorative = true, className }: TechIconProps) {
+/* memo: há dezenas de instâncias (chips/badges); com props estáveis, trocas de
+   idioma/estado nos pais não reconciliam estas árvores SVG novamente. */
+export const TechIcon = memo(function TechIcon({ name, size = 18, decorative = true, className }: TechIconProps) {
   const def = REGISTRY[normalize(name)];
   const label = def?.label ?? name;
   const color = def?.color ?? "#6366f1";
@@ -296,4 +298,4 @@ export function TechIcon({ name, size = 18, decorative = true, className }: Tech
       {def?.glyph ?? <Lettermark color={color} text={def?.short ?? deriveShort(label)} />}
     </svg>
   );
-}
+});

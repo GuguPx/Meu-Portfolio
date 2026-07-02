@@ -19,12 +19,15 @@ const LINKS: { id: string; key: StringKey }[] = [
   { id: "contact", key: "nav.contact" },
 ];
 
+// Array estável (módulo) — evita recriar o observer do scroll-spy a cada render.
+const SECTION_IDS = LINKS.map((l) => l.id);
+
 export function Navbar() {
   const { t, lang, toggle: toggleLang } = useI18n();
   const { theme, toggle: toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const active = useScrollSpy(LINKS.map((l) => l.id));
+  const active = useScrollSpy(SECTION_IDS);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -35,7 +38,7 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 h-[76px] flex items-center backdrop-blur-xl transition-colors duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 h-[76px] flex items-center backdrop-blur-md lg:backdrop-blur-xl transition-colors duration-300 ${
         scrolled ? "border-b border-line bg-base/80" : "border-b border-transparent bg-base/50"
       }`}
     >

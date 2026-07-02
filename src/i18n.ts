@@ -9,6 +9,7 @@ export const STRINGS = {
     "nav.menu": "Abrir menu", "nav.close": "Fechar menu", "nav.theme": "Alternar tema", "nav.lang": "Mudar idioma",
     "hero.available": "Disponível para oportunidades", "hero.greeting": "Olá, eu sou",
     "hero.ctaProjects": "Ver projetos", "hero.ctaContact": "Entrar em contato", "hero.scroll": "Rolar para baixo",
+    "hero.ctaResume": "Currículo (PDF)",
     "about.kicker": "01 — Sobre", "about.title": "Quem sou", "about.languages": "Idiomas",
     "skills.kicker": "02 — Stack", "skills.title": "Habilidades técnicas",
     "skills.subtitle": "Tecnologias que uso no dia a dia e venho aprofundando.",
@@ -38,6 +39,7 @@ export const STRINGS = {
     "form.sent": "Mensagem enviada! Responderei em breve.",
     "form.error": "Não foi possível enviar. Tente novamente ou use o e-mail direto.",
     "label.email": "E-mail", "label.github": "GitHub", "label.linkedin": "LinkedIn", "label.instagram": "Instagram",
+    "label.resume": "Currículo", "label.resumeNote": "PDF · versão mais recente",
     // Portfólio técnico
     "pf.intro": "Alguns projetos foram desenvolvidos em equipe, com minha participação em frontend, integrações, manutenção e evolução técnica. As automações e bots destacados foram criados para reduzir tarefas manuais e melhorar a operação interna.",
     "pf.pitch": "Atuo no desenvolvimento de soluções internas para provedor de internet, com foco em frontend React/TypeScript, integração com IXC e automações em Node.js. Minha experiência envolve CRMs comerciais, sistemas de assinatura digital, clubes de benefícios e bots que reduzem processos manuais em setores como comercial e cobrança.",
@@ -70,6 +72,7 @@ export const STRINGS = {
     "nav.menu": "Open menu", "nav.close": "Close menu", "nav.theme": "Toggle theme", "nav.lang": "Switch language",
     "hero.available": "Available for opportunities", "hero.greeting": "Hi, I'm",
     "hero.ctaProjects": "View projects", "hero.ctaContact": "Get in touch", "hero.scroll": "Scroll down",
+    "hero.ctaResume": "Resume (PDF)",
     "about.kicker": "01 — About", "about.title": "Who I am", "about.languages": "Languages",
     "skills.kicker": "02 — Stack", "skills.title": "Technical skills",
     "skills.subtitle": "Technologies I use daily and keep deepening.",
@@ -99,6 +102,7 @@ export const STRINGS = {
     "form.sent": "Message sent! I'll reply soon.",
     "form.error": "Couldn't send. Please try again or use the direct email.",
     "label.email": "Email", "label.github": "GitHub", "label.linkedin": "LinkedIn", "label.instagram": "Instagram",
+    "label.resume": "Resume", "label.resumeNote": "PDF · latest version",
     // Technical portfolio
     "pf.intro": "Some projects were built as a team, with my involvement in frontend, integrations, maintenance, and technical evolution. The highlighted automations and bots were created to reduce manual tasks and improve internal operations.",
     "pf.pitch": "I build internal solutions for an internet provider, focused on React/TypeScript frontend, IXC integration, and Node.js automations. My experience spans sales CRMs, digital-signing systems, benefits clubs, and bots that cut manual work in areas like sales and collections.",

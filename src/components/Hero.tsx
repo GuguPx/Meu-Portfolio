@@ -1,6 +1,6 @@
 import { DATA } from "../data";
 import { useI18n } from "../context/LanguageContext";
-import { IconGitHub, IconInstagram, IconLinkedIn, IconMail } from "../icons";
+import { IconDownload, IconGitHub, IconInstagram, IconLinkedIn, IconMail } from "../icons";
 
 export function Hero() {
   const { t, pick } = useI18n();
@@ -47,6 +47,13 @@ export function Hero() {
         <div className="hero-in flex flex-wrap gap-3 justify-center mt-9" style={inDelay()}>
           <a href="#projects" className="btn btn-primary">{t("hero.ctaProjects")}</a>
           <a href="#contact" className="btn btn-ghost">{t("hero.ctaContact")}</a>
+          {/* Renderizado apenas quando houver PDF real em DATA.links.resume */}
+          {links.resume && (
+            <a href={links.resume} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+              <IconDownload size={17} />
+              {t("hero.ctaResume")}
+            </a>
+          )}
         </div>
 
         {socials.length > 0 && (
