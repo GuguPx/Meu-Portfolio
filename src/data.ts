@@ -82,7 +82,8 @@ export const DATA: PortfolioData = {
     linkedin: "https://www.linkedin.com/in/augusto-px-silva/",
     instagram: "https://www.instagram.com/auugusto.px/",
     email: "augustopxsilva@gmail.com",
-    resume: "",
+    // Gerado por scripts/gen-cv.py (npm run gen:cv) — mantenha em sincronia com este arquivo.
+    resume: "/curriculo-augusto-silva.pdf",
   },
 
   hero: {

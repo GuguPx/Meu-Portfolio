@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
-    "gen:assets": "node scripts/gen-assets.mjs"
+    "gen:assets": "node scripts/gen-assets.mjs",
+    "gen:cv": "python scripts/gen-cv.py"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",

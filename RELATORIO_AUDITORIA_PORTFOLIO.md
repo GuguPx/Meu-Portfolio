@@ -87,7 +87,7 @@ SPA em **React 18 + TypeScript + Vite + Tailwind CSS 3**, sem backend (formulár
 - [x] Footer com links sociais (F10)
 
 ### Fase 2 — próximas semanas (estruturais)
-- [ ] **Exportar currículo PDF** e preencher `links.resume` (F3 — conteúdo)
+- [x] **Currículo PDF** gerado (`scripts/gen-cv.py` → `public/curriculo-augusto-silva.pdf`) e `links.resume` preenchido — botão ativo no Hero e no Contato (F3 ✓ 01/07)
 - [ ] Deep-link dos projetos (F6)
 - [ ] Vercel Analytics (F8)
 - [ ] Prints anonimizados nos 3 projetos principais (F7)
