@@ -17,6 +17,8 @@ export interface SkillGroup {
   icon: IconName;
   title: Localized;
   status: SkillStatus;
+  /** Onde a habilidade é aplicada na prática (1 linha, leitura de recrutador). */
+  context: Localized;
   items: string[];
 }
 export interface ExperienceItem {
@@ -124,42 +126,70 @@ export const DATA: PortfolioData = {
       icon: "layout",
       title: { pt: "Frontend", en: "Frontend" },
       status: "focus",
-      items: ["HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Tailwind CSS", "Bootstrap", "Responsividade"],
+      context: {
+        pt: "Interfaces internas responsivas usadas por equipes reais no dia a dia.",
+        en: "Responsive internal interfaces used by real teams every day.",
+      },
+      items: ["React", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap"],
     },
     {
       icon: "server",
       title: { pt: "Backend & APIs", en: "Backend & APIs" },
       status: "focus",
-      items: ["Node.js", "Express", "APIs REST", "Autenticação JWT", "Automação de processos", "Integrações"],
+      context: {
+        pt: "APIs REST que sustentam os sistemas internos e as automações.",
+        en: "REST APIs powering the internal systems and automations.",
+      },
+      items: ["Node.js", "Express", "APIs REST", "Autenticação JWT", "Paginação e filtros"],
     },
     {
       icon: "database",
       title: { pt: "Banco de Dados", en: "Databases" },
       status: "learning",
+      context: {
+        pt: "Modelagem e consultas para relatórios operacionais.",
+        en: "Modeling and queries for operational reports.",
+      },
       items: ["SQL", "MySQL", "Modelagem de dados", "Relatórios"],
     },
     {
       icon: "tools",
-      title: { pt: "Ferramentas & Sistemas", en: "Tools & Systems" },
+      title: { pt: "DevOps & Ferramentas", en: "DevOps & Tools" },
       status: "focus",
-      items: ["Git", "GitHub", "VS Code", "Docker", "IXC Soft", "OPA Suite", "Servidores & Infra"],
+      context: {
+        pt: "Ambiente, versionamento, deploy e operação dos sistemas.",
+        en: "Environment, versioning, deployment, and systems operation.",
+      },
+      items: ["Git", "GitHub", "Docker", "VS Code", "Servidores & Infra"],
     },
     {
       icon: "bolt",
       title: { pt: "Automação", en: "Automation" },
       status: "focus",
-      items: ["Node.js", "TypeScript", "node-cron", "PM2", "Winston", "p-limit", "Axios"],
+      context: {
+        pt: "Bots e rotinas agendadas que eliminam tarefas manuais.",
+        en: "Bots and scheduled routines that eliminate manual tasks.",
+      },
+      items: ["node-cron", "PM2", "Winston", "p-limit", "Axios"],
     },
     {
       icon: "plug",
       title: { pt: "Integrações", en: "Integrations" },
       status: "focus",
-      items: ["IXC Soft", "Google Sheets", "WhatsApp", "OPA Suite", "ZapSign", "APIs REST"],
+      context: {
+        pt: "Conecto o ERP do provedor a planilhas, mensageria e assinatura digital.",
+        en: "I connect the ISP's ERP to spreadsheets, messaging, and digital signing.",
+      },
+      items: ["IXC Soft", "OPA Suite", "Google Sheets", "WhatsApp", "ZapSign"],
     },
     {
       icon: "sparkles",
       title: { pt: "IA & Produtividade", en: "AI & Productivity" },
       status: "focus",
+      context: {
+        pt: "Aceleração com revisão humana e validação técnica obrigatórias.",
+        en: "Acceleration with mandatory human review and technical validation.",
+      },
       items: ["Claude Code", "ChatGPT", "Prompts técnicos", "Skills/checklists"],
     },
   ],
