@@ -114,6 +114,9 @@ export const IconLock = (p: IconProps) => (
 export const IconDownload = (p: IconProps) => (
   <Stroke {...p}><path d="M12 3v11M7 10l5 5 5-5" /><path d="M4 19h16" /></Stroke>
 );
+export const IconLink = (p: IconProps) => (
+  <Stroke {...p}><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7.1-7.1L11.7 5" /><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.6" /></Stroke>
+);
 
 /* Ícones preenchidos (fill) — redes sociais ---------------------------- */
 function Fill({ size = 24, children, ...props }: IconProps & { children: React.ReactNode }) {

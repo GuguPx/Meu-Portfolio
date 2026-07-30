@@ -1,8 +1,9 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useI18n } from "../../context/LanguageContext";
-import { DYNAMIC_ICONS, IconCheck, IconClose } from "../../icons";
+import { DYNAMIC_ICONS, IconCheck, IconClose, IconLink } from "../../icons";
 import type { StringKey } from "../../i18n";
 import type { PortfolioProject } from "../../portfolio";
+import { TechIcon } from "../icons/TechIcon";
 import { CategoryBadge } from "./CategoryBadge";
 import { ProjectMetric } from "./ProjectMetric";
 import { RoleBadge } from "./RoleBadge";
@@ -39,6 +40,21 @@ export function PortfolioModal({ project, onClose }: { project: PortfolioProject
   const dialogRef = useRef<HTMLDivElement>(null);
   const Icon = DYNAMIC_ICONS[project.icon];
   const titleId = `pf-modal-title-${project.slug}`;
+
+  // Copiar deep-link do projeto (para compartilhar o case em candidaturas)
+  const [copied, setCopied] = useState(false);
+  const copyTimer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(copyTimer.current), []);
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(`${location.origin}${location.pathname}#projects/${project.slug}`);
+      setCopied(true);
+      window.clearTimeout(copyTimer.current);
+      copyTimer.current = window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard indisponível (http/permite negada) — sem feedback */
+    }
+  };
 
   useEffect(() => {
     const previouslyFocused = document.activeElement as HTMLElement | null;
@@ -96,15 +112,36 @@ export function PortfolioModal({ project, onClose }: { project: PortfolioProject
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <CategoryBadge category={project.category} />
-              <span className="inline-flex items-center gap-1.5 text-[0.7rem] font-semibold text-muted">
-                <span className="w-1.5 h-1.5 rounded-full bg-ok" /> {t("pf.production")}
-              </span>
+              {project.source === "opensource" && project.repoUrl ? (
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex items-center gap-1.5 text-[0.7rem] font-semibold text-muted transition-colors hover:text-fg"
+                >
+                  <TechIcon name="GitHub" size={14} />
+                  {t("pf.repo")}
+                </a>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 text-[0.7rem] font-semibold text-muted">
+                  <span className="w-1.5 h-1.5 rounded-full bg-ok" /> {t("pf.production")}
+                </span>
+              )}
             </div>
             <h2 id={titleId} className="mt-1 text-[clamp(1.2rem,3.5vw,1.4rem)] font-bold leading-tight">
               {project.title}
             </h2>
             <p className="text-[0.82rem] text-brand-2 font-mono">{pick(project.companyContext)}</p>
           </div>
+          <button
+            type="button"
+            onClick={copyLink}
+            aria-label={copied ? t("pf.copied") : t("pf.copyLink")}
+            title={copied ? t("pf.copied") : t("pf.copyLink")}
+            className="btn-icon shrink-0"
+          >
+            {copied ? <IconCheck size={18} className="text-ok" /> : <IconLink size={18} />}
+          </button>
           <button type="button" onClick={onClose} aria-label={t("pf.close")} className="btn-icon shrink-0">
             <IconClose size={18} />
           </button>
@@ -204,22 +241,44 @@ export function PortfolioModal({ project, onClose }: { project: PortfolioProject
             </div>
           </div>
 
-          {/* Prints (placeholders anonimizados) */}
+          {/* Prints — imagem real nos projetos open source, placeholder nos internos */}
           <Section titleKey="pf.sec.screens">
             <div className="grid gap-3 sm:grid-cols-2">
               {project.screenshots.map((s, i) => {
                 const ShotIcon = DYNAMIC_ICONS[s.icon];
+                // O primeiro print real ocupa a largura toda (é a visão geral).
+                const wide = s.image && i === 0;
                 return (
-                  <figure key={i} className="rounded-xl border border-dashed border-line bg-card overflow-hidden">
-                    <div className="grid place-items-center aspect-video text-faint" role="img" aria-label={pick(s.alt)}>
-                      <ShotIcon size={34} />
-                    </div>
+                  <figure
+                    key={i}
+                    className={`rounded-xl border bg-card overflow-hidden ${s.image ? "border-line" : "border-dashed border-line"} ${
+                      wide ? "sm:col-span-2" : ""
+                    }`}
+                  >
+                    {s.image ? (
+                      <a href={s.image} target="_blank" rel="noreferrer noopener" title={pick(s.caption)}>
+                        <img
+                          src={s.image}
+                          alt={pick(s.alt)}
+                          loading="lazy"
+                          decoding="async"
+                          style={{ aspectRatio: s.aspect ?? "16/9" }}
+                          className="w-full object-cover object-top transition-transform duration-200 hover:scale-[1.01]"
+                        />
+                      </a>
+                    ) : (
+                      <div className="grid place-items-center aspect-video text-faint" role="img" aria-label={pick(s.alt)}>
+                        <ShotIcon size={34} />
+                      </div>
+                    )}
                     <figcaption className="border-t border-line px-3 py-2 text-[0.8rem] text-muted">{pick(s.caption)}</figcaption>
                   </figure>
                 );
               })}
             </div>
-            <p className="mt-3 text-[0.8rem] text-faint leading-relaxed">{t("pf.screens.note")}</p>
+            {project.screenshots.some((s) => !s.image) && (
+              <p className="mt-3 text-[0.8rem] text-faint leading-relaxed">{t("pf.screens.note")}</p>
+            )}
           </Section>
         </div>
       </div>

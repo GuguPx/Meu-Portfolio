@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useI18n } from "../context/LanguageContext";
 import { ACTUATION_PILLARS, PORTFOLIO_PROJECTS, type PortfolioProject } from "../portfolio";
 import type { StringKey } from "../i18n";
@@ -19,6 +19,15 @@ interface FilterDef {
   match: (p: PortfolioProject) => boolean;
 }
 
+/* Deep-link: #projects/<slug> abre o estudo de caso direto (compartilhável
+   em candidaturas). O hash é atualizado ao abrir/fechar via replaceState —
+   sem poluir o histórico de navegação. */
+const HASH_RE = /^#projects\/([\w-]+)$/;
+function slugFromHash(): string | null {
+  const m = window.location.hash.match(HASH_RE);
+  return m && PORTFOLIO_PROJECTS.some((p) => p.slug === m[1]) ? m[1] : null;
+}
+
 const FILTERS: FilterDef[] = [
   { id: "all", labelKey: "pf.filter.all", match: () => true },
   { id: "frontend", labelKey: "pf.filter.frontend", match: (p) => p.categories.includes("frontend") },
@@ -26,14 +35,28 @@ const FILTERS: FilterDef[] = [
   { id: "bot", labelKey: "pf.filter.bot", match: (p) => p.categories.includes("bot") || p.categories.includes("automation") },
   { id: "integration", labelKey: "pf.filter.integration", match: (p) => p.categories.includes("integration") },
   { id: "corporate", labelKey: "pf.filter.corporate", match: (p) => p.categories.includes("corporate") },
+  { id: "opensource", labelKey: "pf.filter.opensource", match: (p) => p.categories.includes("opensource") },
 ];
 
 export function Portfolio() {
   const { t, pick } = useI18n();
   const [filter, setFilter] = useState("all");
-  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const [openSlug, setOpenSlug] = useState<string | null>(slugFromHash);
+
+  const openModal = useCallback((slug: string) => {
+    setOpenSlug(slug);
+    history.replaceState(null, "", `#projects/${slug}`);
+  }, []);
   // Estável entre renders: o efeito do modal (focus trap/ESC) depende de onClose.
-  const closeModal = useCallback(() => setOpenSlug(null), []);
+  const closeModal = useCallback(() => {
+    setOpenSlug(null);
+    history.replaceState(null, "", "#projects");
+  }, []);
+
+  // Chegou por deep-link → garante que a seção esteja visível sob o modal.
+  useEffect(() => {
+    if (slugFromHash()) document.getElementById("projects")?.scrollIntoView();
+  }, []);
 
   const projects = useMemo(() => {
     const f = FILTERS.find((x) => x.id === filter) ?? FILTERS[0];
@@ -77,7 +100,7 @@ export function Portfolio() {
         {/* Grade de projetos — 1 col (mobile), 2 (tablet), 3 (desktop) */}
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((p) => (
-            <PortfolioCard key={p.slug} project={p} onOpen={() => setOpenSlug(p.slug)} />
+            <PortfolioCard key={p.slug} project={p} onOpen={() => openModal(p.slug)} />
           ))}
         </div>
 

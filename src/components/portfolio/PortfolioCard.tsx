@@ -15,6 +15,9 @@ export function PortfolioCard({ project, onOpen }: { project: PortfolioProject; 
   const Icon = DYNAMIC_ICONS[project.icon];
   const shownTech = project.stack.slice(0, MAX_TECH);
   const extra = project.stack.length - shownTech.length;
+  const isOpenSource = project.source === "opensource";
+  // Capa: só existe quando há print real (projetos open source).
+  const cover = project.screenshots.find((s) => s.image);
 
   return (
     <Reveal
@@ -22,6 +25,16 @@ export function PortfolioCard({ project, onOpen }: { project: PortfolioProject; 
       className="group relative flex flex-col card p-6 overflow-hidden transition-all duration-200 hover:-translate-y-1.5 hover:border-brand hover:shadow-glow"
     >
       <span className="absolute inset-x-0 top-0 h-[3px] bg-grad opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+
+      {cover && (
+        <img
+          src={cover.image}
+          alt={pick(cover.alt)}
+          loading="lazy"
+          decoding="async"
+          className="-mx-6 -mt-6 mb-5 w-[calc(100%+3rem)] max-w-none aspect-video object-cover object-top border-b border-line"
+        />
+      )}
 
       <div className="flex items-start justify-between gap-3">
         <span className="grid place-items-center w-12 h-12 rounded-xl bg-brand/15 text-brand-2 shrink-0">
@@ -69,9 +82,21 @@ export function PortfolioCard({ project, onOpen }: { project: PortfolioProject; 
       </div>
 
       <div className="mt-4 pt-4 border-t border-line flex items-center justify-between gap-3">
-        <span className="inline-flex items-center gap-1.5 text-[0.72rem] font-semibold text-muted">
-          <span className="w-1.5 h-1.5 rounded-full bg-ok" /> {t("pf.production")}
-        </span>
+        {isOpenSource && project.repoUrl ? (
+          <a
+            href={project.repoUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="inline-flex items-center gap-1.5 text-[0.72rem] font-semibold text-muted transition-colors hover:text-fg"
+          >
+            <TechIcon name="GitHub" size={14} />
+            {t("pf.opensource")}
+          </a>
+        ) : (
+          <span className="inline-flex items-center gap-1.5 text-[0.72rem] font-semibold text-muted">
+            <span className="w-1.5 h-1.5 rounded-full bg-ok" /> {t("pf.production")}
+          </span>
+        )}
         <button
           type="button"
           onClick={onOpen}

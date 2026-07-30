@@ -10,6 +10,7 @@ export const CATEGORY_KEY: Record<PortfolioCategory, StringKey> = {
   automation: "pf.cat.automation",
   integration: "pf.cat.integration",
   corporate: "pf.cat.corporate",
+  opensource: "pf.cat.opensource",
 };
 
 export const ROLE_KEY: Record<PortfolioRole, StringKey> = {
@@ -31,4 +32,5 @@ export const CATEGORY_STYLE: Record<PortfolioCategory, string> = {
   automation: "text-ok bg-ok/10 border-ok/30",
   integration: "text-info bg-info/10 border-info/30",
   corporate: "text-warn bg-warn/10 border-warn/30",
+  opensource: "text-brand bg-brand/10 border-brand/30",
 };

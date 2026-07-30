@@ -24,6 +24,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem("lang", lang);
     document.documentElement.lang = lang === "en" ? "en" : "pt-BR";
+    // Aba do navegador e description acompanham o idioma escolhido
+    // (crawlers leem o HTML estático em PT; isto é polimento para o usuário).
+    document.title = translate(lang, "meta.title");
+    document.querySelector('meta[name="description"]')?.setAttribute("content", translate(lang, "meta.description"));
   }, [lang]);
 
   const setLang = useCallback((l: Lang) => setLangState(l), []);

@@ -8,7 +8,8 @@
 
    Compliance: nenhum dado sensível é exposto aqui — sem clientes reais, CPFs,
    tokens, URLs internas, IPs, IDs ou credenciais. As descrições são técnicas e
-   anonimizadas. Os "prints" são placeholders (ver PortfolioScreenshot).
+   anonimizadas. Nos projetos corporativos os "prints" são placeholders; nos
+   projetos open source são imagens reais (ver PortfolioScreenshot).
    ========================================================================== */
 
 import type { IconName, Localized } from "./data";
@@ -20,7 +21,8 @@ export type PortfolioCategory =
   | "bot"
   | "automation"
   | "integration"
-  | "corporate";
+  | "corporate"
+  | "opensource";
 
 /** Papéis de atuação destacados em cada projeto. */
 export type PortfolioRole =
@@ -40,12 +42,17 @@ export interface PortfolioMetric {
 }
 
 /**
- * Placeholder de print. Como são sistemas internos, não há imagens reais aqui:
- * a UI renderiza um cartão anonimizado com legenda. O campo `alt` descreve o
- * conteúdo para leitores de tela caso um print real seja adicionado no futuro.
+ * Print de um projeto. Nos sistemas internos não há imagem real: a UI renderiza
+ * um cartão anonimizado com o `icon` e a legenda. Nos projetos open source o
+ * campo `image` aponta para o arquivo em /public/projects/<slug>/ e a imagem
+ * real é exibida (o `icon` continua servindo de fallback visual).
  */
 export interface PortfolioScreenshot {
   icon: IconName;
+  /** Caminho público da imagem real (ex.: "/projects/devsheet/overview.webp"). */
+  image?: string;
+  /** Proporção nativa da imagem, usada para reservar espaço e evitar CLS. */
+  aspect?: string;
   alt: Localized;
   caption: Localized;
 }
@@ -56,11 +63,21 @@ export interface ArchLayer {
   detail: Localized;
 }
 
+/**
+ * Origem do projeto — muda o selo exibido no card/modal:
+ * "internal" = sistema interno da empresa; "opensource" = repositório público.
+ */
+export type PortfolioSource = "internal" | "opensource";
+
 export interface PortfolioProject {
   slug: string;
   /** Nome próprio do projeto (igual em PT/EN). */
   title: string;
   icon: IconName;
+  /** Origem do projeto (padrão: "internal"). */
+  source?: PortfolioSource;
+  /** Repositório público, quando existir (só nos projetos open source). */
+  repoUrl?: string;
   /** Categoria principal (badge em destaque). */
   category: PortfolioCategory;
   /** Todas as categorias que o projeto satisfaz (usado pelos filtros). */
@@ -673,6 +690,302 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         icon: "database",
         alt: { pt: "Planilha de inadimplência sincronizada via ETL (dados anonimizados).", en: "Overdue-payments spreadsheet synced via ETL (anonymized data)." },
         caption: { pt: "Planilha viva (ETL)", en: "Live spreadsheet (ETL)" },
+      },
+    ],
+  },
+
+  /* 6 — DevOps Command Center (open source) -------------------------------- */
+  {
+    slug: "devops-command-center",
+    title: "DevOps Command Center",
+    icon: "server",
+    source: "opensource",
+    repoUrl: "https://github.com/GuguPx/devops-command-center",
+    category: "opensource",
+    categories: ["opensource", "fullstack", "automation", "integration"],
+    roles: ["frontend", "backend", "automation", "performance", "uiux"],
+    stack: ["JavaScript", "Node.js", "HTML5", "CSS3", "PowerShell", "WMI", "ESLint", "Prettier", "GitHub Actions"],
+    integrations: ["Docker", "Git", "Claude Code", "Wallpaper Engine"],
+    architecture: [
+      { icon: "server", label: { pt: "Agente local", en: "Local agent" }, detail: { pt: "Servidor Node sem dependências em 127.0.0.1:7654, servindo JSON e os arquivos estáticos.", en: "Zero-dependency Node server on 127.0.0.1:7654, serving JSON and the static files." } },
+      { icon: "layout", label: { pt: "Wallpaper (CEF)", en: "Wallpaper (CEF)" }, detail: { pt: "Página web em Chromium que consulta a API a cada 2s; layout em rem, idêntico em 1080p, 1440p e 4K.", en: "Chromium web page polling the API every 2s; rem-based layout, identical at 1080p, 1440p, and 4K." } },
+      { icon: "gauge", label: { pt: "Coletores", en: "Collectors" }, detail: { pt: "os + WMI, docker ps/stats, git nos diretórios configurados e transcrições do Claude Code — cada um no seu timer, com cache em memória.", en: "os + WMI, docker ps/stats, git in configured directories, and Claude Code transcripts — each on its own timer, with in-memory caching." } },
+      { icon: "shield", label: { pt: "Segurança", en: "Security" }, detail: { pt: "Bind apenas em localhost, CORS restrito à origem do wallpaper, rotas estáticas em allowlist e corpo do POST limitado.", en: "Localhost-only bind, CORS restricted to the wallpaper origin, allowlisted static routes, and a size-capped POST body." } },
+    ],
+    companyContext: {
+      pt: "Projeto pessoal open source (MIT) — wallpaper web para o Wallpaper Engine.",
+      en: "Personal open-source project (MIT) — web wallpaper for Wallpaper Engine.",
+    },
+    ownershipNote: {
+      pt: "Projeto autoral, desenvolvido do zero e publicado no GitHub sob licença MIT. Frontend, agente Node, coletores e empacotamento são meus.",
+      en: "Original project, built from scratch and published on GitHub under the MIT license. Frontend, Node agent, collectors, and packaging are all mine.",
+    },
+    summary: {
+      pt: "Papel de parede que vira um painel DevOps: lê dados reais da máquina (CPU, disco, rede, Docker, git e uso do Claude Code) através de um agente Node local e os exibe em um terminal com estética CRT.",
+      en: "A wallpaper that turns into a DevOps dashboard: it reads real machine data (CPU, disk, network, Docker, git, and Claude Code usage) through a local Node agent and displays it in a CRT-styled terminal.",
+    },
+    problem: {
+      pt: "Acompanhar o estado da máquina de desenvolvimento — containers de pé, commits recentes, consumo de recursos e gasto com IA — exigia abrir várias janelas. Além disso, wallpapers do tipo \"scene\" rodam em sandbox: sem acesso a arquivos, rede ou processos, então só conseguiriam simular métricas.",
+      en: "Keeping track of the dev machine — running containers, recent commits, resource usage, and AI spend — meant juggling several windows. On top of that, \"scene\" wallpapers run in a sandbox with no file, network, or process access, so they could only ever simulate metrics.",
+    },
+    solution: {
+      pt: "Um wallpaper web (Chromium) somado a um agente Node local sem dependências: o agente coleta os dados na máquina e os expõe em JSON no localhost, e o wallpaper consulta esse endpoint a cada 2 segundos. Sem agente, ele cai automaticamente em dados de demonstração animados — o que mantém o projeto utilizável para quem baixa da Steam Workshop.",
+      en: "A web wallpaper (Chromium) paired with a zero-dependency local Node agent: the agent collects machine data and exposes it as JSON on localhost, and the wallpaper polls that endpoint every 2 seconds. With no agent it automatically falls back to animated demo data — keeping the project usable for anyone downloading it from the Steam Workshop.",
+    },
+    participation: {
+      pt: "Desenvolvi o projeto inteiro: o agente Node (coletores, cache, servidor HTTP e configuração), o wallpaper (painéis, terminal, toasts, temas e efeitos CRT), o parser incremental das transcrições do Claude Code, o modelo de segurança e o script de empacotamento para a Steam Workshop.",
+      en: "I built the whole project: the Node agent (collectors, caching, HTTP server, and configuration), the wallpaper (panels, terminal, toasts, themes, and CRT effects), the incremental parser for Claude Code transcripts, the security model, and the Steam Workshop packaging script.",
+    },
+    highlights: {
+      pt: [
+        "Painéis ao vivo: CPU, memória, disco, rede, ping e uptime",
+        "Processos que mais consomem CPU e memória",
+        "Containers Docker com estatísticas em tempo real",
+        "Feed de commits agregando vários repositórios",
+        "Tokens e custo do Claude Code com sparkline de 7 dias",
+        "Terminal que reproduz saída real em 11 blocos rotativos",
+        "Toasts disparados por eventos reais (commit, container, agente)",
+        "Modo demo automático quando o agente não está rodando",
+      ],
+      en: [
+        "Live panels: CPU, memory, disk, network, ping, and uptime",
+        "Top CPU- and memory-hungry processes",
+        "Docker containers with real-time stats",
+        "Commit feed aggregating multiple repositories",
+        "Claude Code tokens and cost with a 7-day sparkline",
+        "Terminal replaying real output across 11 rotating blocks",
+        "Toasts triggered by real events (commit, container, agent)",
+        "Automatic demo mode when the agent isn't running",
+      ],
+    },
+    challenges: {
+      pt: [
+        "Ler transcrições de vários MB sem reprocessar o arquivo inteiro — a solução foi guardar o offset por arquivo e parsear só o trecho novo, parando na última linha completa",
+        "Impedir que um `docker stats` lento travasse um frame do wallpaper",
+        "Expor dados locais sem abrir a porta para qualquer site aberto no navegador",
+        "Manter o mesmo layout em 1080p, 1440p e 4K sem rebuild",
+      ],
+      en: [
+        "Reading multi-MB transcripts without reprocessing the whole file — solved by keeping a per-file byte offset and parsing only the appended tail, stopping at the last complete line",
+        "Preventing a slow `docker stats` from stalling a wallpaper frame",
+        "Exposing local data without opening the port to any website the user happens to have open",
+        "Keeping the same layout at 1080p, 1440p, and 4K with no rebuild",
+      ],
+    },
+    results: {
+      pt: [
+        "Estado da máquina, dos containers e dos repositórios visível sem abrir nenhuma janela",
+        "Custo diário de IA acompanhado sem sair da área de trabalho",
+        "Projeto público no GitHub, com CI e licença MIT",
+      ],
+      en: [
+        "Machine, container, and repository state visible without opening a single window",
+        "Daily AI cost tracked without leaving the desktop",
+        "Public GitHub project, with CI and an MIT license",
+      ],
+    },
+    learned: {
+      pt: [
+        "Leitura incremental de arquivos append-only com controle de offset",
+        "Coleta assíncrona desacoplada do ciclo de resposta HTTP",
+        "Modelo de ameaça de um serviço local: bind, CORS e allowlist de rotas",
+        "Layout responsivo por unidade derivada da viewport (rem sobre 100vw)",
+      ],
+      en: [
+        "Incremental reading of append-only files with offset control",
+        "Async collection decoupled from the HTTP response cycle",
+        "Threat modeling a local service: bind, CORS, and route allowlisting",
+        "Responsive layout via a viewport-derived unit (rem from 100vw)",
+      ],
+    },
+    metrics: [
+      { value: "2s", label: { pt: "atualização dos painéis", en: "panel refresh" } },
+      { value: "0", label: { pt: "dependências no agente", en: "agent dependencies" } },
+      { value: "11", label: { pt: "blocos no terminal", en: "terminal blocks" } },
+    ],
+    screenshots: [
+      {
+        icon: "layout",
+        image: "/projects/devops-command-center/dashboard.webp",
+        aspect: "16/9",
+        alt: { pt: "Wallpaper completo: terminal à esquerda e painéis de sistema, tarefas, Docker, uso do Claude, commits e to-do à direita.", en: "Full wallpaper: terminal on the left and system, tasks, Docker, Claude usage, commits, and to-do panels on the right." },
+        caption: { pt: "O wallpaper completo, com dados reais da máquina", en: "The full wallpaper, with real machine data" },
+      },
+      {
+        icon: "server",
+        image: "/projects/devops-command-center/terminal.webp",
+        aspect: "824/1015",
+        alt: { pt: "Painel de terminal reproduzindo saída real de neofetch e htop sob uma statusline estilo tmux.", en: "Terminal panel replaying real neofetch and htop output under a tmux-style statusline." },
+        caption: { pt: "Terminal reproduzindo saída real", en: "Terminal replaying real output" },
+      },
+      {
+        icon: "gauge",
+        image: "/projects/devops-command-center/panel-system.webp",
+        aspect: "535/302",
+        alt: { pt: "Painel de sistema com CPU, memória, disco, throughput de rede, ping e uptime.", en: "System panel with CPU, memory, disk, network throughput, ping, and uptime." },
+        caption: { pt: "Painel de sistema", en: "System panel" },
+      },
+      {
+        icon: "bolt",
+        image: "/projects/devops-command-center/panel-tasks-docker.webp",
+        aspect: "531/600",
+        alt: { pt: "Painéis de processos mais pesados e de containers Docker com CPU e memória ao vivo.", en: "Top-processes and Docker container panels with live CPU and memory." },
+        caption: { pt: "Processos e containers", en: "Processes and containers" },
+      },
+      {
+        icon: "sparkles",
+        image: "/projects/devops-command-center/panel-claude.webp",
+        aspect: "539/916",
+        alt: { pt: "Painéis de uso do Claude Code com sparkline de 7 dias, feed de commits e lista de tarefas.", en: "Claude Code usage panels with a 7-day sparkline, commit feed, and to-do list." },
+        caption: { pt: "Uso de IA, commits e to-do", en: "AI usage, commits, and to-do" },
+      },
+    ],
+  },
+
+  /* 7 — devsheet (open source) --------------------------------------------- */
+  {
+    slug: "devsheet",
+    title: "devsheet",
+    icon: "tools",
+    source: "opensource",
+    repoUrl: "https://github.com/GuguPx/Dev-sheets-Wallpaper",
+    category: "opensource",
+    categories: ["opensource", "frontend"],
+    roles: ["frontend", "uiux", "performance"],
+    stack: ["TypeScript", "Vite", "Zod", "Vitest", "CSS3", "ESLint", "Prettier", "GitHub Actions"],
+    integrations: ["Wallpaper Engine", "GitHub Actions"],
+    architecture: [
+      { icon: "layout", label: { pt: "Interface", en: "Interface" }, detail: { pt: "TypeScript puro, sem framework: abas estilo tmux, statusline estilo Neovim, busca estilo fzf e detalhe em formato man page.", en: "Plain TypeScript, no framework: tmux-style tabs, Neovim-style statusline, fzf-style search, and man-page detail view." } },
+      { icon: "database", label: { pt: "Conteúdo", en: "Content" }, detail: { pt: "Um JSON por tecnologia, validado por Zod em tempo de build; 10 tecnologias e 224 comandos.", en: "One JSON per technology, validated with Zod at build time; 10 technologies and 224 commands." } },
+      { icon: "blocks", label: { pt: "Build", en: "Build" }, detail: { pt: "Vite com vite-plugin-singlefile: um único index.html com JS, CSS e dados embutidos — nada é baixado em runtime.", en: "Vite with vite-plugin-singlefile: a single index.html with JS, CSS, and data inlined — nothing is fetched at runtime." } },
+      { icon: "shield", label: { pt: "Superfície de risco", en: "Risk surface" }, detail: { pt: "O terminal é apenas visual: sem eval, sem shell, sem acesso a arquivos. A linha de comando aceita só uma whitelist interna.", en: "The terminal is visual only: no eval, no shell, no file access. The command line accepts only an internal whitelist." } },
+    ],
+    companyContext: {
+      pt: "Projeto pessoal open source (MIT) — cheat sheets de dev/DevOps como papel de parede.",
+      en: "Personal open-source project (MIT) — dev/DevOps cheat sheets as a wallpaper.",
+    },
+    ownershipNote: {
+      pt: "Projeto autoral, desenvolvido do zero e publicado no GitHub sob licença MIT, com CI, testes e guias de contribuição e de conteúdo.",
+      en: "Original project, built from scratch and published on GitHub under the MIT license, with CI, tests, and contribution and content guides.",
+    },
+    summary: {
+      pt: "Terminal de consulta de cheat sheets de desenvolvimento e DevOps, feito como papel de parede: 224 comandos em 10 tecnologias, com busca, navegação por teclado e manual por comando — tudo offline.",
+      en: "A dev/DevOps cheat-sheet terminal built as a wallpaper: 224 commands across 10 technologies, with search, keyboard navigation, and a per-command manual — all offline.",
+    },
+    problem: {
+      pt: "Consultar comandos de git, docker, linux ou nginx significava abrir o navegador e sair do fluxo de trabalho — e as opções prontas ou eram sites lentos, ou eram imagens estáticas sem busca.",
+      en: "Looking up git, docker, linux, or nginx commands meant opening the browser and leaving the workflow — and the ready-made options were either slow websites or static images with no search.",
+    },
+    solution: {
+      pt: "Uma interface que imita um terminal real (abas tmux, statusline Neovim, busca fzf, detalhe em man page) e fica no papel de parede, sempre um clique atrás das janelas. O build gera um único HTML autocontido, então funciona offline e sem back-end; comandos destrutivos são marcados e a cópia deles exige dupla confirmação.",
+      en: "An interface that mimics a real terminal (tmux tabs, Neovim statusline, fzf search, man-page detail) living on the wallpaper, always one click behind the windows. The build produces a single self-contained HTML file, so it works offline with no back-end; destructive commands are flagged and copying them requires double confirmation.",
+    },
+    participation: {
+      pt: "Projetei e desenvolvi tudo: o modelo de conteúdo validado por Zod, o parser da linha de comando interna, a navegação por teclado e mouse, os temas, os efeitos CRT, a tela de descanso e o pipeline de CI com lint, tipos, validação de conteúdo, testes e build.",
+      en: "I designed and built everything: the Zod-validated content model, the internal command-line parser, keyboard and mouse navigation, the themes, the CRT effects, the screensaver, and the CI pipeline with lint, types, content validation, tests, and build.",
+    },
+    highlights: {
+      pt: [
+        "224 comandos em 10 tecnologias, validados por Zod",
+        "Abas estilo tmux e statusline estilo Neovim",
+        "Busca estilo fzf e detalhe em formato man page",
+        "Navegação completa por teclado, com fallback total no mouse",
+        "Linha de comando interna com whitelist (open, search, theme…)",
+        "8 temas e efeitos CRT ajustáveis (scanlines, glow, curvatura)",
+        "Aba tty: terminal fictício em loop como tela de descanso",
+        "Margens de segurança configuráveis para não cobrir os ícones do desktop",
+      ],
+      en: [
+        "224 commands across 10 technologies, validated with Zod",
+        "tmux-style tabs and a Neovim-style statusline",
+        "fzf-style search and man-page detail view",
+        "Full keyboard navigation, with complete mouse fallback",
+        "Internal command line with a whitelist (open, search, theme…)",
+        "8 themes and adjustable CRT effects (scanlines, glow, curvature)",
+        "tty tab: a fictional looping terminal used as a screensaver",
+        "Configurable safe margins so desktop icons stay uncovered",
+      ],
+    },
+    challenges: {
+      pt: [
+        "Wallpapers web recebem teclado de forma inconsistente — a interface teve que ficar 100% operável pelo mouse como alternativa",
+        "Fazer o terminal parecer real sem nunca executar nada de fato",
+        "Manter 224 comandos consistentes: cada JSON é validado no CI antes do build",
+        "Entregar tudo em um único HTML, sem requisições em runtime",
+      ],
+      en: [
+        "Web wallpapers receive keyboard input inconsistently — the interface had to be 100% mouse-operable as an alternative",
+        "Making the terminal feel real without ever executing anything",
+        "Keeping 224 commands consistent: each JSON is validated in CI before the build",
+        "Shipping everything as a single HTML file, with no runtime requests",
+      ],
+    },
+    results: {
+      pt: [
+        "Consulta de comandos sem sair do fluxo de trabalho, offline",
+        "Conteúdo aberto a contribuições, com guia próprio de formato",
+        "CI rodando formatação, lint, tipos, validação, testes e build a cada push",
+      ],
+      en: [
+        "Command lookup without leaving the workflow, offline",
+        "Content open to contributions, with its own format guide",
+        "CI running formatting, lint, types, validation, tests, and build on every push",
+      ],
+    },
+    learned: {
+      pt: [
+        "Modelagem e validação de conteúdo com Zod como contrato",
+        "Design de interação por teclado (modos, atalhos, foco)",
+        "Build single-file e restrições de um ambiente sem back-end",
+        "Manutenção de um repositório público: CI, testes e guias de contribuição",
+      ],
+      en: [
+        "Content modeling and validation with Zod as a contract",
+        "Keyboard interaction design (modes, shortcuts, focus)",
+        "Single-file builds and the constraints of a back-endless environment",
+        "Maintaining a public repository: CI, tests, and contribution guides",
+      ],
+    },
+    metrics: [
+      { value: "224", label: { pt: "comandos catalogados", en: "cataloged commands" } },
+      { value: "10", label: { pt: "tecnologias", en: "technologies" } },
+      { value: "8", label: { pt: "temas + efeitos CRT", en: "themes + CRT effects" } },
+    ],
+    screenshots: [
+      {
+        icon: "layout",
+        image: "/projects/devsheet/overview.webp",
+        aspect: "16/9",
+        alt: { pt: "Visão geral do devsheet como papel de parede, com colunas de comandos por tecnologia.", en: "Overview of devsheet as a wallpaper, with command columns per technology." },
+        caption: { pt: "Visão geral no papel de parede", en: "Overview on the wallpaper" },
+      },
+      {
+        icon: "blocks",
+        image: "/projects/devsheet/git-categorias.webp",
+        aspect: "16/9",
+        alt: { pt: "Aba git com os comandos agrupados por categoria.", en: "git tab with commands grouped by category." },
+        caption: { pt: "Comandos por categoria", en: "Commands by category" },
+      },
+      {
+        icon: "tools",
+        image: "/projects/devsheet/manual.webp",
+        aspect: "919/646",
+        alt: { pt: "Detalhe de um comando exibido no formato man page.", en: "Command detail displayed in man-page format." },
+        caption: { pt: "Manual do comando", en: "Command manual" },
+      },
+      {
+        icon: "shield",
+        image: "/projects/devsheet/tty-descanso.webp",
+        aspect: "16/9",
+        alt: { pt: "Aba tty com um terminal fictício em loop, usada como tela de descanso.", en: "tty tab with a fictional looping terminal, used as a screensaver." },
+        caption: { pt: "Aba tty (tela de descanso)", en: "tty tab (screensaver)" },
+      },
+      {
+        icon: "bolt",
+        image: "/projects/devsheet/boot.webp",
+        aspect: "16/9",
+        alt: { pt: "Sequência de boot estilo terminal exibida ao iniciar o wallpaper.", en: "Terminal-style boot sequence shown when the wallpaper starts." },
+        caption: { pt: "Sequência de boot", en: "Boot sequence" },
       },
     ],
   },
