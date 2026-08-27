@@ -214,11 +214,15 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     screenshots: [
       {
         icon: "layout",
+        image: "/projects/power-leads/dashboard.webp",
+        aspect: "1600/740",
         alt: { pt: "Dashboard comercial com indicadores do funil de vendas (dados anonimizados).", en: "Sales dashboard with funnel indicators (anonymized data)." },
         caption: { pt: "Dashboard comercial", en: "Sales dashboard" },
       },
       {
         icon: "kanban",
+        image: "/projects/power-leads/kanban.webp",
+        aspect: "1600/771",
         alt: { pt: "Quadro Kanban de prospecções com etapas (dados anonimizados).", en: "Prospecting Kanban board with stages (anonymized data)." },
         caption: { pt: "Kanban de prospecções", en: "Prospecting Kanban" },
       },
@@ -331,14 +335,39 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     ],
     screenshots: [
       {
-        icon: "signature",
-        alt: { pt: "Tela de assinatura digital do contrato (dados anonimizados).", en: "Digital contract signing screen (anonymized data)." },
-        caption: { pt: "Fluxo de assinatura", en: "Signing flow" },
+        icon: "lock",
+        image: "/projects/pwcontrato/login.webp",
+        aspect: "739/1313",
+        alt: { pt: "Tela de login do portal de assinatura digital de contratos.", en: "Login screen of the digital contract signing portal." },
+        caption: { pt: "Acesso do cliente", en: "Client sign-in" },
+      },
+      {
+        icon: "layers",
+        image: "/projects/pwcontrato/contratos.webp",
+        aspect: "739/1313",
+        alt: { pt: "Lista de contratos por situação: disponíveis, aguardando assinatura, renovações e cancelamentos pendentes (dados anonimizados).", en: "Contract list by status: available, awaiting signature, pending renewals and cancellations (anonymized data)." },
+        caption: { pt: "Contratos por situação", en: "Contracts by status" },
+      },
+      {
+        icon: "blocks",
+        image: "/projects/pwcontrato/detalhes.webp",
+        aspect: "739/1313",
+        alt: { pt: "Detalhes do contrato com download do contrato padrão, termo de renovação ou termo de cancelamento (dados anonimizados).", en: "Contract details with download of the standard contract, renewal term, or cancellation term (anonymized data)." },
+        caption: { pt: "Três tipos de documento", en: "Three document types" },
       },
       {
         icon: "shield",
-        alt: { pt: "Confirmação de ativação do contrato após o webhook (dados anonimizados).", en: "Contract activation confirmation after the webhook (anonymized data)." },
-        caption: { pt: "Ativação integrada ao IXC", en: "IXC-integrated activation" },
+        image: "/projects/pwcontrato/identidade.webp",
+        aspect: "739/1313",
+        alt: { pt: "Etapa de validação de identidade por foto com documento, antes de liberar a assinatura.", en: "Photo-with-document identity validation step, before unlocking the signature." },
+        caption: { pt: "Validação de identidade", en: "Identity validation" },
+      },
+      {
+        icon: "signature",
+        image: "/projects/pwcontrato/assinatura.webp",
+        aspect: "739/1313",
+        alt: { pt: "Tela de assinatura do contrato, com opção de desenhar ou digitar a assinatura (dados anonimizados).", en: "Contract signing screen, with the option to draw or type the signature (anonymized data)." },
+        caption: { pt: "Assinatura digital", en: "Digital signature" },
       },
     ],
   },
@@ -449,11 +478,15 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     screenshots: [
       {
         icon: "users",
+        image: "/projects/pwbeneficios/login.webp",
+        aspect: "5/3",
         alt: { pt: "Tela de login segmentada por perfil de usuário (dados anonimizados).", en: "Login screen segmented by user profile (anonymized data)." },
         caption: { pt: "Login por perfil", en: "Login per profile" },
       },
       {
         icon: "gift",
+        image: "/projects/pwbeneficios/dashboard.webp",
+        aspect: "1600/934",
         alt: { pt: "Dashboard do clube de benefícios (dados anonimizados).", en: "Benefits club dashboard (anonymized data)." },
         caption: { pt: "Dashboard de benefícios", en: "Benefits dashboard" },
       },
@@ -566,6 +599,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     screenshots: [
       {
         icon: "bolt",
+        image: "/projects/bot-comercial/logs.webp",
+        aspect: "1600/395",
         alt: { pt: "Logs de execução do bot comercial (dados anonimizados).", en: "Commercial bot execution logs (anonymized data)." },
         caption: { pt: "Execução e logs", en: "Execution and logs" },
       },
@@ -683,13 +718,17 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     screenshots: [
       {
         icon: "gauge",
+        image: "/projects/bot-inadimplencia/metricas.webp",
+        aspect: "5/3",
         alt: { pt: "Painel de métricas de inadimplência consolidadas (dados anonimizados).", en: "Consolidated overdue-payment metrics panel (anonymized data)." },
         caption: { pt: "Métricas consolidadas", en: "Consolidated metrics" },
       },
       {
-        icon: "database",
-        alt: { pt: "Planilha de inadimplência sincronizada via ETL (dados anonimizados).", en: "Overdue-payments spreadsheet synced via ETL (anonymized data)." },
-        caption: { pt: "Planilha viva (ETL)", en: "Live spreadsheet (ETL)" },
+        icon: "bolt",
+        image: "/projects/bot-inadimplencia/logs.webp",
+        aspect: "974/229",
+        alt: { pt: "Logs de execução do bot de inadimplência, com o ciclo de atualização da tabela de monitoramento (dados anonimizados).", en: "Overdue-payments bot execution logs, showing the monitoring table update cycle (anonymized data)." },
+        caption: { pt: "Execução e logs", en: "Execution and logs" },
       },
     ],
   },
