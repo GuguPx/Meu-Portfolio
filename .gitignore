@@ -28,3 +28,7 @@ desktop.ini
 *.log
 npm-debug.log*
 censurado/
+
+# Documento de incidente: contem URLs que levam ao dado exposto.
+# NUNCA versionar em repositorio publico.
+TICKET-GITHUB-PURGE.md
