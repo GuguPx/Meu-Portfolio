@@ -733,7 +733,503 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     ],
   },
 
-  /* 6 — DevOps Command Center (open source) -------------------------------- */
+  /* 6 — Bot de Upgrade Comercial ------------------------------------------- */
+  {
+    slug: "bot-upgrade",
+    title: "Bot de Upgrade Comercial",
+    icon: "trending",
+    category: "bot",
+    categories: ["bot", "automation", "integration"],
+    roles: ["automation", "bots", "integration", "backend"],
+    stack: ["Node.js", "TypeScript", "ESM", "node-cron", "Axios", "Google Sheets API", "xlsx", "Winston", "Docker", "PM2"],
+    integrations: ["IXC Soft", "OPA Suite", "Google Sheets"],
+    architecture: [
+      { icon: "bolt", label: { pt: "Runtime", en: "Runtime" }, detail: { pt: "Node.js + TypeScript em ESM; configuração tipada e validada na inicialização.", en: "Node.js + TypeScript on ESM; typed configuration validated at startup." } },
+      { icon: "repeat", label: { pt: "Agendamento", en: "Scheduling" }, detail: { pt: "node-cron com múltiplas expressões por campanha; PM2 em modo fork com instância única e fuso fixado, para o relógio do servidor não deslocar o disparo.", en: "node-cron with multiple expressions per campaign; PM2 in fork mode with a single instance and a pinned timezone, so the server clock cannot shift the dispatch." } },
+      { icon: "plug", label: { pt: "Coleta", en: "Collection" }, detail: { pt: "Cliente de API com paginação em lotes e pausas entre páginas e recursos; uma camada de mapeamento de campos isola o formato do provedor do domínio interno.", en: "API client with batched pagination and pauses between pages and resources; a field-mapping layer isolates the provider format from the internal domain." } },
+      { icon: "database", label: { pt: "Persistência", en: "Persistence" }, detail: { pt: "Provider intercambiável: Google Sheets via service account ou arquivo .xlsx local, preservando as colunas preenchidas manualmente pela equipe.", en: "Swappable provider: Google Sheets via service account or a local .xlsx file, preserving columns filled in manually by the team." } },
+      { icon: "shield", label: { pt: "Entrega e retomada", en: "Delivery & resume" }, detail: { pt: "Envio de template pelo canal de atendimento, com checkpoint em disco por período: uma execução interrompida retoma sem redisparar.", en: "Template delivery through the messaging channel, with an on-disk checkpoint per period: an interrupted run resumes without re-sending." } },
+    ],
+    companyContext: {
+      pt: "Automação comercial recorrente: monta a base de clientes elegíveis, dispara campanhas por template e consolida os resultados.",
+      en: "Recurring sales automation: builds the eligible-customer base, runs template campaigns, and consolidates the results.",
+    },
+    ownershipNote: {
+      pt: "Automação desenvolvida para a operação comercial, integrando a base de clientes do provedor, o canal de atendimento e planilhas operacionais. A descrição aqui é técnica: regras comerciais, credenciais e dados de clientes não são divulgados.",
+      en: "Automation built for the sales operation, integrating the ISP customer base, the messaging channel, and operational spreadsheets. The description here is technical: business rules, credentials, and customer data are not disclosed.",
+    },
+    summary: {
+      pt: "Bot em Node.js/TypeScript que reconstrói a base de clientes a partir da API do provedor, aplica regras de elegibilidade para identificar oportunidades de upgrade, dispara campanhas por template e consolida os envios em planilha.",
+      en: "A Node.js/TypeScript bot that rebuilds the customer base from the ISP API, applies eligibility rules to spot upgrade opportunities, runs template campaigns, and consolidates dispatches into a spreadsheet.",
+    },
+    problem: {
+      pt: "A prospecção de upgrade dependia de levantar manualmente quem estava elegível, conferir quem já tinha sido abordado e disparar mensagem a mensagem — um processo lento, sujeito a reabordar o mesmo cliente e sem histórico confiável.",
+      en: "Upgrade prospecting relied on manually listing who was eligible, checking who had already been contacted, and sending message by message — slow, prone to re-contacting the same customer, and with no reliable history.",
+    },
+    solution: {
+      pt: "Um scheduler com rotinas independentes: uma reconstrói a base a partir da API do provedor, outra aplica as regras de elegibilidade e dispara o template pelo canal de atendimento, outra cuida da campanha de indicação pós-instalação e uma última consolida tudo em um resumo mensal. Cada envio é registrado, um cooldown configurável bloqueia a reabordagem e um checkpoint em disco permite retomar uma execução interrompida sem duplicar disparo.",
+      en: "A scheduler with independent routines: one rebuilds the base from the ISP API, another applies eligibility rules and sends the template through the messaging channel, another handles the post-installation referral campaign, and a last one consolidates everything into a monthly summary. Every dispatch is logged, a configurable cooldown blocks re-contact, and an on-disk checkpoint resumes an interrupted run without duplicating sends.",
+    },
+    participation: {
+      pt: "Desenvolvi o bot de ponta a ponta: modelagem dos jobs, cliente de API com paginação e controle de ritmo, camada de planilha com provider intercambiável, motor de regras de elegibilidade externalizado em JSON, mecanismo de checkpoint, modo de simulação e o empacotamento com Docker multi-stage e PM2.",
+      en: "I built the bot end to end: job modeling, an API client with pagination and rate control, a spreadsheet layer with a swappable provider, an eligibility rule engine externalized to JSON, the checkpoint mechanism, a simulation mode, and packaging with multi-stage Docker and PM2.",
+    },
+    highlights: {
+      pt: [
+        "Cinco rotinas agendadas independentes, cada uma com tratamento de erro isolado",
+        "Checkpoint em disco: execução interrompida retoma sem redisparar nem duplicar linha",
+        "Modo de simulação que apura o público do período e encerra sem enviar nada",
+        "Cooldown configurável que bloqueia a reabordagem do mesmo cliente",
+        "Regras de elegibilidade externalizadas em JSON, editáveis sem recompilar",
+        "Mapeamento de campos que isola o formato da API do domínio interno",
+        "Coleta paginada em lotes, com pausas configuráveis entre páginas e recursos",
+        "Consolidação mensal recalculada por inteiro, sem acumular duplicidade",
+        "Build Docker multi-stage, com segredos mantidos fora da imagem",
+      ],
+      en: [
+        "Five independent scheduled routines, each with isolated error handling",
+        "On-disk checkpoint: an interrupted run resumes without re-sending or duplicating rows",
+        "Simulation mode that computes the period audience and exits without sending anything",
+        "Configurable cooldown that blocks re-contacting the same customer",
+        "Eligibility rules externalized to JSON, editable without recompiling",
+        "Field mapping that isolates the API format from the internal domain",
+        "Batched paginated collection, with configurable pauses between pages and resources",
+        "Monthly consolidation fully recomputed, with no accumulated duplication",
+        "Multi-stage Docker build, with secrets kept out of the image",
+      ],
+    },
+    challenges: {
+      pt: [
+        "Garantir idempotência: uma execução interrompida no meio não pode redisparar nem duplicar linhas",
+        "Fixar o fuso do agendador — em servidor UTC a campanha sairia três horas antes do previsto",
+        "Reduzir a pressão sobre a API do provedor sem estourar a janela de execução",
+        "Separar simular de não enviar: desligar o envio ainda gravava linhas na planilha, o que motivou um modo de simulação de verdade",
+      ],
+      en: [
+        "Guaranteeing idempotency: a run interrupted midway must not re-send or duplicate rows",
+        "Pinning the scheduler timezone — on a UTC server the campaign would fire three hours early",
+        "Reducing pressure on the ISP API without blowing the execution window",
+        "Separating simulate from do-not-send: disabling delivery still wrote rows to the spreadsheet, which motivated a real simulation mode",
+      ],
+    },
+    results: {
+      pt: [
+        "Campanha comercial recorrente rodando sem operação manual",
+        "Histórico de envios e consolidação mensal auditáveis por campanha",
+        "Base comercial reconstruída a cada ciclo, refletindo apenas contratos ativos",
+        "Mesma infraestrutura reaproveitada para a campanha de indicação pós-instalação",
+      ],
+      en: [
+        "Recurring sales campaign running with no manual operation",
+        "Auditable dispatch history and monthly consolidation per campaign",
+        "Sales base rebuilt every cycle, reflecting only active contracts",
+        "Same infrastructure reused for the post-installation referral campaign",
+      ],
+    },
+    learned: {
+      pt: [
+        "Idempotência e checkpoints em jobs de longa duração",
+        "Como o fuso horário afeta agendadores que leem o relógio do sistema",
+        "Empacotamento com Docker multi-stage e supervisão de processo com PM2",
+        "Externalizar regra de negócio em configuração, em vez de deixá-la presa no código",
+      ],
+      en: [
+        "Idempotency and checkpoints in long-running jobs",
+        "How timezone affects schedulers that read the system clock",
+        "Packaging with multi-stage Docker and process supervision with PM2",
+        "Externalizing business rules into configuration instead of leaving them locked in code",
+      ],
+    },
+    metrics: [
+      { value: "5 jobs", label: { pt: "rotinas agendadas", en: "scheduled routines" } },
+      { value: "Checkpoint", label: { pt: "retomada sem redisparo", en: "resume without re-sending" } },
+      { value: "Dry-run", label: { pt: "simulação antes do envio", en: "simulation before sending" } },
+    ],
+    screenshots: [
+      {
+        icon: "repeat",
+        alt: { pt: "Logs de execução das rotinas agendadas do bot (dados anonimizados).", en: "Execution logs of the bot scheduled routines (anonymized data)." },
+        caption: { pt: "Execução agendada", en: "Scheduled execution" },
+      },
+      {
+        icon: "database",
+        alt: { pt: "Aba de resumo mensal consolidando os disparos por campanha (dados anonimizados).", en: "Monthly summary tab consolidating dispatches per campaign (anonymized data)." },
+        caption: { pt: "Consolidação mensal", en: "Monthly consolidation" },
+      },
+    ],
+  },
+
+  /* 7 — Bot de Relatório de Atendimentos ----------------------------------- */
+  {
+    slug: "bot-atendimentos",
+    title: "Bot de Relatório de Atendimentos",
+    icon: "target",
+    category: "bot",
+    categories: ["bot", "automation", "integration"],
+    roles: ["automation", "bots", "integration", "backend"],
+    stack: ["Node.js", "JavaScript", "ESM", "node:https", "node-cron", "ExcelJS", "Google Sheets API", "Docker", "ESLint"],
+    integrations: ["OPA Suite", "Google Sheets"],
+    architecture: [
+      { icon: "layers", label: { pt: "Domínio puro", en: "Pure domain" }, detail: { pt: "As regras de contagem, agregação e consolidação ficam isoladas em um módulo que não conhece rede nem arquivo — por isso são testáveis sem tocar em nenhuma API externa.", en: "Counting, aggregation, and consolidation rules live in a module that knows nothing about network or files — so they are testable without touching any external API." } },
+      { icon: "plug", label: { pt: "Cliente HTTP", en: "HTTP client" }, detail: { pt: "A API exige GET com corpo, o que a especificação do fetch proíbe; o cliente usa o módulo https nativo do Node, o que deixa o projeto sem nenhuma dependência de rede.", en: "The API requires GET with a body, which the fetch spec forbids; the client uses Node's native https module, leaving the project with zero network dependencies." } },
+      { icon: "shield", label: { pt: "Integridade", en: "Integrity" }, detail: { pt: "Trava de execução impede duas rodadas simultâneas; a escrita na planilha grava antes de apagar, então uma queda de rede nunca deixa a aba vazia.", en: "An execution lock prevents concurrent runs; the spreadsheet write inserts before deleting, so a network drop never leaves the tab empty." } },
+      { icon: "repeat", label: { pt: "Janela e estado", en: "Window & state" }, detail: { pt: "Um arquivo de estado guarda o último dia apurado: a execução seguinte recupera de uma vez todos os dias perdidos, sem sobreposição nem buraco.", en: "A state file stores the last processed day: the next run recovers every missed day at once, with no overlap and no gap." } },
+      { icon: "database", label: { pt: "Saídas", en: "Outputs" }, detail: { pt: "Um .xlsx por execução como cópia local e uma planilha de link fixo que acumula o histórico, com recortes mensal, semanal, diário e detalhado.", en: "One .xlsx per run as a local copy, plus a fixed-link spreadsheet accumulating history, with monthly, weekly, daily, and detailed views." } },
+    ],
+    companyContext: {
+      pt: "Relatório diário que classifica os atendimentos comerciais por origem do cliente e por resultado do contrato.",
+      en: "Daily report classifying sales conversations by customer origin and contract outcome.",
+    },
+    ownershipNote: {
+      pt: "Automação desenvolvida para a operação comercial, integrando o sistema de atendimento e planilhas. A descrição é técnica: identificadores internos, credenciais, volumes de operação e dados de atendimento não são divulgados.",
+      en: "Automation built for the sales operation, integrating the service platform and spreadsheets. The description is technical: internal identifiers, credentials, operation volumes, and conversation data are not disclosed.",
+    },
+    summary: {
+      pt: "Bot em Node.js que apura diariamente os atendimentos do sistema de atendimento, classifica cada um por etiqueta de origem e por resultado de contrato, e publica o resultado em .xlsx e em uma planilha acumulada com recortes mensal, semanal e diário.",
+      en: "A Node.js bot that processes the service platform's conversations daily, classifies each by origin label and contract outcome, and publishes the result to .xlsx and to an accumulating spreadsheet with monthly, weekly, and daily views.",
+    },
+    problem: {
+      pt: "Não havia como saber de onde vinham os clientes que fechavam contrato. Os atendimentos comerciais ficavam diluídos no volume geral, dominado por suporte técnico, e a taxa de conversão por canal de origem só existiria com contagem manual — inviável na frequência necessária.",
+      en: "There was no way to know where closing customers came from. Sales conversations were diluted in the overall volume, dominated by technical support, and conversion rate per origin channel would only exist through manual counting — unfeasible at the required frequency.",
+    },
+    solution: {
+      pt: "Uma rotina diária que coleta os atendimentos do período, filtra apenas os que carregam etiqueta comercial, cruza origem com resultado do contrato e calcula a taxa de conversão por canal. O resultado sai em dois formatos: um arquivo por execução, como cópia local, e uma planilha de link fixo que acumula o histórico e recalcula os resumos mensal, semanal e diário a cada rodada.",
+      en: "A daily routine that collects the period's conversations, keeps only those carrying a sales label, cross-references origin with contract outcome, and computes the conversion rate per channel. The result comes out in two formats: one file per run as a local copy, and a fixed-link spreadsheet that accumulates history and recomputes the monthly, weekly, and daily summaries each round.",
+    },
+    participation: {
+      pt: "Desenvolvi o bot inteiro: o cliente HTTP sob a restrição de GET com corpo, a paginação com falha explícita em vez de truncamento silencioso, a camada de domínio isolada de I/O, a montagem do .xlsx, a escrita incremental na planilha, a trava de concorrência, a CLI com códigos de saída e o empacotamento em Docker com agendador embutido.",
+      en: "I built the entire bot: the HTTP client under the GET-with-body constraint, pagination that fails loudly instead of truncating silently, the I/O-isolated domain layer, the .xlsx assembly, incremental spreadsheet writing, the concurrency lock, the CLI with exit codes, and Docker packaging with an embedded scheduler.",
+    },
+    highlights: {
+      pt: [
+        "Janela auto-recuperável: dias perdidos por falha ou servidor fora do ar entram na execução seguinte",
+        "Paginação que falha explicitamente ao atingir o teto, em vez de devolver um relatório incompleto",
+        "Camada de domínio sem rede nem arquivo, coberta por testes com API simulada",
+        "Cliente HTTP sem dependência externa, contornando a proibição de corpo em GET",
+        "Trava de execução para proteger o acumulado de escritas concorrentes",
+        "Escrita que grava antes de apagar, para nunca zerar o histórico",
+        "Recorte de datas no fuso local, pedindo folga de um dia de cada lado",
+        "Detecção de etiquetas contraditórias no mesmo atendimento, sinalizadas para correção",
+        "Contagem múltipla explicada: atendimento com mais de uma origem entra em cada uma, e o relatório mostra os dois totais",
+        "CLI com filtros de período, modo sem publicação e códigos de saída distintos",
+      ],
+      en: [
+        "Self-recovering window: days missed by failure or downtime are picked up on the next run",
+        "Pagination that fails loudly when hitting the ceiling, instead of returning an incomplete report",
+        "Domain layer with no network or file access, covered by tests against a simulated API",
+        "HTTP client with no external dependency, working around the ban on GET bodies",
+        "Execution lock protecting the accumulated data from concurrent writes",
+        "Insert-before-delete writing, so history is never zeroed out",
+        "Date windowing in local timezone, requesting one extra day on each side",
+        "Detection of contradictory labels on the same conversation, flagged for correction",
+        "Explicit multi-counting: a conversation with several origins counts in each, and the report shows both totals",
+        "CLI with period filters, a no-publish mode, and distinct exit codes",
+      ],
+    },
+    challenges: {
+      pt: [
+        "A API exige GET com corpo, o que o fetch não permite — resolvido descendo para o módulo https nativo",
+        "Truncar a paginação perderia justamente os dias mais recentes, porque a API devolve em ordem crescente de data; por isso o bot falha em vez de entregar dados parciais",
+        "Cada etiqueta traz dois identificadores parecidos, e ler o errado faz o bot não reconhecer etiqueta nenhuma",
+        "O acumulado da planilha é um lê-altera-grava, então duas execuções simultâneas corromperiam o histórico",
+        "A API filtra por data pura, sem fuso — o recorte final precisou ser refeito localmente",
+      ],
+      en: [
+        "The API requires GET with a body, which fetch forbids — solved by dropping down to the native https module",
+        "Truncating pagination would lose precisely the most recent days, since the API returns in ascending date order; hence the bot fails instead of delivering partial data",
+        "Each label carries two similar identifiers, and reading the wrong one makes the bot recognize no labels at all",
+        "The spreadsheet accumulation is a read-modify-write, so two concurrent runs would corrupt the history",
+        "The API filters by plain date, with no timezone — the final windowing had to be redone locally",
+      ],
+    },
+    results: {
+      pt: [
+        "Origem dos clientes que fecham contrato passou a ser mensurável por canal",
+        "Taxa de conversão por origem disponível sem nenhuma contagem manual",
+        "Histórico acumulado em planilha de link fixo, com recortes mensal, semanal e diário",
+        "Falhas de preenchimento de etiqueta viraram indicador acompanhável",
+      ],
+      en: [
+        "The origin of closing customers became measurable per channel",
+        "Conversion rate per origin available with no manual counting",
+        "History accumulated in a fixed-link spreadsheet, with monthly, weekly, and daily views",
+        "Label-filling failures became a trackable indicator",
+      ],
+    },
+    learned: {
+      pt: [
+        "Separar domínio de I/O é o que torna regra de negócio testável de verdade",
+        "Falhar alto é melhor que entregar um relatório silenciosamente incompleto",
+        "Ler a documentação de uma API não substitui inspecionar o payload real",
+        "Idempotência e trava de concorrência em rotinas que acumulam estado",
+      ],
+      en: [
+        "Separating domain from I/O is what makes business rules genuinely testable",
+        "Failing loudly beats delivering a silently incomplete report",
+        "Reading an API's documentation does not replace inspecting the real payload",
+        "Idempotency and concurrency locking in routines that accumulate state",
+      ],
+    },
+    metrics: [
+      { value: "Diário", label: { pt: "execução automática", en: "automatic run" } },
+      { value: "4 abas", label: { pt: "mês, semana, dia e detalhado", en: "month, week, day, and detailed" } },
+      { value: "0 deps", label: { pt: "de rede: https nativo", en: "network: native https" } },
+    ],
+    screenshots: [
+      {
+        icon: "target",
+        alt: { pt: "Aba de resumo com os atendimentos agrupados por origem e por resultado de contrato (dados anonimizados).", en: "Summary tab with conversations grouped by origin and contract outcome (anonymized data)." },
+        caption: { pt: "Resumo por origem", en: "Summary by origin" },
+      },
+      {
+        icon: "database",
+        alt: { pt: "Planilha acumulada com os recortes mensal, semanal e diário (dados anonimizados).", en: "Accumulated spreadsheet with monthly, weekly, and daily views (anonymized data)." },
+        caption: { pt: "Histórico acumulado", en: "Accumulated history" },
+      },
+    ],
+  },
+
+  /* 8 — Bot de Erros de Pagamento (Discord) -------------------------------- */
+  {
+    slug: "bot-erros-pagamento",
+    title: "Bot de Erros de Pagamento",
+    icon: "shield",
+    category: "bot",
+    categories: ["bot", "automation", "integration"],
+    roles: ["automation", "bots", "integration", "backend"],
+    stack: ["Node.js", "JavaScript", "ESM", "discord.js", "PostgreSQL", "node-postgres", "Docker", "dotenv"],
+    integrations: ["Discord", "PostgreSQL", "IXC Soft", "Gateway de pagamento"],
+    architecture: [
+      { icon: "plug", label: { pt: "Interface", en: "Interface" }, detail: { pt: "Bot de Discord com slash commands; o registro dos comandos é um passo separado do processo do bot, então mudar texto não exige re-registrar.", en: "Discord bot with slash commands; command registration is a separate step from the bot process, so changing copy requires no re-registration." } },
+      { icon: "sparkles", label: { pt: "Tradução", en: "Translation" }, detail: { pt: "Dicionário de código do gateway para explicação em linguagem comum mais ação recomendada, editável em arquivo sem recompilar.", en: "Dictionary mapping gateway codes to plain-language explanations plus a recommended action, editable in a file without recompiling." } },
+      { icon: "users", label: { pt: "Dois públicos", en: "Two audiences" }, detail: { pt: "Um comando para o atendimento, sem jargão nem código de erro no corpo, e outro para a equipe técnica com todos os campos crus do registro.", en: "One command for support, with no jargon or error codes in the body, and another for the technical team with every raw field of the record." } },
+      { icon: "repeat", label: { pt: "Conciliação", en: "Reconciliation" }, detail: { pt: "Consulta a fatura no ERP e marca os erros como resolvidos; um modo somente-conferir mostra o que seria gravado sem tocar no banco.", en: "Checks the invoice in the ERP and marks errors as resolved; a check-only mode shows what would be written without touching the database." } },
+      { icon: "lock", label: { pt: "Contenção", en: "Containment" }, detail: { pt: "Resposta efêmera opcional, visível só para quem chamou, e allowlist de canais com suporte a threads.", en: "Optional ephemeral reply, visible only to the caller, and a channel allowlist with thread support." } },
+    ],
+    companyContext: {
+      pt: "Bot de Discord que traduz erros de pagamento para o atendimento e concilia faturas com o ERP.",
+      en: "Discord bot that translates payment errors for the support team and reconciles invoices with the ERP.",
+    },
+    ownershipNote: {
+      pt: "Automação desenvolvida para o atendimento interno, integrando o banco de erros de pagamento, o ERP e o Discord da equipe. A descrição é técnica: credenciais, identificadores e dados de clientes não são divulgados.",
+      en: "Automation built for internal support, integrating the payment-error database, the ERP, and the team's Discord. The description is technical: credentials, identifiers, and customer data are not disclosed.",
+    },
+    summary: {
+      pt: "Bot de Discord que consulta erros de pagamento por cliente ou por fatura e responde em linguagem de atendimento: o que aconteceu, o que fazer agora e de quem depende a solução.",
+      en: "A Discord bot that looks up payment errors by customer or invoice and answers in support language: what happened, what to do now, and who the fix depends on.",
+    },
+    problem: {
+      pt: "Quando um pagamento falhava, o atendimento recebia um código de retorno do gateway e não tinha o que dizer ao cliente. Descobrir se a falha era do cliente, do banco dele ou do nosso sistema exigia acionar alguém com acesso ao banco de dados, e a resposta demorava.",
+      en: "When a payment failed, support got a gateway return code and had nothing to tell the customer. Finding out whether the failure was the customer's, their bank's, or our system's required pulling in someone with database access, and the answer took time.",
+    },
+    solution: {
+      pt: "Um bot no Discord com comandos separados por público. O do atendimento devolve um card que responde três perguntas em português simples e atribui a origem do problema. O técnico devolve os campos crus para quem vai depurar. Um terceiro consulta a fatura direto no ERP e, se estiver paga, marca os erros como resolvidos — com um modo de conferência que mostra o que faria antes de gravar qualquer coisa.",
+      en: "A Discord bot with commands split by audience. The support one returns a card answering three questions in plain language and attributes the source of the problem. The technical one returns raw fields for whoever is debugging. A third checks the invoice directly in the ERP and, if paid, marks the errors resolved — with a check mode that shows what it would do before writing anything.",
+    },
+    participation: {
+      pt: "Desenvolvi o bot de ponta a ponta: modelagem dos comandos e das opções, consultas ao banco de erros, cliente do ERP para a conciliação, o dicionário de tradução dos códigos, o modo de conferência, as regras de visibilidade e canal, e o empacotamento em Docker.",
+      en: "I built the bot end to end: command and option modeling, queries against the error database, the ERP client for reconciliation, the code-translation dictionary, the check mode, the visibility and channel rules, and Docker packaging.",
+    },
+    highlights: {
+      pt: [
+        "Card de atendimento que responde o que aconteceu, o que fazer e de quem depende",
+        "Atribuição da origem do problema: cliente, banco do cliente ou sistema interno",
+        "Dicionário de códigos editável em arquivo, sem recompilar nem re-registrar comandos",
+        "Comando técnico separado, com os campos crus para depuração",
+        "Conciliação automática: fatura paga no ERP marca os erros como resolvidos",
+        "Modo somente-conferir, que mostra o que seria gravado sem tocar no banco",
+        "Busca por cliente ou por fatura, com filtros de status, período e quantidade",
+        "Resposta efêmera opcional, visível só para quem chamou",
+        "Allowlist de canais, com suporte a threads criadas dentro deles",
+      ],
+      en: [
+        "Support card answering what happened, what to do, and who it depends on",
+        "Attribution of the problem's source: customer, customer's bank, or internal system",
+        "Code dictionary editable in a file, with no recompiling or command re-registration",
+        "Separate technical command, with raw fields for debugging",
+        "Automatic reconciliation: an invoice paid in the ERP marks its errors resolved",
+        "Check-only mode showing what would be written without touching the database",
+        "Lookup by customer or invoice, with status, period, and quantity filters",
+        "Optional ephemeral reply, visible only to the caller",
+        "Channel allowlist, with support for threads created inside them",
+      ],
+    },
+    challenges: {
+      pt: [
+        "Traduzir código de gateway em ação concreta sem simplificar a ponto de orientar errado",
+        "Separar o que o atendimento precisa ver do que só interessa a quem depura",
+        "Um comando que escreve no banco precisava de um caminho seguro de conferência antes",
+        "Aceitar busca por cliente ou por fatura, ambos opcionais mas ao menos um obrigatório",
+      ],
+      en: [
+        "Translating gateway codes into concrete action without oversimplifying into wrong guidance",
+        "Separating what support needs to see from what only matters to whoever is debugging",
+        "A command that writes to the database needed a safe check path first",
+        "Accepting lookup by customer or invoice, both optional but at least one required",
+      ],
+    },
+    results: {
+      pt: [
+        "Atendimento passou a responder sobre falha de pagamento sem escalar",
+        "Diagnóstico de origem do problema deixou de depender de acesso ao banco",
+        "Erros já quitados deixaram de poluir a fila, por conciliação automática",
+      ],
+      en: [
+        "Support began answering payment-failure questions without escalating",
+        "Diagnosing the source of a problem stopped requiring database access",
+        "Already-settled errors stopped cluttering the queue, through automatic reconciliation",
+      ],
+    },
+    learned: {
+      pt: [
+        "Escrever mensagem de erro para quem vai agir, não para quem escreveu o código",
+        "Comando que grava em banco precisa de um modo de conferência desde o primeiro dia",
+        "Ciclo de registro e atualização de slash commands no Discord",
+      ],
+      en: [
+        "Writing error messages for whoever will act, not for whoever wrote the code",
+        "A command that writes to a database needs a check mode from day one",
+        "The registration and update cycle of Discord slash commands",
+      ],
+    },
+    metrics: [
+      { value: "3 comandos", label: { pt: "atendimento, técnico e conciliação", en: "support, technical, and reconciliation" } },
+      { value: "2 públicos", label: { pt: "linguagem por audiência", en: "language per audience" } },
+      { value: "Dry-run", label: { pt: "conferência antes de gravar", en: "check before writing" } },
+    ],
+    screenshots: [
+      {
+        icon: "sparkles",
+        alt: { pt: "Card de resposta do bot no Discord explicando a falha de pagamento em linguagem de atendimento (dados anonimizados).", en: "Bot reply card in Discord explaining the payment failure in support language (anonymized data)." },
+        caption: { pt: "Card de atendimento", en: "Support card" },
+      },
+      {
+        icon: "tools",
+        alt: { pt: "Resposta do comando técnico com os campos crus do registro de erro (dados anonimizados).", en: "Technical command reply with the raw fields of the error record (anonymized data)." },
+        caption: { pt: "Visão técnica", en: "Technical view" },
+      },
+    ],
+  },
+
+  /* 9 — Sincronizador de Vendas em Aberto ---------------------------------- */
+  {
+    slug: "bot-vendas-abertas",
+    title: "Sincronizador de Vendas em Aberto",
+    icon: "repeat",
+    category: "bot",
+    categories: ["bot", "automation", "integration"],
+    roles: ["automation", "bots", "integration", "backend"],
+    stack: ["Node.js", "JavaScript", "Axios", "Google Sheets API", "node-cron", "Docker", "dotenv"],
+    integrations: ["IXC Soft", "Google Sheets"],
+    architecture: [
+      { icon: "plug", label: { pt: "Coleta", en: "Collection" }, detail: { pt: "Cliente da API do ERP com paginação; o filtro de “em aberto” pode ser aplicado no servidor ou localmente, conforme o que a instância suporta.", en: "ERP API client with pagination; the “open” filter can be applied server-side or locally, depending on what the instance supports." } },
+      { icon: "target", label: { pt: "Descoberta", en: "Discovery" }, detail: { pt: "Comando de diagnóstico que lista os campos reais da rota, porque o campo que marca “em aberto” muda de instância para instância do ERP.", en: "A diagnostic command that lists the route's real fields, because the field marking “open” differs between ERP instances." } },
+      { icon: "layers", label: { pt: "Mesclagem", en: "Merge" }, detail: { pt: "Antes de reescrever, lê as observações já digitadas e as reaplica casando pela chave da venda — edição manual sobrevive a toda sincronização.", en: "Before rewriting, it reads the notes already typed and reapplies them matched by sale key — manual edits survive every sync." } },
+      { icon: "database", label: { pt: "Histórico", en: "History" }, detail: { pt: "Modo acumulativo que nunca remove linha: a venda finalizada muda de status e permanece na planilha, com a observação intacta.", en: "Accumulative mode that never removes a row: a finalized sale changes status and stays in the sheet, with its note intact." } },
+      { icon: "repeat", label: { pt: "Agendamento", en: "Scheduling" }, detail: { pt: "Cron semanal dentro do container, com fuso fixado e execução avulsa disponível para conferir antes de agendar.", en: "Weekly cron inside the container, with a pinned timezone and a one-off run available to verify before scheduling." } },
+    ],
+    companyContext: {
+      pt: "Sincronização semanal das vendas em aberto do ERP para uma planilha operacional, sem apagar o que a equipe escreveu.",
+      en: "Weekly sync of open sales from the ERP into an operational spreadsheet, without erasing what the team wrote.",
+    },
+    ownershipNote: {
+      pt: "Automação desenvolvida para a operação comercial, integrando o ERP e planilhas. A descrição é técnica: credenciais, identificadores de planilha e dados de vendas não são divulgados.",
+      en: "Automation built for the sales operation, integrating the ERP and spreadsheets. The description is technical: credentials, spreadsheet identifiers, and sales data are not disclosed.",
+    },
+    summary: {
+      pt: "Serviço em Node.js que busca as vendas em aberto no ERP e sincroniza para uma planilha semanalmente, acumulando histórico e preservando a coluna de observação preenchida à mão pela equipe.",
+      en: "A Node.js service that fetches open sales from the ERP and syncs them to a spreadsheet weekly, accumulating history and preserving the notes column filled in by hand by the team.",
+    },
+    problem: {
+      pt: "A equipe acompanhava as vendas em aberto em uma planilha alimentada manualmente e anotava o andamento de cada uma ali mesmo. Qualquer atualização da lista significava recolher os dados de novo no ERP e correr o risco de perder as anotações no meio do caminho.",
+      en: "The team tracked open sales in a manually fed spreadsheet and noted the progress of each one right there. Any list update meant re-collecting data from the ERP and risking losing the notes along the way.",
+    },
+    solution: {
+      pt: "Um serviço agendado que coleta as vendas do ERP, lê as observações já digitadas na planilha, reescreve os dados e reaplica cada observação casando pela chave da venda. A lista acumula em vez de ser substituída: quando a venda é finalizada no ERP, a linha permanece e apenas muda de status, com a anotação intacta.",
+      en: "A scheduled service that collects sales from the ERP, reads the notes already typed in the spreadsheet, rewrites the data, and reapplies each note matched by sale key. The list accumulates instead of being replaced: when a sale is finalized in the ERP, the row stays and only changes status, with its note intact.",
+    },
+    participation: {
+      pt: "Desenvolvi o serviço inteiro: cliente da API com paginação, o comando de diagnóstico dos campos, a camada de planilha com preservação de coluna manual, o modo de histórico acumulado, a seleção configurável de colunas, o agendamento e o empacotamento em Docker.",
+      en: "I built the entire service: the paginated API client, the field-diagnostic command, the spreadsheet layer with manual-column preservation, the accumulated-history mode, configurable column selection, scheduling, and Docker packaging.",
+    },
+    highlights: {
+      pt: [
+        "Coluna de observação preservada, casada pela chave da venda a cada sincronização",
+        "Histórico acumulado: nenhuma linha é removida, só muda de status",
+        "Comando de diagnóstico que lista os campos reais da rota antes de configurar o filtro",
+        "Filtro aplicável no servidor ou localmente, conforme o suporte da instância",
+        "Seleção e renomeação de colunas por configuração, sem mexer no código",
+        "Execução avulsa para conferir o resultado antes de ativar o agendamento",
+        "Cron semanal com fuso fixado dentro do container",
+      ],
+      en: [
+        "Notes column preserved, matched by sale key on every sync",
+        "Accumulated history: no row is removed, only its status changes",
+        "Diagnostic command listing the route's real fields before configuring the filter",
+        "Filter applicable server-side or locally, depending on instance support",
+        "Column selection and renaming by configuration, without touching code",
+        "One-off run to verify the result before enabling the schedule",
+        "Weekly cron with a pinned timezone inside the container",
+      ],
+    },
+    challenges: {
+      pt: [
+        "Reescrever a planilha inteira sem destruir o que a equipe digitou entre uma execução e outra",
+        "O campo que marca a venda como em aberto não é o mesmo em toda instância do ERP",
+        "Decidir a chave de casamento das observações para que a edição sobreviva a mudanças de ordem",
+        "Manter a lista útil como histórico sem transformá-la em um acúmulo ilegível",
+      ],
+      en: [
+        "Rewriting the whole spreadsheet without destroying what the team typed between runs",
+        "The field marking a sale as open is not the same across ERP instances",
+        "Choosing the matching key for notes so edits survive reordering",
+        "Keeping the list useful as history without turning it into an unreadable pile",
+      ],
+    },
+    results: {
+      pt: [
+        "Planilha de vendas em aberto atualizada sozinha toda semana",
+        "Anotações da equipe preservadas entre execuções, sem trabalho de recolocação",
+        "Histórico de vendas finalizadas mantido na mesma lista, sem controle paralelo",
+      ],
+      en: [
+        "Open-sales spreadsheet updated on its own every week",
+        "Team notes preserved between runs, with no re-entry work",
+        "History of finalized sales kept in the same list, with no parallel tracking",
+      ],
+    },
+    learned: {
+      pt: [
+        "Sincronizar contra um documento que humanos editam exige mesclar, não sobrescrever",
+        "Descobrir o formato real de uma API antes de assumir o que a documentação diz",
+        "Configuração externa é o que deixa a mesma automação servir instâncias diferentes",
+      ],
+      en: [
+        "Syncing against a document humans edit requires merging, not overwriting",
+        "Discovering an API's real shape before assuming what the documentation says",
+        "External configuration is what lets the same automation serve different instances",
+      ],
+    },
+    metrics: [
+      { value: "Semanal", label: { pt: "sincronização agendada", en: "scheduled sync" } },
+      { value: "0 perdas", label: { pt: "de observação manual", en: "of manual notes" } },
+      { value: "Discover", label: { pt: "diagnóstico dos campos da API", en: "API field diagnostics" } },
+    ],
+    screenshots: [
+      {
+        icon: "repeat",
+        alt: { pt: "Logs da sincronização semanal entre o ERP e a planilha (dados anonimizados).", en: "Logs of the weekly sync between the ERP and the spreadsheet (anonymized data)." },
+        caption: { pt: "Sincronização agendada", en: "Scheduled sync" },
+      },
+      {
+        icon: "layers",
+        alt: { pt: "Planilha de vendas em aberto com a coluna de observação preservada (dados anonimizados).", en: "Open-sales spreadsheet with the notes column preserved (anonymized data)." },
+        caption: { pt: "Observação preservada", en: "Notes preserved" },
+      },
+    ],
+  },
+
+  /* 10 — DevOps Command Center (open source) -------------------------------- */
   {
     slug: "devops-command-center",
     title: "DevOps Command Center",
@@ -881,7 +1377,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     ],
   },
 
-  /* 7 — devsheet (open source) --------------------------------------------- */
+  /* 11 — devsheet (open source) --------------------------------------------- */
   {
     slug: "devsheet",
     title: "devsheet",
