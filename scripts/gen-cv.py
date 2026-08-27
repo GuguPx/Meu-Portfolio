@@ -78,10 +78,10 @@ story.append(Spacer(1, 8))
 story += H("Resumo profissional")
 story.append(Paragraph(
     "Desenvolvedor Full Stack na Power Telecom. Construo sistemas internos, automações e integrações que "
-    "sustentam a operação — de gestão de contratos e controle de estoque a relatórios de inadimplência e "
-    "disparo automatizado de mensagens. Atuo com React, TypeScript e Node.js, integrando plataformas como "
-    "IXC Soft, OPA Suite, Google Sheets e WhatsApp. Uso IA (Claude Code, ChatGPT) como ferramenta de "
-    "produtividade, com revisão humana e validação técnica.", S["body"]))
+    "sustentam a operação — de gestão de contratos e CRM comercial a seis automações em produção que "
+    "eliminam trabalho manual de cobrança, campanhas e relatórios. React, TypeScript e Node.js, com "
+    "rotinas agendadas em Docker e PM2, integrando IXC Soft, OPA Suite, Google Sheets e Discord. "
+    "Uso IA (Claude Code, ChatGPT) com revisão humana e validação técnica.", S["body"]))
 story.append(Spacer(1, 8))
 
 # Experiência
@@ -111,9 +111,9 @@ story.append(Spacer(1, 8))
 # Projetos em destaque
 story += H("Projetos e sistemas em destaque (Power Telecom)")
 story.append(Paragraph("<b>Power Leads (CRM comercial)</b> — frontend React/TypeScript de CRM interno com funil de leads e integração IXC.", S["proj"]))
-story.append(Paragraph("<b>Gestão de Contratos</b> — sistema web para cancelamento, renovação e emissão de contratos padrão, com assinatura digital.", S["proj"]))
-story.append(Paragraph("<b>Bots de automação</b> — rotinas Node.js (node-cron/PM2) que reduzem tarefas manuais de cobrança e comercial, com integração IXC, Google Sheets e WhatsApp.", S["proj"]))
-story.append(Paragraph("<b>Controle de Estoque (matriz)</b> — sistema interno de gerenciamento de estoque com relatórios.", S["proj"]))
+story.append(Paragraph("<b>Gestão de Contratos</b> — sistema web para cancelamento, renovação e emissão de contratos padrão, com assinatura digital e validação de identidade.", S["proj"]))
+story.append(Paragraph("<b>Automações em produção (6)</b> — rotinas Node.js/TypeScript agendadas em Docker e PM2: campanhas comerciais com checkpoint e cooldown, ETL de inadimplência e sincronizações IXC ↔ Google Sheets.", S["proj"]))
+story.append(Paragraph("<b>Triagem de erros de pagamento (Discord)</b> — bot em discord.js sobre PostgreSQL que traduz retorno de gateway em ação para o atendimento.", S["proj"]))
 story.append(Spacer(1, 8))
 
 # Habilidades
@@ -121,9 +121,9 @@ story += H("Habilidades técnicas")
 skills = [
     ("Frontend", "React, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, Bootstrap, responsividade"),
     ("Backend & APIs", "Node.js, Express, APIs REST, autenticação JWT, automação de processos"),
-    ("Banco de dados", "SQL, MySQL, modelagem de dados, relatórios"),
-    ("Automação & Integrações", "node-cron, PM2, Winston, Axios, IXC Soft, OPA Suite, Google Sheets, WhatsApp, ZapSign"),
-    ("Ferramentas & IA", "Git, GitHub, Docker, VS Code, servidores/infra; Claude Code e ChatGPT com revisão humana"),
+    ("Banco de dados", "SQL, MySQL, PostgreSQL, modelagem de dados, relatórios"),
+    ("Automação & Integrações", "node-cron, PM2, Docker, ETL, Winston, Axios, IXC Soft, OPA Suite, Google Sheets API, Discord, WhatsApp, ZapSign"),
+    ("Ferramentas & IA", "Git, GitHub, VS Code, Linux/servidores; Claude Code e ChatGPT com revisão humana"),
 ]
 for k, v in skills:
     story.append(Paragraph(f"<b>{k}:</b> {v}", S["skill"]))

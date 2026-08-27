@@ -111,7 +111,7 @@ export const DATA: PortfolioData = {
       ],
     },
     stats: [
-      { value: "8 meses", label: { pt: "Na Power Telecom", en: "At Power Telecom" } },
+      { value: "10", label: { pt: "Meses na Power Telecom", en: "Months at Power Telecom" } },
       { value: "6+", label: { pt: "Sistemas internos entregues", en: "Internal systems shipped" } },
       { value: "C2", label: { pt: "Inglês avançado", en: "Advanced English" } },
     ],
@@ -199,7 +199,7 @@ export const DATA: PortfolioData = {
       company: "Power Telecom",
       role: { pt: "Desenvolvedor Júnior", en: "Junior Developer" },
       type: { pt: "Tempo integral", en: "Full-time" },
-      period: { pt: "fev 2026 — Atual · 5 meses", en: "Feb 2026 — Present · 5 mos" },
+      period: { pt: "fev 2026 — Atual · 7 meses", en: "Feb 2026 — Present · 7 mos" },
       location: { pt: "Santo Estêvão, BA · Presencial", en: "Santo Estêvão, BA · On-site" },
       current: true,
       bullets: {
