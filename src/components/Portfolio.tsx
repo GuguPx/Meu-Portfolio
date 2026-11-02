@@ -35,8 +35,15 @@ const FILTERS: FilterDef[] = [
   { id: "bot", labelKey: "pf.filter.bot", match: (p) => p.categories.includes("bot") || p.categories.includes("automation") },
   { id: "integration", labelKey: "pf.filter.integration", match: (p) => p.categories.includes("integration") },
   { id: "corporate", labelKey: "pf.filter.corporate", match: (p) => p.categories.includes("corporate") },
-  { id: "opensource", labelKey: "pf.filter.opensource", match: (p) => p.categories.includes("opensource") },
+  { id: "authored", labelKey: "pf.filter.authored", match: (p) => (p.source ?? "internal") !== "internal" },
 ];
+
+const FILTER_COUNTS: Record<string, number> = Object.fromEntries(
+  FILTERS.map((f) => [f.id, PORTFOLIO_PROJECTS.filter(f.match).length])
+);
+
+/** Quantos cards aparecem antes do "ver mais" (3 linhas no desktop). */
+const INITIAL_VISIBLE = 9;
 
 export function Portfolio() {
   const { t, pick } = useI18n();
@@ -58,10 +65,18 @@ export function Portfolio() {
     if (slugFromHash()) document.getElementById("projects")?.scrollIntoView();
   }, []);
 
+  const [expanded, setExpanded] = useState(false);
+  const selectFilter = (id: string) => {
+    setFilter(id);
+    setExpanded(false);
+  };
+
   const projects = useMemo(() => {
     const f = FILTERS.find((x) => x.id === filter) ?? FILTERS[0];
     return PORTFOLIO_PROJECTS.filter(f.match);
   }, [filter]);
+  const visible = expanded ? projects : projects.slice(0, INITIAL_VISIBLE);
+  const hidden = projects.length - visible.length;
 
   const openProject = openSlug ? PORTFOLIO_PROJECTS.find((p) => p.slug === openSlug) ?? null : null;
 
@@ -75,23 +90,30 @@ export function Portfolio() {
           <p className="mt-4 border-l-2 border-brand pl-4 text-fg/90 text-[0.95rem] italic">{t("pf.pitch")}</p>
         </Reveal>
 
-        {/* Filtros por categoria */}
-        <div role="group" aria-label={t("pf.filter.label")} className="mb-8 flex flex-wrap gap-2">
+        {/* Filtros por categoria — no celular viram uma faixa com rolagem horizontal */}
+        <div
+          role="group"
+          aria-label={t("pf.filter.label")}
+          className="mb-8 -mx-[clamp(1.25rem,4vw,2.25rem)] flex gap-2 overflow-x-auto px-[clamp(1.25rem,4vw,2.25rem)] pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
+        >
           {FILTERS.map((f) => {
             const active = f.id === filter;
             return (
               <button
                 key={f.id}
                 type="button"
-                onClick={() => setFilter(f.id)}
+                onClick={() => selectFilter(f.id)}
                 aria-pressed={active}
-                className={`rounded-full border px-4 py-2 text-[0.85rem] font-semibold transition-all ${
+                className={`inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2 text-[0.85rem] font-semibold transition-all ${
                   active
                     ? "border-brand bg-brand/10 text-fg"
                     : "border-line bg-card text-muted hover:border-brand hover:text-fg"
                 }`}
               >
                 {t(f.labelKey)}
+                <span className={`font-mono text-[0.72rem] ${active ? "text-brand-2" : "text-faint"}`}>
+                  {FILTER_COUNTS[f.id]}
+                </span>
               </button>
             );
           })}
@@ -99,10 +121,27 @@ export function Portfolio() {
 
         {/* Grade de projetos — 1 col (mobile), 2 (tablet), 3 (desktop) */}
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((p) => (
+          {visible.map((p) => (
             <PortfolioCard key={p.slug} project={p} onOpen={() => openModal(p.slug)} />
           ))}
         </div>
+
+        {projects.length > INITIAL_VISIBLE && (
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() => {
+                // Ao recolher, volta ao topo da grade para o usuário não ficar "perdido" no fim da página.
+                if (expanded) document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+                setExpanded(!expanded);
+              }}
+              aria-expanded={expanded}
+              className="rounded-full border border-line bg-card px-5 py-2.5 text-[0.88rem] font-semibold text-muted transition-colors hover:border-brand hover:text-fg"
+            >
+              {expanded ? t("pf.showLess") : t("pf.showMore").replace("{n}", String(hidden))}
+            </button>
+          </div>
+        )}
 
         {/* Minha atuação */}
         <div className="mt-[clamp(3.5rem,7vw,5.5rem)]">

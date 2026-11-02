@@ -99,6 +99,21 @@ export const IconPlug = (p: IconProps) => (
 export const IconUsers = (p: IconProps) => (
   <Stroke {...p}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></Stroke>
 );
+export const IconChart = (p: IconProps) => (
+  <Stroke {...p}><path d="M3 3v18h18" /><path d="M7 16v-4M12 16V8M17 16v-7" /></Stroke>
+);
+export const IconBag = (p: IconProps) => (
+  <Stroke {...p}><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><path d="M3 6h18M16 10a4 4 0 0 1-8 0" /></Stroke>
+);
+export const IconGem = (p: IconProps) => (
+  <Stroke {...p}><path d="M6 3h12l4 6-10 13L2 9z" /><path d="M11 3 8 9l4 13 4-13-3-6M2 9h20" /></Stroke>
+);
+export const IconHeartPulse = (p: IconProps) => (
+  <Stroke {...p}><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z" /><path d="M3.2 12h6.3l.5-1 2 4.5 2-7 1.5 3.5h5.3" /></Stroke>
+);
+export const IconRoute = (p: IconProps) => (
+  <Stroke {...p}><circle cx="6" cy="19" r="3" /><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /><circle cx="18" cy="5" r="3" /></Stroke>
+);
 export const IconClose = (p: IconProps) => (
   <Stroke {...p}><path d="M18 6 6 18M6 6l12 12" /></Stroke>
 );
@@ -164,4 +179,9 @@ export const DYNAMIC_ICONS = {
   users: IconUsers,
   briefcase: IconBriefcase,
   lock: IconLock,
+  chart: IconChart,
+  bag: IconBag,
+  gem: IconGem,
+  heart: IconHeartPulse,
+  route: IconRoute,
 } as const;

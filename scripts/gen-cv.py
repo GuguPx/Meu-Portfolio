@@ -46,7 +46,7 @@ S = {
     "jobmeta":  st("jobmeta", fontSize=8.2, leading=11, textColor=FAINT),
     "body":     st("body"),
     "bullet":   st("bullet", leftIndent=9, bulletIndent=0, spaceAfter=1.5),
-    "proj":     st("proj", spaceAfter=2.5),
+    "proj":     st("proj", spaceAfter=1.5),
     "skill":    st("skill", spaceAfter=2),
 }
 
@@ -72,7 +72,7 @@ story.append(Paragraph(
 story.append(Paragraph(
     'portfolioaugusto.vercel.app · linkedin.com/in/augusto-px-silva · github.com/GuguPx',
     S["contact"]))
-story.append(Spacer(1, 8))
+story.append(Spacer(1, 6))
 
 # Resumo
 story += H("Resumo profissional")
@@ -82,7 +82,7 @@ story.append(Paragraph(
     "eliminam trabalho manual de cobrança, campanhas e relatórios. React, TypeScript e Node.js, com "
     "rotinas agendadas em Docker e PM2, integrando IXC Soft, OPA Suite, Google Sheets e Discord. "
     "Uso IA (Claude Code, ChatGPT) com revisão humana e validação técnica.", S["body"]))
-story.append(Spacer(1, 8))
+story.append(Spacer(1, 6))
 
 # Experiência
 story += H("Experiência")
@@ -106,15 +106,16 @@ story.append(Paragraph("Recepcionista / Auxiliar geral — Point dos Churros", S
 story.append(Paragraph("abr 2022 — mar 2025 · Santo Estêvão, BA", S["jobmeta"]))
 story.append(Spacer(1, 2.5))
 story.append(B("Atendimento ao cliente ponta a ponta, vendas via WhatsApp e organização de inventário/estoque."))
-story.append(Spacer(1, 8))
+story.append(Spacer(1, 6))
 
 # Projetos em destaque
-story += H("Projetos e sistemas em destaque (Power Telecom)")
+story += H("Projetos e sistemas em destaque")
 story.append(Paragraph("<b>Power Leads (CRM comercial)</b> — frontend React/TypeScript de CRM interno com funil de leads e integração IXC.", S["proj"]))
-story.append(Paragraph("<b>Gestão de Contratos</b> — sistema web para cancelamento, renovação e emissão de contratos padrão, com assinatura digital e validação de identidade.", S["proj"]))
-story.append(Paragraph("<b>Automações em produção (6)</b> — rotinas Node.js/TypeScript agendadas em Docker e PM2: campanhas comerciais com checkpoint e cooldown, ETL de inadimplência e sincronizações IXC ↔ Google Sheets.", S["proj"]))
-story.append(Paragraph("<b>Triagem de erros de pagamento (Discord)</b> — bot em discord.js sobre PostgreSQL que traduz retorno de gateway em ação para o atendimento.", S["proj"]))
-story.append(Spacer(1, 8))
+story.append(Paragraph("<b>Gestão de Contratos</b> — contratos padrão, renovação e cancelamento com assinatura digital e validação de identidade.", S["proj"]))
+story.append(Paragraph("<b>Painéis internos</b> — Dashboard de Cancelamentos (reversão, LT e LTV; 61 testes), Análise de Inadimplência (devedores × pagadores), Power Reviews (avaliações do Google, NestJS + Fastify) e Consulta de Estoque (NestJS + React), integrados ao IXC e ao Google.", S["proj"]))
+story.append(Paragraph("<b>Automações em produção</b> — rotinas Node.js/TypeScript em Docker e PM2: campanhas comerciais, ETL de inadimplência, sincronizações IXC ↔ Google Sheets, bloqueio de pré-contratos e monitor de erros dos containers no Telegram.", S["proj"]))
+story.append(Paragraph("<b>Pessoais e para clientes</b> — Point do Churros (delivery e PDV em Next.js 16 + Prisma), Thayná Joias (loja com WhatsApp), DevTrack Hub (Next.js + NestJS) e open source no GitHub (DevOps Command Center, devsheet).", S["proj"]))
+story.append(Spacer(1, 6))
 
 # Habilidades
 story += H("Habilidades técnicas")
@@ -127,7 +128,7 @@ skills = [
 ]
 for k, v in skills:
     story.append(Paragraph(f"<b>{k}:</b> {v}", S["skill"]))
-story.append(Spacer(1, 8))
+story.append(Spacer(1, 6))
 
 # Formação + Idiomas lado a lado (tabela 2 colunas p/ economizar altura)
 left = [
@@ -157,11 +158,13 @@ story.append(t)
 # ---- Build -------------------------------------------------------------------
 doc = BaseDocTemplate(
     OUT, pagesize=A4,
-    leftMargin=16 * mm, rightMargin=16 * mm, topMargin=14 * mm, bottomMargin=12 * mm,
+    leftMargin=16 * mm, rightMargin=16 * mm, topMargin=12 * mm, bottomMargin=10 * mm,
     title="Currículo — Augusto Silva · Desenvolvedor Full Stack",
     author="Augusto Silva",
 )
 frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="main")
 doc.addPageTemplates([PageTemplate(id="cv", frames=[frame])])
 doc.build(story)
-print(f"CV gerado: {os.path.abspath(OUT)}")
+print(f"CV gerado: {os.path.abspath(OUT)} ({doc.page} página(s))")
+if doc.page > 1:
+    print("AVISO: o currículo passou de 1 página — enxugue o conteúdo.")

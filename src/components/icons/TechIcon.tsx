@@ -221,6 +221,17 @@ const REGISTRY: Record<string, TechDef> = {
   css3: { label: "CSS3", color: "#1572B6", short: "C3" },
   sql: { label: "SQL", color: "#7c8aa0", short: "SQL" },
   apisrest: { label: "APIs REST", color: "#22d3ee", short: "API" },
+  zustand: { label: "Zustand", color: "#a16207", short: "Zs" },
+  framermotion: { label: "Framer Motion", color: "#0055FF", short: "FM" },
+  redis: { label: "Redis", color: "#DC382D", short: "Rd" },
+  bullmq: { label: "BullMQ", color: "#e11d48", short: "MQ" },
+  minio: { label: "MinIO", color: "#C72E49", short: "S3" },
+  turborepo: { label: "Turborepo", color: "#EF4444", short: "Tb" },
+  pnpm: { label: "pnpm", color: "#F69220", short: "pn" },
+  sqlite: { label: "SQLite", color: "#0F80CC", short: "SQ" },
+  playwright: { label: "Playwright", color: "#2EAD33", short: "Pw" },
+  exceljs: { label: "ExcelJS", color: "#217346", short: "XL" },
+  chartjs: { label: "Chart.js", color: "#FF6384", short: "Ch" },
 };
 
 /* -- Aliases: nome de exibição → chave do registro -------------------------- */

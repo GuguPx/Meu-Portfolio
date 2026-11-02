@@ -5,6 +5,7 @@ import type { PortfolioProject } from "../../portfolio";
 import { Reveal } from "../Reveal";
 import { CategoryBadge } from "./CategoryBadge";
 import { RoleBadge } from "./RoleBadge";
+import { SourceTag } from "./SourceTag";
 import { TechBadge } from "./TechBadge";
 
 const MAX_TECH = 4;
@@ -15,8 +16,7 @@ export function PortfolioCard({ project, onOpen }: { project: PortfolioProject; 
   const Icon = DYNAMIC_ICONS[project.icon];
   const shownTech = project.stack.slice(0, MAX_TECH);
   const extra = project.stack.length - shownTech.length;
-  const isOpenSource = project.source === "opensource";
-  // Capa: só existe quando há print real (projetos open source).
+  // Capa: o primeiro print real do projeto, quando existe.
   const cover = project.screenshots.find((s) => s.image);
 
   return (
@@ -63,14 +63,16 @@ export function PortfolioCard({ project, onOpen }: { project: PortfolioProject; 
         {extra > 0 && <span className="chip">+{extra}</span>}
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
-        <span className="text-[0.68rem] uppercase tracking-wide font-semibold text-faint">{t("pf.sec.integrations")}</span>
-        <span className="flex items-center gap-1.5">
-          {project.integrations.map((i) => (
-            <TechIcon key={i} name={i} size={17} decorative={false} />
-          ))}
-        </span>
-      </div>
+      {project.integrations.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span className="text-[0.68rem] uppercase tracking-wide font-semibold text-faint">{t("pf.sec.integrations")}</span>
+          <span className="flex items-center gap-1.5">
+            {project.integrations.map((i) => (
+              <TechIcon key={i} name={i} size={17} decorative={false} />
+            ))}
+          </span>
+        </div>
+      )}
 
       <div className="mt-4 grid grid-cols-3 gap-2 border-t border-line pt-4">
         {project.metrics.map((m, i) => (
@@ -82,21 +84,7 @@ export function PortfolioCard({ project, onOpen }: { project: PortfolioProject; 
       </div>
 
       <div className="mt-4 pt-4 border-t border-line flex items-center justify-between gap-3">
-        {isOpenSource && project.repoUrl ? (
-          <a
-            href={project.repoUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex items-center gap-1.5 text-[0.72rem] font-semibold text-muted transition-colors hover:text-fg"
-          >
-            <TechIcon name="GitHub" size={14} />
-            {t("pf.opensource")}
-          </a>
-        ) : (
-          <span className="inline-flex items-center gap-1.5 text-[0.72rem] font-semibold text-muted">
-            <span className="w-1.5 h-1.5 rounded-full bg-ok" /> {t("pf.production")}
-          </span>
-        )}
+        <SourceTag project={project} variant="card" />
         <button
           type="button"
           onClick={onOpen}

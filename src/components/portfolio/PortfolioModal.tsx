@@ -3,13 +3,20 @@ import { useI18n } from "../../context/LanguageContext";
 import { DYNAMIC_ICONS, IconCheck, IconClose, IconLink } from "../../icons";
 import type { StringKey } from "../../i18n";
 import type { PortfolioProject } from "../../portfolio";
-import { TechIcon } from "../icons/TechIcon";
 import { CategoryBadge } from "./CategoryBadge";
 import { ProjectMetric } from "./ProjectMetric";
 import { RoleBadge } from "./RoleBadge";
+import { SourceTag } from "./SourceTag";
 import { TechBadge } from "./TechBadge";
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
+
+/** "739/1313" → true: prints de celular ficam menores na grade. */
+function isPortrait(aspect?: string) {
+  if (!aspect) return false;
+  const [w, h] = aspect.split("/").map(Number);
+  return w < h;
+}
 
 function Section({ titleKey, children }: { titleKey: StringKey; children: ReactNode }) {
   const { t } = useI18n();
@@ -112,21 +119,7 @@ export function PortfolioModal({ project, onClose }: { project: PortfolioProject
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <CategoryBadge category={project.category} />
-              {project.source === "opensource" && project.repoUrl ? (
-                <a
-                  href={project.repoUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="inline-flex items-center gap-1.5 text-[0.7rem] font-semibold text-muted transition-colors hover:text-fg"
-                >
-                  <TechIcon name="GitHub" size={14} />
-                  {t("pf.repo")}
-                </a>
-              ) : (
-                <span className="inline-flex items-center gap-1.5 text-[0.7rem] font-semibold text-muted">
-                  <span className="w-1.5 h-1.5 rounded-full bg-ok" /> {t("pf.production")}
-                </span>
-              )}
+              <SourceTag project={project} variant="modal" />
             </div>
             <h2 id={titleId} className="mt-1 text-[clamp(1.2rem,3.5vw,1.4rem)] font-bold leading-tight">
               {project.title}
@@ -231,29 +224,32 @@ export function PortfolioModal({ project, onClose }: { project: PortfolioProject
                 ))}
               </div>
             </div>
-            <div>
-              <h3 className="text-[0.78rem] font-mono uppercase tracking-wide text-brand-2">{t("pf.sec.integrations")}</h3>
-              <div className="mt-2.5 flex flex-wrap gap-1.5">
-                {project.integrations.map((x) => (
-                  <TechBadge key={x} label={x} />
-                ))}
+            {project.integrations.length > 0 && (
+              <div>
+                <h3 className="text-[0.78rem] font-mono uppercase tracking-wide text-brand-2">{t("pf.sec.integrations")}</h3>
+                <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  {project.integrations.map((x) => (
+                    <TechBadge key={x} label={x} />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
-          {/* Prints — imagem real nos projetos open source, placeholder nos internos */}
+          {/* Prints — imagem real quando há versão segura, placeholder caso contrário */}
           <Section titleKey="pf.sec.screens">
-            <div className="grid gap-3 sm:grid-cols-2">
+            {/* 6 colunas: paisagem ocupa 3 (2 por linha), retrato/celular ocupa 2 (3 por linha). */}
+            <div className="grid gap-3 grid-cols-2 sm:grid-cols-6">
               {project.screenshots.map((s, i) => {
                 const ShotIcon = DYNAMIC_ICONS[s.icon];
-                // O primeiro print real ocupa a largura toda (é a visão geral).
-                const wide = s.image && i === 0;
+                // O primeiro print real em paisagem ocupa a largura toda (é a visão geral).
+                const portrait = isPortrait(s.aspect);
+                const wide = s.image && i === 0 && !portrait;
+                const span = wide ? "col-span-2 sm:col-span-6" : portrait ? "col-span-1 sm:col-span-2" : "col-span-2 sm:col-span-3";
                 return (
                   <figure
                     key={i}
-                    className={`rounded-xl border bg-card overflow-hidden ${s.image ? "border-line" : "border-dashed border-line"} ${
-                      wide ? "sm:col-span-2" : ""
-                    }`}
+                    className={`rounded-xl border bg-card overflow-hidden ${s.image ? "border-line" : "border-dashed border-line"} ${span}`}
                   >
                     {s.image ? (
                       <a href={s.image} target="_blank" rel="noreferrer noopener" title={pick(s.caption)}>

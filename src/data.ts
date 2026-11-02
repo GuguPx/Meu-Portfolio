@@ -11,7 +11,8 @@ export type IconName =
   | "layout" | "server" | "database" | "tools" | "blocks"
   | "rocket" | "trending" | "target"
   | "kanban" | "signature" | "gift" | "bolt" | "gauge" | "shield"
-  | "repeat" | "sparkles" | "layers" | "plug" | "users" | "briefcase" | "lock";
+  | "repeat" | "sparkles" | "layers" | "plug" | "users" | "briefcase" | "lock"
+  | "chart" | "bag" | "gem" | "heart" | "route";
 
 export interface SkillGroup {
   icon: IconName;

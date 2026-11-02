@@ -43,19 +43,19 @@ export function Navbar() {
       }`}
     >
       <nav className="container-x flex items-center justify-between gap-4">
-        <a href="#hero" className="flex items-center gap-3 font-semibold group" aria-label="Início">
+        <a href="#hero" className="flex shrink-0 items-center gap-3 font-semibold group" aria-label="Início">
           <BrandIcon size={36} className="text-brand transition-transform duration-200 group-hover:scale-105" />
-          <span className="hidden sm:inline text-[1.02rem] tracking-tight">{DATA.profile.name}</span>
+          <span className="hidden sm:inline whitespace-nowrap text-[1.02rem] tracking-tight">{DATA.profile.name}</span>
         </a>
 
-        {/* Links desktop */}
-        <ul className="hidden lg:flex items-center gap-0.5" aria-label="Navegação principal">
+        {/* Links desktop — só a partir de xl: entre 1024 e 1280px os 9 itens não cabem ao lado do nome */}
+        <ul className="hidden xl:flex items-center gap-0.5" aria-label="Navegação principal">
           {LINKS.map((l) => (
             <li key={l.id}>
               <a
                 href={`#${l.id}`}
                 aria-current={active === l.id ? "true" : undefined}
-                className={`relative px-3.5 py-2 rounded-lg text-[0.95rem] font-medium transition-colors hover:text-fg ${
+                className={`relative whitespace-nowrap px-3.5 py-2 rounded-lg text-[0.95rem] font-medium transition-colors hover:text-fg ${
                   active === l.id ? "text-fg" : "text-muted"
                 }`}
               >
@@ -77,7 +77,7 @@ export function Navbar() {
           </button>
           {/* Burger mobile */}
           <button
-            className="lg:hidden btn-icon flex-col gap-[5px]"
+            className="xl:hidden btn-icon flex-col gap-[5px]"
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? t("nav.close") : t("nav.menu")}
             aria-expanded={open}
@@ -91,7 +91,7 @@ export function Navbar() {
 
       {/* Menu mobile */}
       <div
-        className={`lg:hidden absolute inset-x-0 top-[76px] bg-soft border-b border-line shadow-glow transition-transform duration-300 ${
+        className={`xl:hidden absolute inset-x-0 top-[76px] bg-soft border-b border-line shadow-glow transition-transform duration-300 ${
           open ? "translate-y-0" : "-translate-y-[130%]"
         }`}
       >
