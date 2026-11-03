@@ -72,6 +72,32 @@ export interface PortfolioData {
   goals: Goal[];
 }
 
+/* Tempo de casa calculado na hora (contagem inclusiva, como no LinkedIn:
+   jan→nov = 11 meses), para os períodos nunca ficarem desatualizados. */
+type YearMonth = { y: number; m: number };
+const INTERNSHIP_START: YearMonth = { y: 2025, m: 11 };
+const DEVELOPER_START: YearMonth = { y: 2026, m: 1 };
+
+function monthsBetween(start: YearMonth, end?: YearMonth): number {
+  const now = new Date();
+  const e = end ?? { y: now.getFullYear(), m: now.getMonth() + 1 };
+  return (e.y - start.y) * 12 + (e.m - start.m) + 1;
+}
+
+function formatDuration(months: number): Localized {
+  const y = Math.floor(months / 12);
+  const m = months % 12;
+  const ptM = m === 1 ? "1 mês" : `${m} meses`;
+  const enM = m === 1 ? "1 mo" : `${m} mos`;
+  if (y === 0) return { pt: ptM, en: enM };
+  const ptY = y === 1 ? "1 ano" : `${y} anos`;
+  const enY = y === 1 ? "1 yr" : `${y} yrs`;
+  return m === 0 ? { pt: ptY, en: enY } : { pt: `${ptY} e ${ptM}`, en: `${enY} ${enM}` };
+}
+
+const developerTenure = formatDuration(monthsBetween(DEVELOPER_START));
+const internshipTenure = formatDuration(monthsBetween(INTERNSHIP_START, DEVELOPER_START));
+
 export const DATA: PortfolioData = {
   profile: {
     name: "Augusto Silva",
@@ -112,7 +138,7 @@ export const DATA: PortfolioData = {
       ],
     },
     stats: [
-      { value: "10", label: { pt: "Meses na Power Telecom", en: "Months at Power Telecom" } },
+      { value: String(monthsBetween(INTERNSHIP_START)), label: { pt: "Meses na Power Telecom", en: "Months at Power Telecom" } },
       { value: "6+", label: { pt: "Sistemas internos entregues", en: "Internal systems shipped" } },
       { value: "C2", label: { pt: "Inglês avançado", en: "Advanced English" } },
     ],
@@ -200,7 +226,7 @@ export const DATA: PortfolioData = {
       company: "Power Telecom",
       role: { pt: "Desenvolvedor Júnior", en: "Junior Developer" },
       type: { pt: "Tempo integral", en: "Full-time" },
-      period: { pt: "fev 2026 — Atual · 7 meses", en: "Feb 2026 — Present · 7 mos" },
+      period: { pt: `jan 2026 — Atual · ${developerTenure.pt}`, en: `Jan 2026 — Present · ${developerTenure.en}` },
       location: { pt: "Santo Estêvão, BA · Presencial", en: "Santo Estêvão, BA · On-site" },
       current: true,
       bullets: {
@@ -232,7 +258,7 @@ export const DATA: PortfolioData = {
       company: "Power Telecom",
       role: { pt: "Suporte Técnico N1", en: "Tier 1 Technical Support" },
       type: { pt: "Estágio", en: "Internship" },
-      period: { pt: "nov 2025 — fev 2026 · 4 meses", en: "Nov 2025 — Feb 2026 · 4 mos" },
+      period: { pt: `nov 2025 — jan 2026 · ${internshipTenure.pt}`, en: `Nov 2025 — Jan 2026 · ${internshipTenure.en}` },
       location: { pt: "Santo Estêvão, BA", en: "Santo Estêvão, BA" },
       current: false,
       bullets: {

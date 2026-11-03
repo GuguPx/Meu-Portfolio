@@ -87,7 +87,7 @@ story.append(Spacer(1, 6))
 # Experiência
 story += H("Experiência")
 story.append(Paragraph("Desenvolvedor Júnior — Power Telecom", S["job"]))
-story.append(Paragraph("fev 2026 — atual · Santo Estêvão, BA · Tempo integral", S["jobmeta"]))
+story.append(Paragraph("jan 2026 — atual · Santo Estêvão, BA · Tempo integral", S["jobmeta"]))
 story.append(Spacer(1, 2.5))
 story.append(B("Desenvolvimento de aplicações web com React e Node.js e de sistemas internos que automatizam processos das áreas comercial, financeira e de RH."))
 story.append(B("Sistema web de gestão de contratos (cancelamento, renovação e contratos padrão) e sistema de gerenciamento de estoque da matriz."))
@@ -96,7 +96,7 @@ story.append(B("Integração e suporte com plataformas externas (IXC Soft e OPA 
 story.append(Spacer(1, 6))
 
 story.append(Paragraph("Suporte Técnico N1 (Estágio) — Power Telecom", S["job"]))
-story.append(Paragraph("nov 2025 — fev 2026 · Santo Estêvão, BA", S["jobmeta"]))
+story.append(Paragraph("nov 2025 — jan 2026 · Santo Estêvão, BA", S["jobmeta"]))
 story.append(Spacer(1, 2.5))
 story.append(B("Atendimento e assistência técnica a clientes; resolução de problemas de contas, conectividade e uso de sistemas."))
 story.append(B("Escalonamento de casos complexos e treinamento básico de usuários em sistemas e aplicativos."))
